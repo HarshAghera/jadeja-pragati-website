@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "apps/client/**/*",
+    "apps/admin/**/*",
+    "apps/server/**/*",
+    "custom.d.ts"  // Ensure this is included if outside src folder
+  ]
+}
