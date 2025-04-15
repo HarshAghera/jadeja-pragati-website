@@ -18,7 +18,6 @@ out/
 
 # NestJS specific
 *.js.map
-*.d.ts
 
 # 📝 TypeScript
 *.tsbuildinfo
