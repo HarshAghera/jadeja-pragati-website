@@ -23,6 +23,10 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+
       - name: Install dependencies (Next.js)
         run: |
           cd apps/client
@@ -49,6 +53,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
 
       - name: Install dependencies (Vite)
         run: |
@@ -77,6 +85,10 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
+
       - name: Install dependencies (NestJS)
         run: |
           cd apps/server
@@ -103,6 +115,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+
+      - name: Install pnpm
+        run: |
+          npm install -g pnpm
 
       - name: Install dependencies (all apps)
         run: |
