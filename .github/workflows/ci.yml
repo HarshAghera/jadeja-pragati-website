@@ -104,7 +104,6 @@ jobs:
           cd apps/server
           pnpm build
 
-  # Job for TypeScript checks
   typescript-check:
     runs-on: windows-latest
     steps:
@@ -117,13 +116,25 @@ jobs:
           node-version: '20'
 
       - name: Install pnpm
-        run: |
-          npm install -g pnpm
+        run: npm install -g pnpm
 
-      - name: Install dependencies (all apps)
-        run: |
-          pnpm install
+      - name: Install root dependencies
+        run: pnpm install
 
-      - name: TypeScript check
+      - name: Install TypeScript in monorepo root
+        run: pnpm add -D typescript
+
+      - name: Type check apps/client
         run: |
+          cd apps/client
+          pnpm tsc --noEmit
+
+      - name: Type check apps/admin
+        run: |
+          cd apps/admin
+          pnpm tsc --noEmit
+
+      - name: Type check apps/server
+        run: |
+          cd apps/server
           pnpm tsc --noEmit
