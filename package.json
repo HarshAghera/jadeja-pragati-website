@@ -1,7 +1,7 @@
 {
   "name": "jadeja-pragati-website",
   "version": "1.0.0",
-  "description": "",
+  "description": "Domain website for JADEJA PRAGATI (I) PRIVATE LIMITED.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
