@@ -1,0 +1,113 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  # Job for Next.js (apps/client)
+  nextjs:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Next.js)
+        run: |
+          cd apps/client
+          pnpm install
+
+      - name: Run Next.js linting
+        run: |
+          cd apps/client
+          pnpm lint
+
+      - name: Build Next.js
+        run: |
+          cd apps/client
+          pnpm build
+
+  # Job for React + Vite (apps/admin)
+  react-vite:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (Vite)
+        run: |
+          cd apps/admin
+          pnpm install
+
+      - name: Run Vite linting
+        run: |
+          cd apps/admin
+          pnpm lint
+
+      - name: Build Vite app
+        run: |
+          cd apps/admin
+          pnpm build
+
+  # Job for NestJS (apps/server)
+  nestjs:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (NestJS)
+        run: |
+          cd apps/server
+          pnpm install
+
+      - name: Run NestJS linting
+        run: |
+          cd apps/server
+          pnpm lint
+
+      - name: Build NestJS
+        run: |
+          cd apps/server
+          pnpm build
+
+  # Job for TypeScript checks
+  typescript-check:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (all apps)
+        run: |
+          pnpm install
+
+      - name: TypeScript check
+        run: |
+          pnpm tsc --noEmit
