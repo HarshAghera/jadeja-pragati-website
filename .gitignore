@@ -17,7 +17,6 @@ out/
 .vite/
 
 # NestJS specific
-*.js
 *.js.map
 *.d.ts
 
