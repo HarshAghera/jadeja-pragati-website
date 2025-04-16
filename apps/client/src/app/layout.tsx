@@ -9,10 +9,10 @@ const Baloo_Bhai = Baloo_Bhai_2({
   display: "swap",
 });
 
-const geistMono = Baloo_Bhai_2({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Baloo_Bhai_2({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Jadeja Pragati",
