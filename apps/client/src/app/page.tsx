@@ -25,7 +25,6 @@ export default function Home() {
           <Particles />
           <div className="w-full max-w-screen-xl mx-auto px-4">
             <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
-              {/* Text Content */}
               <div className="w-full lg:w-1/2 text-left space-y-6 px-2 sm:px-4 md:px-6">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-center lg:text-left">
                   Welcome to Jadeja Pragati
