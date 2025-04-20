@@ -11,6 +11,13 @@ import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import * as bcrypt from 'bcryptjs';
 
+interface MongoDuplicateKeyError {
+  code?: number;
+  keyPattern?: {
+    email?: number;
+  };
+}
+
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
@@ -34,7 +41,7 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     try {
       return await this.userModel.find();
-    } catch (error) {
+    } catch {
       throw new InternalServerErrorException('Oops something went wrong');
     }
   }
@@ -54,7 +61,9 @@ export class UsersService {
       });
       return await createdUser.save();
     } catch (error) {
-      if (error.code === 11000 && error.keyPattern?.email) {
+      const err = error as MongoDuplicateKeyError;
+
+      if (err.code === 11000 && err.keyPattern?.email) {
         throw new ConflictException('Email already exists');
       }
       throw new InternalServerErrorException('Oops something went wrong');
