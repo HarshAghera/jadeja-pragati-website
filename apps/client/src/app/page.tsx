@@ -81,7 +81,7 @@ export default function Home() {
               className="text-md sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl max-w-2xl text-[#0f2557]/90"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0., ease: "easeOut" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
             >
               Navigating regulatory complexities with confidence. Our expert
               solutions ensure your business stays compliant while focusing on

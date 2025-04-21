@@ -75,7 +75,7 @@
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
         className={`fixed w-full backdrop-blur-md z-50 transition-all duration-300 ${
           scrolled ? "bg-white/80 shadow-md" : "bg-transparent"
         }`}
