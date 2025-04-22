@@ -4,8 +4,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import LoginForm from './components/LoginForm';
-import ForgotPassword from './components/ForgotPassword';
+import LoginForm from './components/loginForm';
+import ForgotPassword from './components/forgotPassword';
 
 const App: React.FC = () => {
   return (
