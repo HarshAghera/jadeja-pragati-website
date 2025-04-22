@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// ✅ Make sure paths match your folder structure:
 import LoginForm from './components/LoginForm';
 import ForgotPassword from './components/ForgotPassword';
 

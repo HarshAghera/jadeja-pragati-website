@@ -1,13 +1,13 @@
-// apps/admin/src/components/LoginForm.tsx
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 🧭 import for page navigation
+import { useNavigate } from 'react-router-dom';
+import '../styles/Login.css';
+
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // 🧭 React Router hook
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,54 +20,40 @@ const Login: React.FC = () => {
   };
 
   const handleForgotPasswordClick = () => {
-    navigate('/forgot-password'); // 🧭 go to the Forgot Password page
+    navigate('/forgot-password');
   };
 
   return (
-    <div
-      className="container-fluid min-vh-100 d-flex justify-content-center align-items-center position-relative"
-      style={{ backgroundColor: '#001f3f' }}
-    >
-      <div
-        className="card shadow-lg p-3"
-        style={{
-          maxWidth: '450px',
-          minHeight: '450px',
-          width: '100%',
-          backgroundColor: '#ffffff',
-          color: '#001f3f',
-          border: '1px solid #e2e8f0',
-        }}
-      >
-        <div className="text-center mb-4">
-          <h2 style={{ color: '#001f3f' }}>Login</h2>
-          <p className="text-muted" style={{ fontSize: '16px' }}>
-            Welcome back! Please enter your credentials.
-          </p>
+    <div className="login-container">
+      {errorMessage && (
+        <div className="alert alert-danger error-alert">
+          {errorMessage}
         </div>
+      )}
 
-        {errorMessage && (
-          <div className="alert alert-danger text-center py-2">{errorMessage}</div>
-        )}
+      <div className="card login-card">
+        <div className="text-center mb-4">
+          <h2 className="text-navy font-playfair ">Login</h2>
+          <p className="text-muted font-inter">Welcome back! Please enter your credentials.</p>
+        </div>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label" style={{ color: '#001f3f' }}>
+            <label htmlFor="email" className="form-label text-navy font-inter">
               Email
             </label>
             <input
               type="email"
-              className="form-control"
+              className={`form-control ${email ? 'bg-light' : ''}`}
               id="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{ backgroundColor: email ? '#e6f0ff' : '' }}
             />
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="form-label" style={{ color: '#001f3f' }}>
+            <label htmlFor="password" className="form-label text-navy font-inter">
               Password
             </label>
             <input
@@ -80,38 +66,20 @@ const Login: React.FC = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="btn w-100 mb-3"
-            style={{
-              backgroundColor: '#001f3f',
-              color: 'white',
-              border: '1px solid #001f3f',
-            }}
-          >
+          <button type="submit" className="btn btn-navy w-100 mb-3 font-inter">
             Login
           </button>
         </form>
 
         <div className="text-end">
-          <button
-            className="btn btn-link px-0"
-            style={{ fontSize: '17px', color: '#001f3f' }}
-            onClick={handleForgotPasswordClick} // 👈 This will go to /forgot-password
-          >
+          <button className="btn btn-link p-0 text-navy font-inter" onClick={handleForgotPasswordClick}>
             Forgot Password?
           </button>
         </div>
       </div>
 
-      <p
-        className="text-white text-center position-absolute w-100"
-        style={{
-          bottom: '10px',
-          fontSize: '14px',
-        }}
-      >
-        © {new Date().getFullYear()} JADEJA PRAGATI (I) PRIVATE LIMITED. All rights reserved.
+      <p className="footer-text">
+        ©2025 JADEJA PRAGATI (I) PRIVATE LIMITED.
       </p>
     </div>
   );

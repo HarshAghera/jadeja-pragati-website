@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import '../styles/ForgotPassword.css';
+
 
 const ForgotPassword: React.FC = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -9,8 +12,8 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!password || !confirmPassword) {
-      setError('Both fields are required.');
+    if (!email || !password || !confirmPassword) {
+      setError('All fields are required.');
       setSuccess('');
     } else if (password !== confirmPassword) {
       setError('Passwords do not match.');
@@ -18,45 +21,49 @@ const ForgotPassword: React.FC = () => {
     } else {
       setError('');
       setSuccess('Password has been reset successfully.');
-      console.log('Password reset');
-     
+      console.log('Password reset for:', email);
     }
   };
 
   return (
-    <div
-      className="container-fluid min-vh-100 d-flex justify-content-center align-items-center position-relative"
-      style={{ backgroundColor: '#001f3f' }}
-    >
-      <div
-        className="card shadow-lg p-3"
-        style={{
-          maxWidth: '450px',
-          minHeight: '400px',
-          width: '100%',
-          backgroundColor: '#ffffff',
-          color: '#001f3f',
-          border: '1px solid #e2e8f0',
-        }}
-      >
-        <div className="text-center mb-4">
-          <h2 style={{ color: '#001f3f' }}>Reset Password</h2>
-          <p className="text-muted" style={{ fontSize: '16px' }}>
-            Enter your new password.
+    <div className="forgot-password-wrapper">
+      {(error || success) && (
+        <div className={`alert text-center ${error ? 'alert-danger' : 'alert-success'} forgot-password-alert`}>
+          {error || success}
+        </div>
+      )}
+
+
+      <div className="forgot-password-card card shadow-lg p-3 ">
+        <div className="text-center mb-4 font-playfair">
+          <h2>Reset Password</h2>
+          <p className="text-muted font-inter" style={{ fontSize: '16px' }}>
+            Enter your email and new password.
           </p>
         </div>
 
-        {error && <div className="alert alert-danger text-center py-2">{error}</div>}
-        {success && <div className="alert alert-success text-center py-2">{success}</div>}
-
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="password" className="form-label" style={{ color: '#001f3f' }}>
+            <label htmlFor="email" className="form-label forgot-password-label font-inter">
+              Email Address
+            </label>
+            <input
+              type="email"
+              className="form-control forgot-password-input"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label forgot-password-label font-inter">
               New Password
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control forgot-password-input"
               id="password"
               placeholder="Enter new password"
               value={password}
@@ -65,12 +72,12 @@ const ForgotPassword: React.FC = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="form-label" style={{ color: '#001f3f' }}>
+            <label htmlFor="confirmPassword" className="form-label forgot-password-label font-inter">
               Confirm Password
             </label>
             <input
               type="password"
-              className="form-control"
+              className="form-control forgot-password-input"
               id="confirmPassword"
               placeholder="Confirm your password"
               value={confirmPassword}
@@ -80,27 +87,15 @@ const ForgotPassword: React.FC = () => {
 
           <button
             type="submit"
-            className="btn w-100"
-            style={{
-              backgroundColor: '#001f3f',
-              color: 'white',
-              border: '1px solid #001f3f',
-            }}
+            className="btn w-100 forgot-password-btn font-inter"
           >
             Reset Password
           </button>
         </form>
       </div>
 
-      {/* Footer */}
-      <p
-        className="text-white text-center position-absolute w-100"
-        style={{
-          bottom: '10px',
-          fontSize: '14px',
-        }}
-      >
-        © {new Date().getFullYear()} JADEJA PRAGATI (I) PRIVATE LIMITED. All rights reserved.
+      <p className=" forgot-password-footer">
+        © 2025 JADEJA PRAGATI (I) PRIVATE LIMITED.
       </p>
     </div>
   );
