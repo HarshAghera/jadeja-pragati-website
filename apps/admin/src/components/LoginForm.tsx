@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/Login.css';
-
+import '../styles/login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -26,15 +25,15 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       {errorMessage && (
-        <div className="alert alert-danger error-alert">
-          {errorMessage}
-        </div>
+        <div className="alert alert-danger error-alert">{errorMessage}</div>
       )}
 
       <div className="card login-card">
         <div className="text-center mb-4">
           <h2 className="text-navy font-playfair ">Login</h2>
-          <p className="text-muted font-inter">Welcome back! Please enter your credentials.</p>
+          <p className="text-muted font-inter">
+            Welcome back! Please enter your credentials.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -53,7 +52,10 @@ const Login: React.FC = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="password" className="form-label text-navy font-inter">
+            <label
+              htmlFor="password"
+              className="form-label text-navy font-inter"
+            >
               Password
             </label>
             <input
@@ -72,15 +74,16 @@ const Login: React.FC = () => {
         </form>
 
         <div className="text-end">
-          <button className="btn btn-link p-0 text-navy font-inter" onClick={handleForgotPasswordClick}>
+          <button
+            className="btn btn-link p-0 text-navy font-inter"
+            onClick={handleForgotPasswordClick}
+          >
             Forgot Password?
           </button>
         </div>
       </div>
 
-      <p className="footer-text">
-        ©2025 JADEJA PRAGATI (I) PRIVATE LIMITED.
-      </p>
+      <p className="footer-text">©2025 JADEJA PRAGATI (I) PRIVATE LIMITED.</p>
     </div>
   );
 };

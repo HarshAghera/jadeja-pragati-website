@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/ForgotPassword.css';
-
+import '../Styles/forgotPassword.css';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -28,11 +27,14 @@ const ForgotPassword: React.FC = () => {
   return (
     <div className="forgot-password-wrapper">
       {(error || success) && (
-        <div className={`alert text-center ${error ? 'alert-danger' : 'alert-success'} forgot-password-alert`}>
+        <div
+          className={`alert text-center ${
+            error ? 'alert-danger' : 'alert-success'
+          } forgot-password-alert`}
+        >
           {error || success}
         </div>
       )}
-
 
       <div className="forgot-password-card card shadow-lg p-3 ">
         <div className="text-center mb-4 font-playfair">
@@ -44,7 +46,10 @@ const ForgotPassword: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label forgot-password-label font-inter">
+            <label
+              htmlFor="email"
+              className="form-label forgot-password-label font-inter"
+            >
               Email Address
             </label>
             <input
@@ -58,7 +63,10 @@ const ForgotPassword: React.FC = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="password" className="form-label forgot-password-label font-inter">
+            <label
+              htmlFor="password"
+              className="form-label forgot-password-label font-inter"
+            >
               New Password
             </label>
             <input
@@ -72,7 +80,10 @@ const ForgotPassword: React.FC = () => {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="form-label forgot-password-label font-inter">
+            <label
+              htmlFor="confirmPassword"
+              className="form-label forgot-password-label font-inter"
+            >
               Confirm Password
             </label>
             <input
