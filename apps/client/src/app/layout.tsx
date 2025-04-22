@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
-import { Baloo_Bhai_2 } from "next/font/google";
+// import { Baloo_Bhai_2 } from "next/font/google";
+import { Inter } from "next/font/google"; // Import Inter font
 import "./globals.css";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 
-const Baloo_Bhai = Baloo_Bhai_2({
+// Baloo Bhai font
+// const Baloo_Bhai = Baloo_Bhai_2({
+//   subsets: ["latin"],
+//   display: "swap",
+// });
+
+// Inter font
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
 });
-
-// const geistMono = Baloo_Bhai_2({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Jadeja Pragati",
@@ -26,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${Baloo_Bhai.className}`}>
+      <body className={` ${inter.className} `}>
+        {" "}
+        {/* Combine both fonts */}
         <Header />
         {children}
         <Footer />

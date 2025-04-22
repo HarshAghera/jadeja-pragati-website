@@ -1,99 +1,95 @@
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
-import Particles from "./Components/Particles";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import "@/app/Styles/hero-section.css";
+import { FaWhatsapp } from "react-icons/fa";
+
+const FloatingWhatsAppButton = () => {
+  return (
+    <Link
+      href="https://wa.me/9825942142"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300"
+    >
+      <FaWhatsapp className="w-6 h-6 sm:w-7 sm:h-7" />
+    </Link>
+  );
+};
 
 export default function Home() {
   return (
-    <>
-      <main className="text-white">
-        {/* Hero Section */}
-        <section
-          className="pt-[70px] flex items-center justify-center text-center px-4 py-12 sm:py-16 md:py-20 min-h-[60vh] lg:min-h-screen"
-          style={{
-            backgroundImage: `
-      repeating-linear-gradient(
-        45deg,
-        rgba(255, 255, 255, 0.03),
-        rgba(255, 255, 255, 0.03) 8px,
-        transparent 8px,
-        transparent 48px
-      ),
-      linear-gradient(to bottom right, #bfdbfe, #0284c7)
-    `,
-            backgroundBlendMode: "overlay",
-          }}
-        >
-          <Particles />
-          <div className="w-full max-w-screen-xl mx-auto px-4">
-            <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-10">
-              <div className="w-full lg:w-1/2 text-left space-y-6 px-2 sm:px-4 md:px-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-center lg:text-left">
-                  Welcome to Jadeja Pragati
-                </h1>
-                <p className="text-base md:text-lg text-center lg:text-left">
-                  We’re a forward-thinking company dedicated to sustainable
-                  solutions and technological innovation. Our mission is to
-                  empower communities through eco-friendly initiatives and
-                  creative problem solving.
-                </p>
-                <p className="text-base md:text-lg text-center lg:text-left">
-                  Explore our services to learn how we turn waste into
-                  opportunity, and how you can be a part of this impactful
-                  journey.
-                </p>
-                <div className="text-center lg:text-left">
-                  <a
-                    href="#"
-                    className="inline-block px-10 py-3 text-base font-semibold rounded-full bg-white text-blue-600 hover:bg-gray-100 hover:scale-105 hover:shadow-lg transition-all duration-300 relative group"
-                  >
-                    Learn More
-                    <span className="ml-3 inline-block text-blue-600 group-hover:animate-ping">
-                      &rarr;
-                    </span>
-                  </a>
-                </div>
-              </div>
+    <main>
+      <FloatingWhatsAppButton />
 
-              {/* Image Section (visible on large screens) */}
-              <div className="w-full lg:w-1/2 hidden lg:flex justify-center">
-                <div className="w-full max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px]">
-                  <Image
-                    src="/workflow.webp"
-                    alt="Impactful Journey"
-                    width={1200}
-                    height={1200}
-                    className="rounded-lg object-contain w-full h-auto"
-                    priority
-                  />
-                </div>
-              </div>
-            </div>
+      <section
+        id="home"
+        className="hero-section relative min-h-[70vh] md:min-h-[80vh] lg:min-h-screen 2xl:min-h-[100vh] flex flex-col justify-start items-start overflow-hidden text-left "
+      >
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/officeimage.jpg"
+            alt="Office Background"
+            fill
+            className="object-cover object-center lg:object-top"
+            priority
+            quality={100}
+          />
+        </div>
+
+        <div className="hero-overlay absolute inset-0 z-10" />
+
+        <div className="w-full max-w-3xl 2xl:max-w-6xl px-5 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-20 relative z-30 pt-29 sm:pt-16 md:pt-20 lg:pt-24 2xl:pt-28">
+          <div>
+            <motion.h1
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-6xl font-bold leading-tight mb-12 sm:mb-12 lg:mb-12 xl:mb-12"
+              style={{
+                fontFamily: "Playfair Display, serif",
+                color: "rgb(15 37 87 / 1)",
+              }}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              Empowering Businesses <br />
+              with Compliance Solutions <br />
+              for the Modern Enterprise
+            </motion.h1>
+
+            <motion.div
+              className="flex flex-wrap gap-2 sm:gap-3 md:gap-3 mb-10"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <Link href="/Projects">
+                <Button
+                  className="group bg-[#0f2557] text-white third 
+                  text-sm sm:text-lg md:text-xl 2xl:text-lg
+                  px-5 py-3 sm:px-8 sm:py-5 md:px-10 md:py-6 2xl:px-10 2xl:py-6
+                  rounded-full flex items-center gap-2 pr-4 sm:pr-6 md:pr-8 mb-5 "
+                >
+                  View Projects
+                </Button>
+              </Link>
+            </motion.div>
+
+            <motion.p
+              className="text-md sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl max-w-2xl text-[#0f2557]/90"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              Navigating regulatory complexities with confidence. Our expert
+              solutions ensure your business stays compliant while focusing on
+              growth.
+            </motion.p>
           </div>
-        </section>
-
-        {/* Other Content Section */}
-        <section className="bg-white text-gray-800 px-6 sm:px-8 md:px-12 py-10 max-w-5xl mx-auto space-y-6 text-justify">
-          <h2 className="text-3xl md:text-4xl font-semibold text-center">
-            What We Do
-          </h2>
-          <p className="text-base md:text-lg">
-            We specialize in innovative recycling technologies, community
-            outreach programs, and digital solutions that support
-            sustainability. Whether it's transforming plastic waste into
-            construction material or using AI to streamline resource usage, our
-            projects are designed to make a real-world impact.
-          </p>
-          <p className="text-base md:text-lg">
-            Partnering with educational institutions and local governments, we
-            aim to educate and empower the next generation of environmental
-            leaders. Our goal is to create a cleaner, more responsible future.
-          </p>
-          <p className="text-base md:text-lg">
-            Join us in making the world a better place—one small change at a
-            time. Your support fuels our mission and helps turn vision into
-            reality.
-          </p>
-        </section>
-      </main>
-    </>
+        </div>
+      </section>
+    </main>
   );
 }
