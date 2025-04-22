@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  background-image: url('https://img.freepik.com/free-vector/ombre-blue-curve-light-blue-background_53876-113896.jpg?t=st=1745254199~exp=1745257799~hmac=f0d9e09768bc3504e9f94fcad571bd07efc57713d9f6b3dfb3f83aea5bb11cae&w=1380');
+  background-image: url('../images/login3.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -46,7 +46,7 @@
 }
 
 .footer-text {
-  color: #000000;
+  color: #001f3f;
   text-align: center;
   position: absolute;
   bottom: 10px;
