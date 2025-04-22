@@ -1,0 +1,17 @@
+.started-button {
+  color: #0f2557;
+  border: 3px solid #ffffff;
+  background-color: #ffffff;
+  background-image: linear-gradient(30deg, transparent 50%, #0f2557 50%);
+  background-size: 500px;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  transition: background-position 600ms ease-in-out, color 400ms ease-in-out, background-color 400ms ease-in-out, border-color 400ms ease-in-out;
+}
+
+.started-button:hover {
+  background-position: 130%;
+  color: #ffffff;
+  background-color: transparent;
+  border-color: #ffffff;
+}
