@@ -1,55 +1,40 @@
-import React, { useState } from 'react';
-import '../styles/forgotPassword.css';
+import React, { useState } from "react";
+import "../styles/forgotPassword.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const ForgotPassword: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
-      setError('All fields are required.');
-      setSuccess('');
+      toast.error("All fields are required.");
     } else if (password !== confirmPassword) {
-      setError('Passwords do not match.');
-      setSuccess('');
+      toast.error("Passwords do not match.");
     } else {
-      setError('');
-      setSuccess('Password has been reset successfully.');
-      console.log('Password reset for:', email);
+      toast.success("Password has been reset successfully.");
+      console.log("Password reset for:", email);
     }
   };
 
   return (
     <div className="forgot-password-wrapper">
-      {(error || success) && (
-        <div
-          className={`alert text-center ${
-            error ? 'alert-danger' : 'alert-success'
-          } forgot-password-alert`}
-        >
-          {error || success}
-        </div>
-      )}
+      <ToastContainer position="bottom-right" autoClose={2500} />
 
       <div className="forgot-password-card card shadow-lg p-3 ">
         <div className="text-center mb-4 font-playfair">
           <h2>Reset Password</h2>
-          <p className="text-muted font-inter" style={{ fontSize: '16px' }}>
+          <p className="text-muted font-inter" style={{ fontSize: "16px" }}>
             Enter your email and new password.
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label
-              htmlFor="email"
-              className="form-label forgot-password-label font-inter"
-            >
+            <label htmlFor="email" className="form-label forgot-password-label font-inter">
               Email Address
             </label>
             <input
@@ -63,10 +48,7 @@ const ForgotPassword: React.FC = () => {
           </div>
 
           <div className="mb-3">
-            <label
-              htmlFor="password"
-              className="form-label forgot-password-label font-inter"
-            >
+            <label htmlFor="password" className="form-label forgot-password-label font-inter">
               New Password
             </label>
             <input
@@ -80,10 +62,7 @@ const ForgotPassword: React.FC = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="confirmPassword"
-              className="form-label forgot-password-label font-inter"
-            >
+            <label htmlFor="confirmPassword" className="form-label forgot-password-label font-inter">
               Confirm Password
             </label>
             <input
@@ -96,18 +75,13 @@ const ForgotPassword: React.FC = () => {
             />
           </div>
 
-          <button
-            type="submit"
-            className="btn w-100 forgot-password-btn font-inter"
-          >
+          <button type="submit" className="btn w-100 forgot-password-btn font-inter">
             Reset Password
           </button>
         </form>
       </div>
 
-      <p className=" forgot-password-footer">
-        © 2025 JADEJA PRAGATI (I) PRIVATE LIMITED.
-      </p>
+      <p className=" forgot-password-footer">© 2025 JADEJA PRAGATI (I) PRIVATE LIMITED.</p>
     </div>
   );
 };

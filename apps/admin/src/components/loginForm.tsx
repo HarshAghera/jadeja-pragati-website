@@ -1,39 +1,31 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
+import { toast, ToastContainer } from "react-toastify";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMessage('Both fields are required.');
-    } else {
-      setErrorMessage('');
-      console.log('Login successful');
+      toast.error("Both fields are required.");
     }
   };
 
   const handleForgotPasswordClick = () => {
-    navigate('/forgot-password');
+    navigate("/forgot-password");
   };
 
   return (
     <div className="login-container">
-      {errorMessage && (
-        <div className="alert alert-danger error-alert">{errorMessage}</div>
-      )}
-
+      <ToastContainer position="bottom-right" autoClose={2500} />
       <div className="card login-card">
         <div className="text-center mb-4">
           <h2 className="text-navy font-playfair ">Login</h2>
-          <p className="text-muted font-inter">
-            Welcome back! Please enter your credentials.
-          </p>
+          <p className="text-muted font-inter">Welcome back! Please enter your credentials.</p>
         </div>
 
         <form onSubmit={handleSubmit}>
@@ -43,7 +35,7 @@ const Login: React.FC = () => {
             </label>
             <input
               type="email"
-              className={`form-control ${email ? 'bg-light' : ''}`}
+              className={`form-control ${email ? "bg-light" : ""}`}
               id="email"
               placeholder="Enter your email"
               value={email}
@@ -52,10 +44,7 @@ const Login: React.FC = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="form-label text-navy font-inter"
-            >
+            <label htmlFor="password" className="form-label text-navy font-inter">
               Password
             </label>
             <input
@@ -74,10 +63,7 @@ const Login: React.FC = () => {
         </form>
 
         <div className="text-end">
-          <button
-            className="btn btn-link p-0 text-navy font-inter"
-            onClick={handleForgotPasswordClick}
-          >
+          <button className="btn btn-link p-0 text-navy font-inter" onClick={handleForgotPasswordClick}>
             Forgot Password?
           </button>
         </div>
