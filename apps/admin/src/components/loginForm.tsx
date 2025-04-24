@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import { toast, ToastContainer } from "react-toastify";
+import bgImage from "../images/bg.webp";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [bgLoaded, setBgLoaded] = useState(false);
+
   const navigate = useNavigate();
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgImage;
+    img.onload = () => setBgLoaded(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,7 +28,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className={`login-container ${bgLoaded ? "bg-loaded" : "bg-loading"}`}>
       <ToastContainer position="bottom-right" autoClose={2500} />
       <div className="card login-card">
         <div className="text-center mb-4">
