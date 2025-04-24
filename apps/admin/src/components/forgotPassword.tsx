@@ -1,11 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/forgotPassword.css";
 import { toast, ToastContainer } from "react-toastify";
-
+import bgImage from "../images/bg.webp";
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [bgLoaded, setBgLoaded] = useState(false);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgImage;
+    img.onload = () => setBgLoaded(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,7 +28,7 @@ const ForgotPassword: React.FC = () => {
   };
 
   return (
-    <div className="forgot-password-wrapper">
+    <div className={`forgotpassword-container ${bgLoaded ? "bg-loaded" : "bg-loading"}`}>
       <ToastContainer position="bottom-right" autoClose={2500} />
 
       <div className="forgot-password-card card shadow-lg p-3 ">
