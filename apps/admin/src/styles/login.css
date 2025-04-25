@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  transition: background-image 0.4s ease-in-out;
+  transition: background-image 0.4s ease-in-out, opacity 0.8s ease;
+  opacity: 0;
 }
 
 .login-container.bg-loading {
@@ -12,10 +13,11 @@
 }
 
 .login-container.bg-loaded {
-  background-image: url("../images/bg.webp");
+  background-image: url('../images/bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 1;
 }
 
 .login-card {
@@ -49,7 +51,7 @@
   width: 100%;
   font-size: 14px;
   font-weight: bold;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .btn-navy:hover,
