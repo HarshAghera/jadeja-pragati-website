@@ -10,4 +10,7 @@ async function main() {
   app.useGlobalFilters(new CustomExceptionsFilter());
   await app.listen(process.env.PORT!);
 }
-main();
+main().catch((err) => {
+  console.error('Error during app startup', err);
+  process.exit(1);
+});
