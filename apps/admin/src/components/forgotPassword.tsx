@@ -24,7 +24,6 @@ const ForgotPassword: React.FC = () => {
       toast.error('Passwords do not match.');
     } else {
       toast.success('Password has been reset successfully.');
-      console.log('Password reset for:', email);
     }
   };
 

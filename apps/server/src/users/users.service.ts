@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import * as bcrypt from 'bcryptjs';
+import { LoginDto } from 'src/auth/dto/login.dto';
 
 interface MongoDuplicateKeyError {
   code?: number;
@@ -22,9 +23,9 @@ interface MongoDuplicateKeyError {
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async find(id: string): Promise<User> {
+  async find(email: string): Promise<User> {
     try {
-      const user = await this.userModel.findById(id);
+      const user = await this.userModel.findOne({ email }).lean();
 
       if (!user) {
         throw new NotFoundException('User not found');
@@ -104,5 +105,19 @@ export class UsersService {
       }
       throw new InternalServerErrorException('Oops, something went wrong');
     }
+  }
+
+  async validateUser(loginUser: LoginDto): Promise<User | null> {
+    const user = await this.find(loginUser.email);
+
+    if (!user) return null;
+
+    const isPasswordValid = await bcrypt.compare(
+      loginUser.password,
+      user.password,
+    );
+    if (!isPasswordValid) return null;
+
+    return user;
   }
 }
