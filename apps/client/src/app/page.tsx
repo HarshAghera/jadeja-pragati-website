@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import "@/app/Styles/hero-section.css";
 import { FaWhatsapp } from "react-icons/fa";
+import Services from "./Sections/Services";
+import WhyChooseUs from "./Sections/WhyChooseUs";
+import Aboutus from "./Sections/AboutUs";
 
 const FloatingWhatsAppButton = () => {
   return (
@@ -90,6 +93,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Services />
+      <WhyChooseUs />
+      <Aboutus />
     </main>
   );
 }

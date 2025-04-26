@@ -81,7 +81,7 @@
         }`}
       >
         <div
-          className="w-full py-2 sm:py-3 lg:py-4 mx-auto"
+          className="w-full pt-1 sm:pt-1 lg:pt-1 mx-auto"
           style={{
             maxWidth: "calc(100vw - 10%)",
             minWidth: "320px",
@@ -92,16 +92,16 @@
             {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 mr-5">
               <Image
-                src="/jadejaPragati.png"
+                src="/jp_logo.png"
                 alt="Logo"
                 height={160}
                 width={176}
-                className="min-w-[48px] min-h-[48px] sm:min-w-[56px] sm:min-h-[56px] lg:min-w-[64px] lg:min-h-[64px]"
+                className="min-w-[36px] min-h-[36px] sm:min-w-[42px] sm:min-h-[42px] lg:min-w-[48px] lg:min-h-[48px] xl:min-h-[38px] 2xl:min-h-[38px]"
               />
             </Link>
 
             {/* Desktop Navbar */}
-            <nav className="hidden lg:flex items-center justify-between flex-grow text-md xl:text-base ml-2">
+            <nav className="hidden lg:flex items-center justify-between flex-grow text-md xl:text-base ml-4 lg:ml-8 xl:ml-12">
               <div className="nav-links flex items-center flex-nowrap  gap-x-4 xl:gap-x-6">
                 {["regulatory", "environmental", "license"].map((name) => {
                   const title = name.charAt(0).toUpperCase() + name.slice(1);
