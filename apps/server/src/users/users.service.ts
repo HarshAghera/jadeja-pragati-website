@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/users.schema';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import * as bcrypt from 'bcryptjs';
@@ -56,6 +56,7 @@ export class UsersService {
       );
 
       const createdUser = new this.userModel({
+        _id: new mongoose.Types.ObjectId(),
         email: createUserDto.email,
         password: hashedPassword,
         type: createUserDto.type,
