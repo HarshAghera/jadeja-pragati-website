@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-// import { Baloo_Bhai_2 } from "next/font/google";
-import { Inter } from "next/font/google"; // Import Inter font
+import { Inter } from "next/font/google"; 
 import "./globals.css";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+import Header from "./components/Header";  
+import Footer from "./components/Footer"; 
 
-// Baloo Bhai font
-// const Baloo_Bhai = Baloo_Bhai_2({
-//   subsets: ["latin"],
-//   display: "swap",
-// });
 
-// Inter font
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -31,10 +24,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${inter.className} `}>
         {" "}
-        {/* Combine both fonts */}
-        <Header />
+        <Header/>
         {children}
-        <Footer />
+        <Footer/>
       </body>
     </html>
   );

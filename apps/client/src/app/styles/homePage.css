@@ -1,0 +1,40 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+
+.hero-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  text-align: left;
+}
+
+.hero-overlay {
+  background: linear-gradient(
+      to right,
+      rgba(255, 250, 248, 1) 30%,
+      rgba(255, 250, 240, 0.4) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 250, 248, 0.8) 10%,
+      rgba(255, 250, 240, 0.2) 30%
+    );
+}
+
+.third {
+  color: #ffffff;
+  border: 3px solid #0f2557;
+  background-image: linear-gradient(30deg, #0f2557 50%, transparent 50%);
+  background-size: 500px;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  transition: background-position 600ms ease-in-out, color 400ms ease-in-out, background-color 400ms ease-in-out;
+}
+
+.third:hover {
+  background-position: 130%;
+  color: #0f2557;
+  background-color: #ffffff;
+}
