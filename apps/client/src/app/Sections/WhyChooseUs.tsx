@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import "@/app/Styles/whychooseus.css";
+import "@/app/Styles/whyChooseUs.css";
 
 const WhyChooseUs = () => {
   return (
