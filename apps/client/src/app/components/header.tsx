@@ -50,6 +50,7 @@
     useEffect(() => {
       document.addEventListener("mousedown", handleClickOutside);
       window.addEventListener("scroll", handleScroll);
+      handleScroll();
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
         window.removeEventListener("scroll", handleScroll);

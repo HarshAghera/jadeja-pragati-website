@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #fcfcfc;
+  background: #f2f3f4;
 }
 
 #services-section h2 {
@@ -49,7 +49,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 1.5rem;
-  background-color: #f2f3f4;
+  background-color: #e4e0d9;
   position: relative;
   border-radius: 10px;
   transition: transform 0.3s ease;

@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
-import Services from "./sections/Services";
-import WhyChooseUs from "./sections/WhyChooseUs";
+import Services from "./sections/services";
+import WhyChooseUs from "./sections/whyChooseUs";
 
-import HomePage from "./sections/HomePage";
-import Aboutus from "./sections/AboutUs";
+import HomePage from "./sections/homePage";
+import Aboutus from "./sections/aboutUs";
 
 const FloatingWhatsAppButton = () => {
   return (
@@ -28,7 +28,7 @@ export default function MainPage() {
       <HomePage />
       <Services />
       <WhyChooseUs />
-      <Aboutus/>
+      <Aboutus />
     </main>
   );
 }

@@ -4,7 +4,7 @@ const Aboutus = () => {
   const [videoSrc, setVideoSrc] = useState("");
 
   const handlePlayClick = () => {
-    setVideoSrc("https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1");
+    setVideoSrc("https://www.youtube.com/embed/pRpeEdMmmQ0");
   };
 
   return (
@@ -12,10 +12,10 @@ const Aboutus = () => {
       <div
         className="absolute inset-0 -z-10 bg-fixed bg-center bg-cover"
         style={{
-          backgroundImage: "url('/lightblueoffice.jpg')",
+          backgroundImage: "url('/goodOffice.jpg')",
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
+        <div className="absolute inset-0 bg-black opacity-70"></div>{" "}
       </div>
 
       <div className="relative z-10 flex flex-col justify-center h-full">
