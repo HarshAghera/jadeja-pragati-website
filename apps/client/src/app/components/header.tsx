@@ -82,7 +82,7 @@
         }`}
       >
         <div
-          className="w-full pt-1 sm:pt-1 lg:pt-1 mx-auto"
+          className="w-full  mx-auto"
           style={{
             maxWidth: "calc(100vw - 10%)",
             minWidth: "320px",
@@ -95,9 +95,9 @@
               <Image
                 src="/jp_logo.png"
                 alt="Logo"
-                height={160}
-                width={176}
-                className="min-w-[36px] min-h-[36px] sm:min-w-[42px] sm:min-h-[42px] lg:min-w-[48px] lg:min-h-[48px] xl:min-h-[38px] 2xl:min-h-[38px]"
+                height={145}
+                width={145}
+                className="min-w-[36px] min-h-[36px] sm:min-w-[42px] sm:min-h-[42px] lg:min-w-[48px] lg:min-h-[48px] xl:min-h-[35px] 2xl:min-h-[35px]"
               />
             </Link>
 
