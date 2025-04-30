@@ -28,20 +28,7 @@ type ServiceData = {
 };
 
 const serviceData: ServiceData = {
-  Regulatory: [
-    {
-      icon: <FaGem className="icons" />,
-      title: "Compliance Check",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
-      link: "/services/compliance-check",
-    },
-    {
-      icon: <FaRocket className="icons" />,
-      title: "Risk Assessment",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
-      link: "/services/risk-assessment",
-    },
-  ],
+  
   License: [
     {
       icon: <FaGem className="icons" />,
@@ -76,7 +63,7 @@ const categories = Object.keys(serviceData) as (keyof typeof serviceData)[];
 
 const Services = () => {
   const [activeCategory, setActiveCategory] =
-    useState<keyof typeof serviceData>("Regulatory");
+    useState<keyof typeof serviceData>("License");
 
   const { ref: statsRef, inView: statsVisible } = useInView({
     triggerOnce: true,
@@ -86,7 +73,7 @@ const Services = () => {
   return (
     <section
       id="services-section"
-      className="px-3 sm:px-5 md:px-7 lg:px-9 xl:px-19"
+      className="px-3 sm:px-5 md:px-6 lg:px-8 xl:px-17"
     >
       <h2>Major Services</h2>
 
@@ -132,7 +119,7 @@ const Services = () => {
         ref={statsRef}
         className="stats-section mt-10 w-full flex justify-center"
       >
-        <div className="w-full max-w-7xl flex flex-wrap justify-around rounded-2xl p-4 sm:p-6 md:p-7 bg-[#0f2557] text-white/85">
+        <div className="w-full max-w-7xl flex flex-wrap justify-around rounded-2xl p-2 sm:p-4 md:p-5 bg-[#0f2557] text-white/85">
           {[
             {
               Icon: FaBriefcase,

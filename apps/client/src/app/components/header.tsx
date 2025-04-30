@@ -58,17 +58,13 @@
     }, []);
 
     const dropdownLinks: Record<string, { label: string; href: string }[]> = {
-      regulatory: [
-        { label: "Regulatory Item 1", href: "#regulatory-item1" },
-        { label: "Regulatory Item 2", href: "#regulatory-item2" },
-      ],
       environmental: [
-        { label: "Environmental Item 1", href: "#environmental-item1" },
-        { label: "Environmental Item 2", href: "#environmental-item2" },
+        { label: "Environmental Item 1", href: "environmental-item1" },
+        { label: "Environmental Item 2", href: "environmental-item2" },
       ],
       license: [
-        { label: "License Item 1", href: "#license-item1" },
-        { label: "License Item 2", href: "#license-item2" },
+        { label: "License Item 1", href: "license-item1" },
+        { label: "License Item 2", href: "license-item2" },
       ],
     };
 
@@ -90,10 +86,9 @@
           }}
         >
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <Link href="/" className="flex items-center flex-shrink-0 mr-5">
               <Image
-                src="/jp_logo.png"
+                src="/jp_logo.webp"
                 alt="Logo"
                 height={145}
                 width={145}
@@ -101,10 +96,9 @@
               />
             </Link>
 
-            {/* Desktop Navbar */}
             <nav className="hidden lg:flex items-center justify-between flex-grow text-md xl:text-base ml-4 lg:ml-8 xl:ml-12">
               <div className="nav-links flex items-center flex-nowrap  gap-x-4 xl:gap-x-6">
-                {["regulatory", "environmental", "license"].map((name) => {
+                {["environmental", "license"].map((name) => {
                   const title = name.charAt(0).toUpperCase() + name.slice(1);
                   return (
                     <div
@@ -160,11 +154,11 @@
                 })}
               </div>
 
-              {/* Static Links */}
               <div className="flex items-center space-x-4 ">
                 {[
-                  { label: "About Us", href: "#aboutus" },
-                  { label: "Projects", href: "#projects" },
+                  { label: "About Us", href: "aboutUs" },
+                  { label: "Projects", href: "projects" },
+                  { label: "Investments", href: "investments" }
                 ].map((link, index) => (
                   <Link
                     key={index}
@@ -177,7 +171,6 @@
                 ))}
               </div>
 
-              {/* Contact Us Button */}
               <div className="ml-auto flex-shrink-0">
                 <Link
                   href="/contact"
@@ -188,7 +181,6 @@
               </div>
             </nav>
 
-            {/* Mobile Menu Icon */}
             <div className="lg:hidden">
               <button onClick={toggleMenu}>
                 {mobileMenuOpen ? (
@@ -207,7 +199,6 @@
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -268,7 +259,6 @@
                 );
               })}
 
-              {/* Static Links for Mobile */}
               <div className="flex flex-col items-center space-y-4">
                 {[
                   { label: "About Us", href: "#aboutus" },

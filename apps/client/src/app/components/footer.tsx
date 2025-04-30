@@ -9,7 +9,7 @@ import {
   MapPin,
 } from "react-feather";
 import Link from "next/link";
-import "@/app/styles/footer.css"
+import "@/app/styles/footer.css";
 
 interface SocialMediaLink {
   icon: JSX.Element;
@@ -32,8 +32,9 @@ const Footer = () => {
 
   const informative: FooterLink[] = [
     { name: "Contact Us", link: "/contact" },
-    { name: "About Us", link: "/about" },
+    { name: "About Us", link: "/aboutUs" },
     { name: "Projects", link: "/projects" },
+    { name: "Investments", link: "/investments" },
   ];
 
   const footerBottomLinks: FooterLink[] = [
@@ -71,12 +72,10 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Part */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-        {/* Column 1 */}
         <div className="lg:mr-8">
           <Image
-            src="/jadejaPragati.png"
+            src="/fullLogo.webp"
             alt="Company Logo"
             width={130}
             height={40}
@@ -84,7 +83,7 @@ const Footer = () => {
           />
           <p className="text-white/50 mb-8">
             Empowering organizations to navigate regulatory complexities with
-            confidence since 2010.
+            confidence since 2020.
           </p>
           <div className="flex gap-8">
             {socialMedia.map((social, index) => (
@@ -97,7 +96,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Column 2 */}
         <div className="flex flex-col items-start lg:ml-12">
           <h3 className="text-lg font-bold mb-6">Major Services</h3>
           <ul className="space-y-3">
@@ -113,7 +111,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Column 3 */}
         <div className="flex flex-col items-start">
           <h3 className="text-lg font-bold mb-6">Informative</h3>
           <ul className="space-y-3">
@@ -129,7 +126,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Column 4 */}
         <div className="flex flex-col items-start">
           <h3 className="text-lg font-bold mb-6">Contact Us</h3>
           <ul className="space-y-3 text-white/50">
@@ -137,7 +133,7 @@ const Footer = () => {
               <MapPin size={16} /> 123 Business Street, Ahmedabad, India
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={16} /> Phone: +91 9876543210
+              <Phone size={16} /> Phone: +91 9999999999
             </li>
             <li className="flex items-center gap-2">
               <Mail size={16} /> Email: info@company.com
@@ -146,7 +142,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Bottom */}
       <div className="flex flex-wrap justify-center md:justify-between items-center pt-8 border-t border-white/20 gap-6 text-center">
         <p className="text-sm text-white/50">
           © 2025 Jadeja Pragati Pvt. Ltd. All rights reserved.

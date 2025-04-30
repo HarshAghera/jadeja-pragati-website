@@ -1,62 +1,78 @@
+"use client";
+
 import React, { useState } from "react";
+import "@/app/styles/aboutUs.css";
+import { Button } from "@/components/ui/button"; 
+import Image from "next/image";
 
 const Aboutus = () => {
   const [videoSrc, setVideoSrc] = useState("");
 
   const handlePlayClick = () => {
-    setVideoSrc("https://www.youtube.com/embed/pRpeEdMmmQ0");
+    setVideoSrc(
+      "https://www.youtube.com/embed/iuJDhFRDx9M?si=moidBAOcUPnjIdtZ");
   };
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-22 lg:py-26 xl:py-25">
-      <div
-        className="absolute inset-0 -z-10 bg-fixed bg-center bg-cover"
-        style={{
-          backgroundImage: "url('/goodOffice.jpg')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-70"></div>{" "}
-      </div>
-
-      <div className="relative z-10 flex flex-col justify-center h-full">
-        <div className="px-4 flex justify-center mb-6 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center text-white">
+    <section className="aboutus-section relative overflow-hidden  py-15 md:py-24">
+      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20">
+        <div className="text-center mb-16" data-aos="fade-down">
+          <h2 className="text-5xl font-extrabold text-[#0f2557] relative inline-block">
             About Us
+            <span className="block w-20 h-1 bg-[#0f2557] mt-3 mx-auto rounded-full"></span>
           </h2>
+          <p className="mt-6 text-2xl text-[#0f2557] font-semibold">
+            Empowering Your Regulatory Success
+          </p>
         </div>
 
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 items-center text-white">
-          <div className="space-y-6">
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed md:leading-loose font-medium break-words text-center md:text-left">
-              We are a team of compliance experts dedicated to simplifying your
-              business’s regulatory journey. With years of experience, we
-              provide tailored solutions that align with your business goals.
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div
+            className="space-y-8 flex flex-col justify-between"
+            data-aos="fade-up"
+          >
+            <p className="text-2xl text-[#0f2557] font-medium leading-relaxed">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus,
+              quia! Consectetur officia eius explicabo provident. Ex voluptate
+              reprehenderit molestiae obcaecati!
             </p>
+
+            <Button className="aboutButton bg-[#0f2557] text-white text-lg md:text-xl lg:text-2xl rounded-full px-8 py-6 flex items-center gap-3 w-max mt-6">
+              About us <span className="transition-transform ">→</span>
+            </Button>
           </div>
 
           <div
-            className="relative flex justify-center items-center bg-cover bg-center 
-    w-[250px] h-[150px] sm:w-[300px] sm:h-[180px] md:w-[400px] md:h-[250px] lg:w-[500px] lg:h-[300px] 
-    rounded-xl overflow-hidden cursor-pointer shadow-lg mx-auto"
-            style={{
-              backgroundImage: videoSrc
-                ? "none"
-                : 'url("/lightblueoffice.jpg")',
-            }}
+            className="relative group rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 cursor-pointer max-w-xl mx-auto w-full"
             onClick={handlePlayClick}
+            data-aos="zoom-in"
           >
             {!videoSrc && (
-              <div className="absolute flex justify-center items-center w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-lg text-black hover:scale-110 transition-transform duration-300">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="32"
-                  height="32"
-                  fill="currentColor"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
+              <>
+                <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[300px]">
+                  <Image
+                    src="/lightblueoffice.webp"
+                    alt="Light Blue Office"
+                    fill
+                    className="object-cover object-center"
+                    priority 
+                  />
+                </div>
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <div className="w-18 h-18 border-2  border-white bg-transparent rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="32"
+                      height="32"
+                      fill="currentColor"
+                      className="text-white"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                </div>
+              </>
             )}
 
             {videoSrc && (
@@ -67,7 +83,7 @@ const Aboutus = () => {
                 title="About Us Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                className="rounded-xl"
+                className="rounded-3xl w-full h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px]"
               ></iframe>
             )}
           </div>

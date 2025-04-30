@@ -15,7 +15,7 @@ const HomePage = () =>{
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/officeimage.jpg"
+            src="/officeimage.webp"
             alt="Office Background"
             fill
             className="object-cover object-center lg:object-top"
