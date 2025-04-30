@@ -13,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Jadeja Pragati",
   description: "Recycling & Compliance",
+  icons: {
+    icon: "/icon.webp", 
+  },
 };
 
 export default function RootLayout({

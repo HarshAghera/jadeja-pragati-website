@@ -193,13 +193,13 @@
 
   .bottom-right-left {
     grid-column: 1 / 2;
-    grid-row: 5 / 6; /* FIFTH */
+    grid-row: 6 / 7; /* FIFTH */
     padding: 0.5rem;
   }
 
   .bottom-right-right {
     grid-column: 1 / 2;
-    grid-row: 6 / 7; /* SIXTH */
+    grid-row: 5 / 6; /* SIXTH */
     padding: 0.5rem;
   }
 
