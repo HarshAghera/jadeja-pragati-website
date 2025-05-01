@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
+import { toast, ToastContainer } from 'react-toastify';
+import bgImage from '../images/bg.webp';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [bgLoaded, setBgLoaded] = useState(false); // Track if background is loaded
+
   const navigate = useNavigate();
+
+  // Preload the background image
+  useEffect(() => {
+    const img = new Image();
+    img.src = bgImage; // Path to your background image
+    img.onload = () => setBgLoaded(true); // Set background loaded to true when it's loaded
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      setErrorMessage('Both fields are required.');
-    } else {
-      setErrorMessage('');
-      console.log('Login successful');
+      toast.error('Both fields are required.');
     }
   };
 
@@ -23,11 +30,8 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      {errorMessage && (
-        <div className="alert alert-danger error-alert">{errorMessage}</div>
-      )}
-
+    <div className={`login-container ${bgLoaded ? 'bg-loaded' : 'bg-loading'}`}>
+      <ToastContainer position="bottom-right" autoClose={2500} />
       <div className="card login-card">
         <div className="text-center mb-4">
           <h2 className="text-navy font-playfair ">Login</h2>

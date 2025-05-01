@@ -4,21 +4,20 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  background-image: url('../images/login.jpg');
+  transition: background-image 0.4s ease-in-out, opacity 0.8s ease;
+  opacity: 0;
+}
+
+.login-container.bg-loading {
+  background-color: #f5f5f5;
+}
+
+.login-container.bg-loaded {
+  background-image: url('../images/bg.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-}
-
-.error-alert {
-  position: fixed;
-  top: 1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 90%;
-  width: 400px;
-  text-align: center;
-  z-index: 1050;
+  opacity: 1;
 }
 
 .login-card {
@@ -31,9 +30,8 @@
   z-index: 2;
   padding: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-  border-radius: 8px; 
+  border-radius: 8px;
 }
-
 
 .text-navy {
   color: #001f3f;
@@ -68,15 +66,15 @@
 
 @media (max-width: 768px) {
   .login-card {
-    max-width: 90%; 
-    min-height: 400px; 
-    padding: 1.2rem; 
+    max-width: 90%;
+    min-height: 400px;
+    padding: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
   .login-card {
-    max-width: 95%; 
+    max-width: 95%;
     min-height: 370px;
     padding: 1rem;
   }
