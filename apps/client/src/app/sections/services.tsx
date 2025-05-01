@@ -73,9 +73,11 @@ const Services = () => {
   return (
     <section
       id="services-section"
-      className="px-3 sm:px-5 md:px-6 lg:px-8 xl:px-17"
+      className="px-3 sm:px-5 md:px-6 lg:px-8 xl:px-17 bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60"
     >
-      <h2>Major Services</h2>
+      <h2 className="text-4xl">
+        Services <span className="text-[#0f2557]">We Provide</span>
+      </h2>
 
       <div className="flex justify-center flex-wrap gap-4 mb-12">
         {categories.map((cat) => (

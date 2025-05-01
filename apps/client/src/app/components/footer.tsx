@@ -9,6 +9,7 @@ import {
   MapPin,
 } from "react-feather";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import "@/app/styles/footer.css";
 
 interface SocialMediaLink {
@@ -72,7 +73,9 @@ const Footer = () => {
         </div>
       </div>
 
+      {/* Main Footer Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {/* Logo + Socials */}
         <div className="lg:mr-8">
           <Image
             src="/fullLogo.webp"
@@ -96,13 +99,20 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start lg:ml-12">
+        {/* Major Services */}
+        <div className="flex flex-col items-start lg:ml-12 w-full">
           <h3 className="text-lg font-bold mb-6">Major Services</h3>
-          <ul className="space-y-3">
+          <ul className="space-y-3 w-full">
             {services.map((service) => (
-              <li key={service.name}>
+              <li key={service.name} className="relative pl-0">
                 <Link href={service.link} passHref>
-                  <span className="text-white/50 hover:text-white cursor-pointer">
+                  <span className="group block text-white/50 hover:text-white cursor-pointer transition-all relative">
+                    {/* Floating arrow */}
+                    <ArrowRight
+                      size={16}
+                      className="absolute -left-5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200"
+                    />
+                    {/* Aligned text */}
                     {service.name}
                   </span>
                 </Link>
@@ -115,9 +125,13 @@ const Footer = () => {
           <h3 className="text-lg font-bold mb-6">Informative</h3>
           <ul className="space-y-3">
             {informative.map((info) => (
-              <li key={info.name}>
+              <li key={info.name} className="relative pl-0">
                 <Link href={info.link} passHref>
-                  <span className="text-white/50 hover:text-white cursor-pointer">
+                  <span className="group block text-white/50 hover:text-white cursor-pointer transition-all relative">
+                    <ArrowRight
+                      size={16}
+                      className="absolute -left-5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200"
+                    />
                     {info.name}
                   </span>
                 </Link>
@@ -126,6 +140,7 @@ const Footer = () => {
           </ul>
         </div>
 
+        {/* Contact Details */}
         <div className="flex flex-col items-start">
           <h3 className="text-lg font-bold mb-6">Contact Us</h3>
           <ul className="space-y-3 text-white/50">
@@ -133,15 +148,28 @@ const Footer = () => {
               <MapPin size={16} /> 123 Business Street, Ahmedabad, India
             </li>
             <li className="flex items-center gap-2">
-              <Phone size={16} /> Phone: +91 9999999999
+              <Phone size={16} />
+              <a
+                href="tel:+919999999999"
+                className="hover:text-white transition-colors"
+              >
+                +91 9999999999
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <Mail size={16} /> Email: info@company.com
+              <Mail size={16} />
+              <a
+                href="mailto:info@company.com"
+                className="hover:text-white transition-colors"
+              >
+                info@company.com
+              </a>
             </li>
           </ul>
         </div>
       </div>
 
+      {/* Bottom Footer */}
       <div className="flex flex-wrap justify-center md:justify-between items-center pt-8 border-t border-white/20 gap-6 text-center">
         <p className="text-sm text-white/50">
           © 2025 Jadeja Pragati Pvt. Ltd. All rights reserved.

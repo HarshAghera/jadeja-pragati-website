@@ -17,13 +17,11 @@ const Aboutus = () => {
     <section className="aboutus-section relative overflow-hidden  py-15 md:py-24">
       <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20">
         <div className="text-center mb-16" data-aos="fade-down">
-          <h2 className="text-5xl font-extrabold text-[#0f2557] relative inline-block">
-            About Us
+          <h2 className="text-[#0f2557] text-4xl md:text-5xl font-bold inline-block">
+            Who we are?
             <span className="block w-20 h-1 bg-[#0f2557] mt-3 mx-auto rounded-full"></span>
           </h2>
-          <p className="mt-6 text-2xl text-[#0f2557] font-semibold">
-            Empowering Your Regulatory Success
-          </p>
+          
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
