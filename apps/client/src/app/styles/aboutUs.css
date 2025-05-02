@@ -1,0 +1,19 @@
+.aboutus-section {
+ background: linear-gradient(135deg, #ffffff 60%, #e9eff8 100%);
+}
+.aboutButton {
+  color: #ffffff;
+  border: 3px solid #0f2557;
+  background-image: linear-gradient(30deg, #0f2557 50%, transparent 50%);
+  background-size: 500px;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  transition: background-position 600ms ease-in-out, color 400ms ease-in-out,
+    background-color 400ms ease-in-out;
+}
+
+.aboutButton:hover {
+  background-position: 130%;
+  color: #0f2557;
+  background-color: #ffffff;
+}

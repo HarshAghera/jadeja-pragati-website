@@ -1,17 +1,10 @@
 import type { Metadata } from "next";
-// import { Baloo_Bhai_2 } from "next/font/google";
-import { Inter } from "next/font/google"; // Import Inter font
+import { Inter } from "next/font/google"; 
 import "./globals.css";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
-// Baloo Bhai font
-// const Baloo_Bhai = Baloo_Bhai_2({
-//   subsets: ["latin"],
-//   display: "swap",
-// });
 
-// Inter font
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -20,6 +13,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Jadeja Pragati",
   description: "Recycling & Compliance",
+  icons: {
+    icon: "/icon.webp", 
+  },
 };
 
 export default function RootLayout({
@@ -31,10 +27,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={` ${inter.className} `}>
         {" "}
-        {/* Combine both fonts */}
-        <Header />
+        <Header/>
         {children}
-        <Footer />
+        <Footer/>
       </body>
     </html>
   );
