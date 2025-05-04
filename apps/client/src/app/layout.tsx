@@ -8,7 +8,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Toaster } from "react-hot-toast";
 
 const slab = Roboto_Slab({
-  weight: "400",
+  subsets:["latin"],
+  display:"swap",
 });
 
 export const metadata: Metadata = {
