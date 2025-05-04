@@ -1,5 +1,6 @@
 import React, { JSX } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Facebook,
   Instagram,
@@ -8,7 +9,6 @@ import {
   Mail,
   MapPin,
 } from "react-feather";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import "@/app/styles/footer.css";
 
@@ -22,7 +22,7 @@ interface FooterLink {
   link: string;
 }
 
-const Footer = () => {
+const Footer: React.FC = () => {
   const services: FooterLink[] = [
     { name: "Regulatory Consulting", link: "/services/regulatory-consulting" },
     { name: "Compliance Training", link: "/services/compliance-training" },
@@ -32,8 +32,8 @@ const Footer = () => {
   ];
 
   const informative: FooterLink[] = [
-    { name: "Contact Us", link: "/contact" },
-    { name: "About Us", link: "/aboutUs" },
+    { name: "Contact Us", link: "/contact-us" },
+    { name: "About Us", link: "/about-us" },
     { name: "Projects", link: "/projects" },
     { name: "Investments", link: "/investments" },
   ];
@@ -52,31 +52,26 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-[#0f2557] text-white px-8 pt-6 pb-12">
-      {/* Top Part */}
-      <div className="flex justify-between items-center pt-12 mb-24 flex-wrap gap-6">
-        <div>
-          <h2 className="text-3xl font-bold">
+    <footer className="bg-[#0f2557] text-white px-4 sm:px-6 md:px-8 pt-6 pb-12">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-12 mb-16 gap-6 text-center md:text-left">
+        <div className="pl-4 sm:pl-6">
+          <h2 className="text-2xl sm:text-3xl font-bold">
             Ready to strengthen your compliance posture?
           </h2>
           <p className="mt-2 text-white/50">
             Schedule a consultation with our compliance experts today.
           </p>
         </div>
-        <div>
-          <Link
-            href="/"
-            className="started-button px-6 py-2 text-base rounded-full font-semibold"
-          >
-            Get Started
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="started-button px-6 py-2 text-base rounded-full font-semibold bg-white text-[#0f2557] hover:bg-gray-100 transition-colors"
+        >
+          Get Started
+        </Link>
       </div>
 
-      {/* Main Footer Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-        {/* Logo + Socials */}
-        <div className="lg:mr-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+        <div className="lg:mr-8 pl-4 sm:pl-6">
           <Image
             src="/fullLogo.webp"
             alt="Company Logo"
@@ -88,7 +83,7 @@ const Footer = () => {
             Empowering organizations to navigate regulatory complexities with
             confidence since 2020.
           </p>
-          <div className="flex gap-8">
+          <div className="flex flex-wrap gap-6">
             {socialMedia.map((social, index) => (
               <Link href={social.link} key={index} passHref>
                 <span className="text-white/50 hover:text-white hover:scale-110 transition-transform cursor-pointer">
@@ -100,19 +95,17 @@ const Footer = () => {
         </div>
 
         {/* Major Services */}
-        <div className="flex flex-col items-start lg:ml-12 w-full">
+        <div className="flex flex-col items-start lg:ml-12 pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Major Services</h3>
-          <ul className="space-y-3 w-full">
+          <ul className="space-y-3">
             {services.map((service) => (
               <li key={service.name} className="relative pl-0">
                 <Link href={service.link} passHref>
                   <span className="group block text-white/50 hover:text-white cursor-pointer transition-all relative">
-                    {/* Floating arrow */}
                     <ArrowRight
                       size={16}
                       className="absolute -left-5 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-200"
                     />
-                    {/* Aligned text */}
                     {service.name}
                   </span>
                 </Link>
@@ -121,7 +114,8 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div className="flex flex-col items-start">
+        {/* Informative Links */}
+        <div className="flex flex-col items-start pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Informative</h3>
           <ul className="space-y-3">
             {informative.map((info) => (
@@ -140,12 +134,21 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact Details */}
-        <div className="flex flex-col items-start">
+        {/* Contact Info */}
+        <div className="flex flex-col items-start pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Contact Us</h3>
-          <ul className="space-y-3 text-white/50">
-            <li className="flex items-center gap-2">
-              <MapPin size={16} /> 123 Business Street, Ahmedabad, India
+          <ul className="space-y-4 text-white/50 text-sm">
+            <li className="flex items-start gap-2">
+              <MapPin size={16} className="mt-1" />
+              <div className="leading-relaxed">
+                415, K-Star Business Hub,
+                <br />
+                Nr. White Pelican, Opp. D-Mart,
+                <br />
+                S.P. Ring Road,
+                <br />
+                Dehgam Cross Road, Ahmedabad
+              </div>
             </li>
             <li className="flex items-center gap-2">
               <Phone size={16} />
@@ -159,18 +162,17 @@ const Footer = () => {
             <li className="flex items-center gap-2">
               <Mail size={16} />
               <a
-                href="mailto:info@company.com"
+                href="mailto:jadejapragati@gmail.com"
                 className="hover:text-white transition-colors"
               >
-                info@company.com
+                jadejapragati@gmail.com
               </a>
             </li>
           </ul>
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      <div className="flex flex-wrap justify-center md:justify-between items-center pt-8 border-t border-white/20 gap-6 text-center">
+      <div className="flex flex-col md:flex-row flex-wrap justify-center md:justify-between items-center pt-8 border-t border-white/20 gap-4 text-center">
         <p className="text-sm text-white/50">
           © 2025 Jadeja Pragati Pvt. Ltd. All rights reserved.
         </p>

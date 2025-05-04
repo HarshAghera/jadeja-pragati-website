@@ -1,12 +1,11 @@
-/* You can customize the pagination dots further using this class */
 .custom-pagination .swiper-pagination-bullet {
-  background-color: #4c6ef5; /* Change to your color */
+  background-color: #4c6ef5; 
   width: 12px;
   height: 12px;
   border-radius: 50%;
 }
 .custom-pagination .swiper-pagination-bullet-active {
-  background-color: #2c3e50; /* Active dot color */
+  background-color: #2c3e50; 
 }
 .testimonials{
   background:  linear-gradient(to bottom right, #e3ecf0, #e7e5e5);
