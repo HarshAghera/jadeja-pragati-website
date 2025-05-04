@@ -15,6 +15,7 @@ import Link from "next/link";
 import "@/app/styles/servicesSection.css";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { ArrowRight } from "react-feather";
 
 type Service = {
   icon: JSX.Element;
@@ -107,10 +108,8 @@ const Services = () => {
             <div className="mt-4">
               <Link href={service.link}>
                 <Button className="group bg-[#0f2557] text-white text-sm rounded-full px-5 py-2 flex items-center gap-2 third">
-                  Read More{" "}
-                  <span className="transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
+                  Read More
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
             </div>

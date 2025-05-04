@@ -29,11 +29,7 @@ const HomePage = () =>{
         <div className="w-full max-w-3xl 2xl:max-w-6xl px-5 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-20 relative z-30 pt-29 sm:pt-16 md:pt-20 lg:pt-24 2xl:pt-28">
           <div>
             <motion.h1
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-6xl font-bold leading-tight mb-12 sm:mb-12 lg:mb-12 xl:mb-12"
-              style={{
-                fontFamily: "Playfair Display, serif",
-                color: "rgb(15 37 87 / 1)",
-              }}
+              className=" paragraph text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-6xl font-bold leading-tight mb-12 sm:mb-12 lg:mb-12 xl:mb-12"
               initial={{ opacity: 0, x: -100 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
@@ -49,7 +45,7 @@ const HomePage = () =>{
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <Link href="/Projects">
+              <Link href="/projects">
                 <Button
                   className="group bg-[#0f2557] text-white third 
                   text-sm sm:text-lg md:text-xl 2xl:text-lg
