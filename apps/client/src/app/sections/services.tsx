@@ -76,9 +76,9 @@ const Services = () => {
       id="services-section"
       className="px-3 sm:px-5 md:px-6 lg:px-8 xl:px-17 bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60"
     >
-      <h2 className="text-4xl">
+      <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl  mb-4 text-[#0f2557] text-center">
         Services <span className="text-[#0f2557]">We Provide</span>
-      </h2>
+      </h1>
 
       <div className="flex justify-center flex-wrap gap-4 mb-12">
         {categories.map((cat) => (
@@ -118,7 +118,7 @@ const Services = () => {
       </div>
       <div
         ref={statsRef}
-        className="stats-section mt-10 w-full flex justify-center"
+        className="stats-section mt-20 w-full flex justify-center"
       >
         <div className="w-full max-w-7xl flex flex-wrap justify-around rounded-2xl p-2 sm:p-4 md:p-5 bg-[#0f2557] text-white/85">
           {[

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -7,9 +7,8 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { Toaster } from "react-hot-toast";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
+const slab = Roboto_Slab({
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -27,16 +26,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
+      <body className={`${slab.className}`}>
         <Toaster
           position="top-center"
           reverseOrder={false}
           toastOptions={{
             style: {
-              background: "#0f2557", 
-              color: "white", 
-              borderRadius: "8px", 
-              padding: "12px", 
+              background: "#0f2557",
+              color: "white",
+              borderRadius: "8px",
+              padding: "12px",
               fontSize: "16px",
             },
           }}

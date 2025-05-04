@@ -26,15 +26,6 @@ const ContactUs = () => {
       return;
     }
 
-    // Regex to validate Gmail and other domains
-    const emailRegex = /^[^\s@]+@(gmail\.com|yahoo\.com|outlook\.com)$/;
-    if (!emailRegex.test(trimmedEmail)) {
-      toast.error(
-        "Please enter a valid email address (Gmail, Yahoo, or Outlook only)"
-      );
-      return;
-    }
-
     const mobileRegex = /^[0-9]{10}$/;
     if (!mobileRegex.test(trimmedMobile)) {
       toast.error("Please enter a valid 10-digit mobile number");
@@ -67,7 +58,6 @@ const ContactUs = () => {
     }
   };
 
-
   return (
     <section
       className="pt-20 pb-12 overflow-x-hidden"
@@ -78,7 +68,7 @@ const ContactUs = () => {
         `,
       }}
     >
-      <div className="relative w-full contactContent min-h-[200px] sm:min-h-[300px] md:min-h-[400px]">
+      <div className="relative w-full  min-h-[200px] sm:min-h-[300px] md:min-h-[400px]">
         <Image
           src="/officeimage.webp"
           alt="Background"
@@ -88,17 +78,22 @@ const ContactUs = () => {
         />
         <div className="absolute inset-0 bg-white/90 z-10"></div>
 
-        <div className="relative z-20 max-w-3xl px-4 md:px-6 py-12 text-center lg:text-left lg:ml-20 lg:mx-0 mx-auto">
-          <p className="text-[#0f2557] uppercase pb-3 font-bold">Contact Us</p>
-          <h2 className="text-4xl sm:text-5xl md:text-6xl mt-2 mb-6 text-gray-900">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.5 }}
+          className="relative z-20 max-w-3xl px-4 md:px-6 py-12 text-center lg:text-left lg:ml-20 lg:mx-0 mx-auto"
+        >
+          <h2 className="text-4xl sm:text-5xl md:text-6xl mt-2 mb-6 text-[#0f2557] getintouch">
             Get in touch
           </h2>
-          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed font-bold">
+          <p className="text-gray-700 text-sm sm:text-base md:text-xl leading-relaxed">
             You can ask us a question or submit an enquiry or request using the
             form below. Please complete the form in as much detail as possible,
             so we are able to direct the enquiry to the relevant department.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       <div className="informative-section grid grid-cols-1 md:grid-cols-3 gap-8 px-4 sm:px-6 md:px-10 py-5 w-full min-h-[270px]">
@@ -182,18 +177,18 @@ const ContactUs = () => {
       </div>
 
       <div className="px-4 sm:px-6 md:px-15 w-full mt-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start ">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white p-6 sm:p-8 rounded-lg shadow-lg"
+            className="p-6 sm:p-8 rounded-lg shadow-xl bg-gradient-to-b from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60"
           >
             <h3 className="text-2xl sm:text-3xl font-semibold mb-6 text-[#0f2557]">
               Send a Message
             </h3>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 ">
               <div>
                 <label className="block mb-1 text-[#0f2557]">Name</label>
                 <input

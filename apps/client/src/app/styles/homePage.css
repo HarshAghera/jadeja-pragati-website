@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
-
 .hero-section {
   position: relative;
   display: flex;
@@ -37,8 +35,4 @@
   background-position: 130%;
   color: #0f2557;
   background-color: #ffffff;
-}
-.paragraph {
-  font-family: "Playfair Display", serif;
-  color: rgb(15, 37, 87);
 }
