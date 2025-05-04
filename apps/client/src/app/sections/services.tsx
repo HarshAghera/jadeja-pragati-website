@@ -15,6 +15,7 @@ import Link from "next/link";
 import "@/app/styles/servicesSection.css";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
+import { ArrowRight } from "react-feather";
 
 type Service = {
   icon: JSX.Element;
@@ -75,9 +76,9 @@ const Services = () => {
       id="services-section"
       className="px-3 sm:px-5 md:px-6 lg:px-8 xl:px-17 bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60"
     >
-      <h2 className="text-4xl">
+      <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl  mb-4 text-[#0f2557] text-center">
         Services <span className="text-[#0f2557]">We Provide</span>
-      </h2>
+      </h1>
 
       <div className="flex justify-center flex-wrap gap-4 mb-12">
         {categories.map((cat) => (
@@ -107,10 +108,8 @@ const Services = () => {
             <div className="mt-4">
               <Link href={service.link}>
                 <Button className="group bg-[#0f2557] text-white text-sm rounded-full px-5 py-2 flex items-center gap-2 third">
-                  Read More{" "}
-                  <span className="transition-transform group-hover:translate-x-1">
-                    →
-                  </span>
+                  Read More
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
             </div>
@@ -119,7 +118,7 @@ const Services = () => {
       </div>
       <div
         ref={statsRef}
-        className="stats-section mt-10 w-full flex justify-center"
+        className="stats-section mt-20 w-full flex justify-center"
       >
         <div className="w-full max-w-7xl flex flex-wrap justify-around rounded-2xl p-2 sm:p-4 md:p-5 bg-[#0f2557] text-white/85">
           {[

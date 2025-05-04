@@ -51,13 +51,14 @@ const testimonials: Testimonial[] = [
 
 const Testimonials = () => {
   return (
-    <div className="relative bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60 py-20 px-4">
+    <div className="relative bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60 py-11 px-4">
       <div className="absolute inset-0 opacity-10  bg-cover bg-no-repeat pointer-events-none z-0" />
 
       <div className="relative max-w-6xl mx-auto text-center text-[#0f2557] z-10">
-        <h2 className="text-4xl font-bold mb-2">
-          What <span className="text-[#0f2557]">Our Clients</span> Say
-        </h2>
+        <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl  mb-4 text-[#0f2557] text-center">
+          What our <span className="text-[#0f2557]">Clients Say</span>
+        </h1>
+
         <p className="text-[#0f2557]/70 mb-10">
           Hear Directly From Our Satisfied Partners
         </p>
