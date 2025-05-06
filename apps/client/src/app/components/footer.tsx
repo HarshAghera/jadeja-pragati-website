@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="bg-[#0f2557] text-white px-4 sm:px-6 md:px-8 pt-6 pb-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-12 mb-16 gap-6 text-center md:text-left">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-12 mb-16 gap-6 md:text-left">
         <div className="pl-4 sm:pl-6">
           <h2 className="text-2xl sm:text-3xl font-bold">
             Ready to strengthen your compliance posture?
@@ -62,12 +62,6 @@ const Footer: React.FC = () => {
             Schedule a consultation with our compliance experts today.
           </p>
         </div>
-        <Link
-          href="/"
-          className="started-button px-6 py-2 text-base rounded-full font-semibold bg-white text-[#0f2557] hover:bg-gray-100 transition-colors"
-        >
-          Get Started
-        </Link>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">

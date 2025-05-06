@@ -1,94 +1,92 @@
-"use client";
-
-import React, { useState } from "react";
-import "@/app/styles/aboutUs.css";
-import { Button } from "@/components/ui/button"; 
+import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import "@/app/styles/aboutUs.css";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "react-feather";
 
-const Aboutus = () => {
-  const [videoSrc, setVideoSrc] = useState("");
-
-  const handlePlayClick = () => {
-    setVideoSrc(
-      "https://www.youtube.com/embed/iuJDhFRDx9M?si=moidBAOcUPnjIdtZ");
-  };
-
+const AboutUs: React.FC = () => {
   return (
-    <section className="aboutus-section relative overflow-hidden  py-15 md:py-24">
-      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-20">
-        <div className="text-center mb-16" data-aos="fade-down">
-          <h2 className="text-[#0f2557] text-4xl md:text-5xl font-bold inline-block">
-            Who we are?
-            <span className="block w-20 h-1 bg-[#0f2557] mt-3 mx-auto rounded-full"></span>
-          </h2>
-          
+    <div className="aboutus-section w-full px-4 sm:px-6 md:px-12 lg:px-20 relative overflow-hidden pt-11 sm:pt-11 md:pt-13 lg:pt-15">
+      <div className="text-center ">
+        <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0f2557]">
+          Who We Are?
+        </h1>
+      </div>
+
+      <div className="w-full py-15 sm:py-16 md:py-20 lg:py-24 xl:py-26 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+        <div className="relative w-full">
+          <Image
+            src="/projectExplain.webp"
+            alt="Team"
+            width={900}
+            height={700}
+            className="rounded-xl w-full object-cover shadow-xl
+               h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px]"
+          />
+
+          <motion.div
+            className="absolute bottom-[-20px] right-[-20px] 
+               w-[120px] h-[80px] 
+               sm:w-[140px] sm:h-[90px] 
+               md:w-[180px] md:h-[110px] 
+               lg:w-[200px] lg:h-[130px] 
+               border-4 border-white shadow-2xl rounded-xl overflow-hidden"
+            animate={{ y: [0, -15, 0] }}
+            transition={{
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 5,
+              ease: "easeInOut",
+            }}
+          >
+            <Image
+              src="/thumbsup.webp"
+              alt="Team Small"
+              fill
+              className="object-cover"
+            />
+          </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div
-            className="space-y-8 flex flex-col justify-between"
-            data-aos="fade-up"
-          >
-            <p className="text-2xl text-[#0f2557] font-medium leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus,
-              quia! Consectetur officia eius explicabo provident. Ex voluptate
-              reprehenderit molestiae obcaecati!
-            </p>
+        <div>
+          <h2 className="text-2xl sm:text-2xl md:text-3xl text-[#0f2557]  mb-6 leading-snug">
+            Empowering You to Feel
+            <br className="hidden sm:block" />
+            Your Best Every Day
+          </h2>
+          <p className="text-[#0f2557] text-sm sm:text-base md:text-md mb-6">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
+            possimus officia asperiores amet in, ab minima soluta similique
+            nostrum quis tenetur. Dignissimos consequatur quo dicta?
+          </p>
 
-            <Button className="aboutButton bg-[#0f2557] text-white text-lg md:text-xl lg:text-2xl rounded-full px-8 py-6 flex items-center gap-3 w-max mt-6">
-              About us <span className="transition-transform ">→</span>
+          <ul className="space-y-4 mb-8 text-[#0f2557] text-sm sm:text-base">
+            <li className="flex items-start gap-3">
+              <Image src="/tick.svg" alt="Tick" width={20} height={20} />
+              <span>24/7 Call Services Available</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <Image src="/tick.svg" alt="Tick" width={20} height={20} />
+              <span>Great Skilled Consultant</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <Image src="/tick.svg" alt="Tick" width={20} height={20} />
+              <span>Expert Team Members</span>
+            </li>
+          </ul>
+
+          <Link href="/about-us">
+            <Button className="group aboutButton bg-[#0f2557] text-white text-sm sm:text-base md:text-lg px-6 py-3 sm:px-10 sm:py-4 md:px-12 md:py-5 rounded-full flex items-center gap-2">
+              Learn More
+              <ArrowRight className="w-5 h-5 md:w-6 md:h-6 transition-transform group-hover:translate-x-1" />
             </Button>
-          </div>
-
-          <div
-            className="relative group rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-500 cursor-pointer max-w-xl mx-auto w-full"
-            onClick={handlePlayClick}
-            data-aos="zoom-in"
-          >
-            {!videoSrc && (
-              <>
-                <div className="relative w-full h-[200px] sm:h-[250px] md:h-[300px] lg:h-[300px]">
-                  <Image
-                    src="/lightblueoffice.webp"
-                    alt="Light Blue Office"
-                    fill
-                    className="object-cover object-center"
-                    priority 
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                  <div className="w-18 h-18 border-2  border-white bg-transparent rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="32"
-                      height="32"
-                      fill="currentColor"
-                      className="text-white"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </div>
-                </div>
-              </>
-            )}
-
-            {videoSrc && (
-              <iframe
-                width="100%"
-                height="100%"
-                src={videoSrc}
-                title="About Us Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="rounded-3xl w-full h-[150px] sm:h-[200px] md:h-[250px] lg:h-[300px]"
-              ></iframe>
-            )}
-          </div>
+          </Link>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default Aboutus;
+export default AboutUs;
