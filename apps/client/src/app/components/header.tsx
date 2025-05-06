@@ -143,7 +143,7 @@ const Header = () => {
                             <Link
                               key={i}
                               href={item.href}
-                              className="group block px-5 py-3 text-black text-sm font-medium transition-all duration-300 hover:bg-gray-100"
+                              className="group block px-5 py-3 text-[#0f2557] text-sm font-medium transition-all duration-300 hover:bg-gray-100"
                               onClick={() => setOpenDropdown(null)}
                             >
                               {item.label}
@@ -250,7 +250,7 @@ const Header = () => {
                           <Link
                             key={i}
                             href={item.href}
-                            className="block w-full text-sm px-5 py-3 text-black"
+                            className="block w-full text-sm px-5 py-3 text-[#0f2557]"
                             onClick={() => setMobileMenuOpen(false)}
                           >
                             {item.label}

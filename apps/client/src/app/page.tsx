@@ -1,24 +1,26 @@
-'use client';
+"use client";
 
-import Services from './sections/services';
-import WhyChooseUs from './sections/whyChooseUs';
-import HomePage from './sections/homePage';
-import Testimonials from './sections/testimonials';
-import Loading from './loading';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
+import Services from "./sections/services";
+import WhyChooseUs from "./sections/whyChooseUs";
+import HomePage from "./sections/homePage";
+import Testimonials from "./sections/testimonials";
+import AboutUs from "./sections/aboutUs";
+import Loading from "./loading";
+import { JSX } from "react/jsx-runtime";
 
-export default function MainPage() {
-  const [loading, setLoading] = useState(true); // Global loading state
+export default function MainPage(): JSX.Element {
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkImagesLoaded = () => {
-      const images = Array.from(document.images);
+    const checkImagesLoaded = (): boolean => {
+      const images: HTMLImageElement[] = Array.from(document.images);
       return images.every((image) => image.complete);
     };
 
     const handlePageLoad = () => {
       if (checkImagesLoaded()) {
-        setLoading(false); // All resources are loaded, stop loader
+        setLoading(false); 
       } else {
         const interval = setInterval(() => {
           if (checkImagesLoaded()) {
@@ -29,29 +31,26 @@ export default function MainPage() {
       }
     };
 
-    // Use window.onload to ensure all resources (images, styles, etc.) are loaded
-    window.onload = handlePageLoad;
+    handlePageLoad();
 
-    // Adding a minimum loading time of 1 second (adjust as needed)
     const timeout = setTimeout(() => {
       if (loading) setLoading(false);
-    }, 1500); // Ensures that the loader stays for at least 1.5 second
+    }, 1500);
 
-    // Cleanup timeout and event listener on unmount
     return () => {
       clearTimeout(timeout);
-      window.onload = null;
     };
-  }, [loading]); // Run the effect when `loading` state changes
+  }, []); 
 
   if (loading) {
-    return <Loading />; // Show loading component until loading is false
+    return <Loading />; 
   }
 
   return (
     <main>
       <HomePage />
       <Services />
+      <AboutUs />
       <WhyChooseUs />
       <Testimonials />
     </main>
