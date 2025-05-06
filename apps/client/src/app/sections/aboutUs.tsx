@@ -51,12 +51,12 @@ const AboutUs: React.FC = () => {
         </div>
 
         <div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl text-[#0f2557] font-semibold mb-6 leading-snug">
+          <h2 className="text-2xl sm:text-2xl md:text-3xl text-[#0f2557]  mb-6 leading-snug">
             Empowering You to Feel
             <br className="hidden sm:block" />
             Your Best Every Day
           </h2>
-          <p className="text-[#0f2557] text-sm sm:text-base md:text-lg mb-6">
+          <p className="text-[#0f2557] text-sm sm:text-base md:text-md mb-6">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
             possimus officia asperiores amet in, ab minima soluta similique
             nostrum quis tenetur. Dignissimos consequatur quo dicta?
