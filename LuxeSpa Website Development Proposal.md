@@ -75,25 +75,21 @@ LuxeSpa Website Development Proposal
    ✅ 100% custom-built — no template reuse
    ✅ Transparent communication & weekly updates
    ✅ Focused on performance, user experience, and conversion
-   ✅ Free post-launch bug fixes for 60 days (extended to 90 days for first 5 clients)
+   ✅ Free post-launch bug fixes for 30 days (extended to 1 year for first 5 clients)
    ✅ Flat, predictable pricing — no hidden charges
 
 8. Payment Schedule
    30% upfront to begin
-
    40% after backend + admin panel
-
    30% upon final delivery
 
 9. What I Need From You
    Logo, brand colors, content (photos, service info, team info)
-
-Availability for a kickoff meeting
+   Availability for a kickoff meeting
 
 Note:
 Domain Registration: You can buy your domain for $8–$15/year from third-party providers like GoDaddy or Namecheap. If you use AWS Route 53, it costs about $12/year.
-
-    AWS Hosting: The minimum hosting cost with AWS is around $26.55/month (after the first year or if the Free Tier no longer applies). During the first year, using AWS’s Free Tier could bring the cost to $16/month.
+AWS Hosting: The minimum hosting cost with AWS is around $26.55/month (after the first year or if the Free Tier no longer applies). During the first year, using AWS’s Free Tier could bring the cost to $16/month.
 
 ✅ Ready to Begin?
 Let’s build a beautiful online home for your spa brand — one that converts visitors into loyal clients.
