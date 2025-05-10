@@ -1,32 +1,20 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import "@/app/styles/homePage.css";
+import ImageSection from "../client/components/homePage/imageSection";
 
 const HomePage = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
     <section
       id="home"
       className="hero-section relative min-h-[70vh] md:min-h-[80vh] lg:min-h-screen 2xl:min-h-[100vh] flex flex-col justify-start items-start overflow-hidden text-left"
     >
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/officeimage.webp"
-          alt="Office Background"
-          fill
-          priority
-          quality={100}
-          className={`object-cover object-center lg:object-top transition-opacity duration-700 ${
-            imageLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          onLoad={() => setImageLoaded(true)}
-        />
-      </div>
+      <ImageSection
+        src="/officeimage.webp"
+        alt="Modern office workspace background at JadejaPragati"
+      />
 
       <div className="hero-overlay absolute inset-0 bg-[#0f2557]/30 z-10" />
 
