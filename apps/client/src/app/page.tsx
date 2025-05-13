@@ -1,58 +1,31 @@
-"use client";
+import MainPage from "./client/mainPage";
+import type { Metadata } from "next";
 
-import { useEffect, useState } from "react";
-import Services from "./sections/services";
-import WhyChooseUs from "./sections/whyChooseUs";
-import HomePage from "./sections/homePage";
-import Testimonials from "./sections/testimonials";
-import AboutUs from "./sections/aboutUs";
-import Loading from "./loading";
-import { JSX } from "react/jsx-runtime";
+export const metadata: Metadata = {
+  title: "Home - JadejaPragati",
+  description:
+    "Empowering businesses with compliance solutions for the modern enterprise. Navigate regulations confidently and grow with JadejaPragati.",
+  keywords: [
+    "JadejaPragati",
+    "compliance solutions",
+    "business consulting",
+    "regulatory support",
+    "enterprise services",
+  ],
+  alternates: {
+    canonical: "https://www.jadejapragati.com/",
+  },
+  openGraph: {
+    title: "Home - JadejaPragati",
+    description:
+      "Empowering businesses with smart compliance solutions and regulatory support.",
+    url: "https://www.jadejapragati.com/",
+    siteName: "JadejaPragati",
+    type: "website",
+    locale: "en-IN",
+  },
+};
 
-export default function MainPage(): JSX.Element {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkImagesLoaded = (): boolean => {
-      const images: HTMLImageElement[] = Array.from(document.images);
-      return images.every((image) => image.complete);
-    };
-
-    const handlePageLoad = () => {
-      if (checkImagesLoaded()) {
-        setLoading(false); 
-      } else {
-        const interval = setInterval(() => {
-          if (checkImagesLoaded()) {
-            setLoading(false);
-            clearInterval(interval);
-          }
-        }, 100);
-      }
-    };
-
-    handlePageLoad();
-
-    const timeout = setTimeout(() => {
-      if (loading) setLoading(false);
-    }, 1500);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []); 
-
-  if (loading) {
-    return <Loading />; 
-  }
-
-  return (
-    <main>
-      <HomePage />
-      <Services />
-      <AboutUs />
-      <WhyChooseUs />
-      <Testimonials />
-    </main>
-  );
+export default function Page() {
+  return <MainPage />;
 }
