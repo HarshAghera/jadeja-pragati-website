@@ -34,6 +34,7 @@ const Footer: React.FC = () => {
   const informative: FooterLink[] = [
     { name: "Contact Us", link: "/contact-us" },
     { name: "About Us", link: "/about-us" },
+    { name: "Blog", link: "/blog" },
     { name: "Projects", link: "/projects" },
     { name: "Investments", link: "/investments" },
   ];

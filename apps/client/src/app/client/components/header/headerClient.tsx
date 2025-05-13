@@ -18,17 +18,13 @@ const HeaderClient = () => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
-  const dropdownLinks: Record<string, { label: string; href: string }[]> = {
-    environmental: [
-      { label: "Environmental Item 1", href: "environmental-item1" },
-      { label: "Environmental Item 2", href: "environmental-item2" },
-    ],
-    license: [
-      { label: "License Item 1", href: "license-item1" },
-      { label: "License Item 2", href: "license-item2" },
-    ],
-  };
+  // Dropdown toggle functions
+  const handleOpenDropdown = (name: string) => setOpenDropdown(name);
+  const handleCloseDropdown = () => setOpenDropdown(null);
+  const handleToggleDropdown = (name: string) =>
+    setOpenDropdown((prev) => (prev === name ? null : name));
 
+  // Outside click handler
   const handleClickOutside = (event: MouseEvent) => {
     if (
       dropdownRef.current &&
@@ -49,6 +45,12 @@ const HeaderClient = () => {
     setScrolled(window.scrollY > window.innerHeight * 0.2);
   };
 
+  const toggleMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+    setOpenDropdown(null);
+    setMobileOpenDropdown(null);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", handleScroll);
@@ -58,6 +60,17 @@ const HeaderClient = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const dropdownLinks: Record<string, { label: string; href: string }[]> = {
+    environmental: [
+      { label: "Environmental Item 1", href: "environmental-item1" },
+      { label: "Environmental Item 2", href: "environmental-item2" },
+    ],
+    license: [
+      { label: "License Item 1", href: "license-item1" },
+      { label: "License Item 2", href: "license-item2" },
+    ],
+  };
 
   return (
     <motion.header
@@ -87,59 +100,62 @@ const HeaderClient = () => {
             />
           </Link>
 
-          {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center justify-between flex-grow text-md xl:text-base ml-4 lg:ml-8 xl:ml-12">
             <div className="nav-links flex items-center gap-x-4 xl:gap-x-6">
-              {Object.entries(dropdownLinks).map(([name, items]) => (
-                <div
-                  key={name}
-                  className="relative"
-                  ref={openDropdown === name ? dropdownRef : null}
-                  onMouseEnter={() => setOpenDropdown(name)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                >
+              {["environmental", "license"].map((name) => {
+                const title = name.charAt(0).toUpperCase() + name.slice(1);
+                return (
                   <div
-                    className="group flex items-center cursor-pointer"
-                    onClick={() =>
-                      setOpenDropdown((prev) => (prev === name ? null : name))
-                    }
+                    key={name}
+                    className="relative"
+                    ref={openDropdown === name ? dropdownRef : null}
+                    onMouseEnter={() => handleOpenDropdown(name)}
+                    onMouseLeave={handleCloseDropdown}
                   >
-                    <span className="relative text-[#0f2557] group-hover:text-[#093f54]">
-                      {name.charAt(0).toUpperCase() + name.slice(1)}
-                      <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#093f54] group-hover:w-full transition-all duration-300" />
-                    </span>
-                    <Plus
-                      size={18}
-                      className={`transition-transform duration-300 ${
-                        openDropdown === name ? "rotate-45" : ""
-                      } ml-1`}
-                    />
-                  </div>
+                    <div
+                      className="group flex items-center cursor-pointer"
+                      onClick={() => handleToggleDropdown(name)}
+                    >
+                      <span className="relative text-[#0f2557] transition-colors duration-300 group-hover:text-[#093f54]">
+                        {title}
+                        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#093f54] transition-all duration-300 group-hover:w-full"></span>
+                      </span>
+                      <button className="flex items-center gap-1 px-2 py-1 text-[#0f2557] group-hover:text-[#093f54] transition-colors duration-300">
+                        <Plus
+                          size={18}
+                          className={`transition-transform duration-300 ${
+                            openDropdown === name ? "rotate-45" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
 
-                  <AnimatePresence>
-                    {openDropdown === name && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.5 }}
-                        className="absolute top-full left-0 mt-4 w-64 bg-white rounded-lg shadow-lg overflow-hidden z-50"
-                      >
-                        {items.map((item, i) => (
-                          <Link
-                            key={i}
-                            href={item.href}
-                            className="group block px-5 py-3 text-[#0f2557] text-sm font-medium hover:bg-gray-100"
-                            onClick={() => setOpenDropdown(null)}
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ))}
+                    <AnimatePresence>
+                      {openDropdown === name && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.5 }}
+                          className="absolute top-full left-0 mt-4 w-64 bg-white rounded-lg shadow-lg overflow-hidden z-50"
+                        >
+                          {dropdownLinks[name].map((item, i) => (
+                            <Link
+                              key={i}
+                              href={item.href}
+                              className="group block px-5 py-3 text-[#0f2557] text-sm font-medium transition-all duration-300 hover:bg-gray-100"
+                              onClick={() => setOpenDropdown(null)}
+                            >
+                              {item.label}
+                              <span className="absolute left-0 bottom-1 w-0 h-[2px] bg-[#093f54] transition-all duration-300 group-hover:w-[80%]"></span>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="flex items-center space-x-4">
@@ -147,14 +163,14 @@ const HeaderClient = () => {
                 { label: "About Us", href: "about-us" },
                 { label: "Projects", href: "projects" },
                 { label: "Investments", href: "investments" },
-              ].map((link) => (
+              ].map((link, index) => (
                 <Link
-                  key={link.href}
+                  key={index}
                   href={link.href}
-                  className="relative px-2 py-1 text-[#0f2557] group hover:text-[#093f54]"
+                  className="relative px-2 py-1 text-[#0f2557] transition-colors duration-300 group hover:text-[#093f54]"
                 >
                   {link.label}
-                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#093f54] group-hover:w-full transition-all duration-300" />
+                  <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#093f54] transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               ))}
             </div>
@@ -169,9 +185,8 @@ const HeaderClient = () => {
             </div>
           </nav>
 
-          {/* Mobile Nav Toggle */}
           <div className="lg:hidden">
-            <button onClick={() => setMobileMenuOpen((prev) => !prev)}>
+            <button onClick={toggleMenu}>
               {mobileMenuOpen ? (
                 <X
                   size={30}
@@ -198,7 +213,7 @@ const HeaderClient = () => {
             transition={{ duration: 0.5 }}
             className="lg:hidden bg-white/80 backdrop-blur-md text-[#0f2557] w-full px-6 py-6 space-y-6 flex flex-col items-center text-center"
           >
-            {Object.entries(dropdownLinks).map(([name, items]) => {
+            {["environmental", "license"].map((name) => {
               const isOpen = mobileOpenDropdown === name;
               return (
                 <div
@@ -231,7 +246,7 @@ const HeaderClient = () => {
                         transition={{ duration: 0.5 }}
                         className="flex flex-col items-center space-y-2 overflow-hidden w-full"
                       >
-                        {items.map((item, i) => (
+                        {dropdownLinks[name].map((item, i) => (
                           <Link
                             key={i}
                             href={item.href}
@@ -250,8 +265,8 @@ const HeaderClient = () => {
 
             <div className="flex flex-col items-center space-y-4">
               {[
-                { label: "About Us", href: "about-us" },
-                { label: "Projects", href: "projects" },
+                { label: "About Us", href: "#aboutus" },
+                { label: "Projects", href: "#projects" },
               ].map((link, index) => (
                 <Link
                   key={index}

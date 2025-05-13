@@ -1,9 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import "@/app/styles/homePage.css";
-import ImageSection from "../client/components/homePage/imageSection";
 
 const HomePage = () => {
   return (
@@ -11,13 +11,23 @@ const HomePage = () => {
       id="home"
       className="hero-section relative min-h-[70vh] md:min-h-[80vh] lg:min-h-screen 2xl:min-h-[100vh] flex flex-col justify-start items-start overflow-hidden text-left"
     >
-      <ImageSection
-        src="/officeimage.webp"
-        alt="Modern office workspace background at JadejaPragati"
-      />
+      <div className="absolute inset-0 z-0 bg-[#eaeaea]">
+        <picture>
+          <source media="(max-width: 768px)" srcSet="/windmill-mobile.webp" />
+          <Image
+            src="/windmill.webp"
+            alt="Illustration symbolizing recycling, reuse, and sustainable compliance solutions by JadejaPragati"
+            fill
+            priority
+            quality={60}
+            className="object-cover object-center lg:object-top"
+          />
+        </picture>
+      </div>
 
       <div className="hero-overlay absolute inset-0 bg-[#0f2557]/30 z-10" />
 
+      {/* Content */}
       <div className="w-full max-w-3xl 2xl:max-w-6xl px-5 sm:px-6 md:px-8 lg:px-16 xl:px-20 2xl:px-20 relative z-30 pt-29 sm:pt-16 md:pt-20 lg:pt-24 2xl:pt-28">
         <motion.h1
           className="heading text-[#0f2557] text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-6xl leading-tight mb-12"

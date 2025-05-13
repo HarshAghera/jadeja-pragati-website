@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
 import { Toaster } from "react-hot-toast";
 import Header from "./components/header";
+import PageLoader from "./components/pageLoader";
 
 const slab = Roboto_Slab({
   subsets: ["latin"],
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "JadejaPragati offers innovative compliance and recycling solutions to help businesses meet regulatory requirements in India.",
   icons: {
-    icon: "/icon.webp", 
+    icon: "/icon.webp",
   },
   keywords: [
     "JadejaPragati",
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
     "regulatory solutions",
     "environmental solutions",
   ],
-  robots: "index, follow", 
+  robots: "index, follow",
   alternates: {
     canonical: "https://www.jadejapragati.com/",
   },
@@ -38,10 +39,10 @@ export const metadata: Metadata = {
     url: "https://www.jadejapragati.com/",
     siteName: "JadejaPragati",
     type: "website",
-    locale: "en-IN", 
+    locale: "en-IN",
     images: [
       {
-        url: "https://www.jadejapragati.com/og-image.jpg", 
+        url: "https://www.jadejapragati.com/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Jadeja Pragati - Compliance Solutions",
@@ -57,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${slab.className}`}>
+      <body className={slab.className}>
         <Toaster
           position="top-center"
           reverseOrder={false}
@@ -72,8 +73,7 @@ export default function RootLayout({
           }}
         />
         <Header />
-        {children}
-        <Footer />
+        <PageLoader>{children}</PageLoader>
         <Link
           href="https://wa.me/1111111111"
           target="_blank"
@@ -82,6 +82,7 @@ export default function RootLayout({
         >
           <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6" />
         </Link>
+        <Footer />
       </body>
     </html>
   );
