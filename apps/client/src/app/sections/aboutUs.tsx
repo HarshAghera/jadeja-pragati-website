@@ -44,7 +44,8 @@ const AboutUs: React.FC = () => {
             <Image
               src="/thumbsup.webp"
               alt="Team Small"
-              fill
+              width={400}
+              height={300}
               className="object-cover"
             />
           </motion.div>
