@@ -28,19 +28,6 @@ const HeaderClient = () => {
     ],
   };
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setOpenDropdown(null);
-    }
-  };
-
-  const handleScroll = () => {
-    setScrolled(window.scrollY > window.innerHeight * 0.2);
-  };
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -52,7 +39,7 @@ const HeaderClient = () => {
     };
 
     const handleScroll = () => {
-      setScrolled(window.scrollY > window.innerHeight * 0.2);
+      setScrolled(window.scrollY > window.innerHeight * 0.01);
     };
 
     const handleResize = () => {
@@ -75,108 +62,121 @@ const HeaderClient = () => {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-white/80 backdrop-blur-md shadow-md" : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-[90vw] min-w-[320px] mx-auto">
-        <div className="flex items-center justify-between py-1 ">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/jp_logo.webp"
-              alt="Logo"
-              height={145}
-              width={145}
-              className="object-contain min-w-[36px] sm:min-w-[42px] lg:min-w-[48px]"
-            />
-          </Link>
+    <>
+      <motion.header
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+          scrolled ? "bg-white/80 backdrop-blur-md shadow-md" : "bg-transparent"
+        }`}
+      >
+        <div className="max-w-[90vw] min-w-[320px] mx-auto">
+          <div className="flex items-center justify-between py-1">
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/pictures/jp_logo.webp"
+                alt="Logo"
+                height={145}
+                width={145}
+                className="object-contain min-w-[36px] sm:min-w-[42px] lg:min-w-[48px]"
+              />
+            </Link>
 
-          <div className="hidden lg:flex items-center flex-grow justify-between text-[#0f2557] ml-12">
-            <div className="flex items-center gap-7">
-              {["environmental", "license"].map((name) => {
-                const title = name.charAt(0).toUpperCase() + name.slice(1);
-                return (
-                  <div
-                    key={name}
-                    className="relative"
-                    ref={openDropdown === name ? dropdownRef : null}
-                    onMouseEnter={() => setOpenDropdown(name)}
-                    onMouseLeave={() => setOpenDropdown(null)}
-                  >
+            <div className="hidden lg:flex items-center flex-grow justify-between text-[#0f2557] ml-12">
+              <div className="flex items-center gap-7">
+                {["environmental", "license"].map((name) => {
+                  const title = name.charAt(0).toUpperCase() + name.slice(1);
+                  return (
                     <div
-                      className="group flex items-center cursor-pointer"
-                      onClick={() =>
-                        setOpenDropdown((prev) => (prev === name ? null : name))
-                      }
+                      key={name}
+                      className="relative"
+                      ref={openDropdown === name ? dropdownRef : null}
+                      onMouseEnter={() => setOpenDropdown(name)}
+                      onMouseLeave={() => setOpenDropdown(null)}
                     >
-                      <span className="relative group-hover:text-[#0f2557]">
-                        {title}
-                        <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#0f2557] transition-all duration-300 group-hover:w-full"></span>
-                      </span>
-                      <Plus
-                        size={18}
-                        className={`ml-1 transition-transform ${
-                          openDropdown === name ? "rotate-45" : ""
-                        }`}
-                      />
+                      <div
+                        className="group flex items-center cursor-pointer"
+                        onClick={() =>
+                          setOpenDropdown((prev) =>
+                            prev === name ? null : name
+                          )
+                        }
+                      >
+                        <span className="relative group-hover:text-[#0f2557]">
+                          {title}
+                          <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#0f2557] transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                        <Plus
+                          size={18}
+                          className={`ml-1 transition-transform ${
+                            openDropdown === name ? "rotate-45" : ""
+                          }`}
+                        />
+                      </div>
+                      <AnimatePresence>
+                        {openDropdown === name && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.5 }}
+                            className="absolute top-full left-0 mt-4 w-64 bg-white rounded-lg shadow-lg overflow-hidden z-50 "
+                          >
+                            {dropdownLinks[name].map((item, i) => (
+                              <Link
+                                key={i}
+                                href={item.href}
+                                className="px-5 py-3 text-sm hover-underline inline-block"
+                              >
+                                {item.label}
+                              </Link>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <AnimatePresence>
-                      {openDropdown === name && (
-                        <motion.div
-                          initial={{ opacity: 0, y: -20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -20 }}
-                          transition={{ duration: 0.5 }}
-                          className="absolute top-full left-0 mt-4 w-64 bg-white rounded-lg shadow-lg overflow-hidden z-50"
-                        >
-                          {dropdownLinks[name].map((item, i) => (
-                            <Link
-                              key={i}
-                              href={item.href}
-                              className="block px-5 py-3 text-sm hover:bg-gray-100"
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
+                  );
+                })}
 
-              <Link href="about-us" className="hover:text-[#093f54]">
-                About Us
-              </Link>
-              <Link href="projects" className="hover:text-[#093f54]">
-                Projects
-              </Link>
-              <Link href="investments" className="hover:text-[#093f54]">
-                Investments
-              </Link>
+                <Link
+                  href="projects"
+                  className="hover:text-[#093f54] hover-underline"
+                >
+                  Projects
+                </Link>
+                <Link
+                  href="blogs"
+                  className="hover:text-[#093f54] hover-underline"
+                >
+                  Blogs
+                </Link>
+                <Link
+                  href="about-us"
+                  className="hover:text-[#093f54] hover-underline"
+                >
+                  About Us
+                </Link>
+              </div>
+
+              <div>
+                <Link
+                  href="/contact-us"
+                  className="third px-6 py-2 text-base rounded-full font-semibold"
+                >
+                  Get in touch
+                </Link>
+              </div>
             </div>
 
-            <div>
-              <Link
-                href="/contact-us"
-                className="third px-6 py-2 text-base rounded-full font-semibold"
-              >
-                Contact Us
-              </Link>
+            <div className="lg:hidden">
+              <button onClick={() => setMobileMenuOpen(true)}>
+                <Menu size={30} className="text-[#0f2557]" />
+              </button>
             </div>
-          </div>
-
-          <div className="lg:hidden">
-            <button onClick={() => setMobileMenuOpen(true)}>
-              <Menu size={30} className="text-[#0f2557]" />
-            </button>
           </div>
         </div>
-      </div>
+      </motion.header>
 
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -199,7 +199,7 @@ const HeaderClient = () => {
               return (
                 <div key={name} className="w-full max-w-xs mx-auto">
                   <button
-                    className="flex items-center justify-center w-full text-lg  mb-2"
+                    className="flex items-center justify-center w-full text-lg mb-2"
                     onClick={() =>
                       setMobileOpenDropdown((prev) =>
                         prev === name ? null : name
@@ -241,13 +241,6 @@ const HeaderClient = () => {
             })}
 
             <Link
-              href="about-us"
-              className="text-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              About Us
-            </Link>
-            <Link
               href="projects"
               className="text-lg"
               onClick={() => setMobileMenuOpen(false)}
@@ -255,23 +248,30 @@ const HeaderClient = () => {
               Projects
             </Link>
             <Link
-              href="investments"
+              href="blogs"
               className="text-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Investments
+              Blogs
+            </Link>
+            <Link
+              href="about-us"
+              className="text-lg"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              About Us
             </Link>
             <Link
               href="/contact-us"
               className="third px-6 py-2 text-base rounded-full font-semibold"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Contact Us
+              Get in touch
             </Link>
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </>
   );
 };
 

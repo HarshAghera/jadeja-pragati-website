@@ -10,7 +10,7 @@ const Getintouch = () => {
     <div>
       <div className="relative w-full min-h-[200px] sm:min-h-[300px] md:min-h-[400px]">
         <Image
-          src="/officeimage.webp"
+          src="/pictures/officeimage.webp"
           alt="Background"
           fill
           className="object-cover z-0"
@@ -45,7 +45,7 @@ const Getintouch = () => {
           className="text-center flex flex-col items-center mt-4"
         >
           <Image
-            src="/mail.svg"
+            src="/icons/mail.svg"
             alt="Email Icon"
             width={50}
             height={50}
@@ -55,10 +55,10 @@ const Getintouch = () => {
             Email
           </div>
           <a
-            href="mailto:jadejapragati@gmail.com"
+            href="mailto:jadejapragati.pltd@gmail.com"
             className="text-sm sm:text-base md:text-lg text-[#0f2557]"
           >
-            jadejapragati@gmail.com
+            jadejapragati.pltd@gmail.com
           </a>
         </motion.div>
 
@@ -70,7 +70,7 @@ const Getintouch = () => {
           className="text-center flex flex-col items-center mt-4"
         >
           <Image
-            src="/phone.svg"
+            src="/icons/phone.svg"
             alt="Phone Icon"
             width={50}
             height={50}
@@ -80,10 +80,10 @@ const Getintouch = () => {
             Phone
           </div>
           <a
-            href="tel:+919999999999"
+            href="tel:+917202096968"
             className="text-sm sm:text-base md:text-lg text-[#0f2557]"
           >
-            +91 9999999999
+            +91 7202096968
           </a>
         </motion.div>
 
@@ -95,7 +95,7 @@ const Getintouch = () => {
           className="text-center flex flex-col items-center mt-4"
         >
           <Image
-            src="/location.svg"
+            src="/icons/location.svg"
             alt="Location Icon"
             width={50}
             height={50}

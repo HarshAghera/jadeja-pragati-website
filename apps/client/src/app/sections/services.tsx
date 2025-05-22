@@ -1,22 +1,10 @@
-import React, { JSX } from "react";
-import { FaGem, FaRocket, FaReact } from "react-icons/fa";
+import React from "react";
 import "@/app/styles/servicesSection.css";
-import CategoryButtons from "../client/components/services/categoryButtons";
-import ServiceCard from "../client/components/services/serviceCard";
+import CategorySection from "../client/components/services/categorySection";
 import StatsSection from "../client/components/services/statsSection";
+import { FaGem, FaRocket, FaReact } from "react-icons/fa";
 
-type Service = {
-  icon: JSX.Element;
-  title: string;
-  desc: string;
-  link: string;
-};
-
-type ServiceData = {
-  [category: string]: Service[];
-};
-
-const serviceData: ServiceData = {
+const serviceData = {
   License: [
     {
       icon: <FaGem className="icons" />,
@@ -47,8 +35,6 @@ const serviceData: ServiceData = {
   ],
 };
 
-const categories = Object.keys(serviceData) as string[];
-
 const Services = () => {
   return (
     <section
@@ -59,13 +45,7 @@ const Services = () => {
         Services <span className="text-[#0f2557]">We Provide</span>
       </h1>
 
-      <CategoryButtons categories={categories} />
-
-      <div className="cards">
-        {serviceData.License.map((service, index) => (
-          <ServiceCard key={index} service={service} />
-        ))}
-      </div>
+      <CategorySection serviceData={serviceData} />
 
       <StatsSection />
     </section>

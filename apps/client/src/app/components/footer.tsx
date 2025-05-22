@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
         <div className="lg:mr-8 pl-4 sm:pl-6">
           <Image
-            src="/fullLogo.webp"
+            src="/pictures/fullLogo.webp"
             alt="Company Logo"
             width={130}
             height={40}
@@ -148,19 +148,19 @@ const Footer: React.FC = () => {
             <li className="flex items-center gap-2">
               <Phone size={16} />
               <a
-                href="tel:+919999999999"
+                href="tel:+917202096968"
                 className="hover:text-white transition-colors"
               >
-                +91 9999999999
+                +91 7202096968
               </a>
             </li>
             <li className="flex items-center gap-2">
               <Mail size={16} />
               <a
-                href="mailto:jadejapragati@gmail.com"
+                href="mailto:jadejapragati.pltd@gmail.com"
                 className="hover:text-white transition-colors"
               >
-                jadejapragati@gmail.com
+                jadejapragati.pltd@gmail.com
               </a>
             </li>
           </ul>
@@ -169,7 +169,7 @@ const Footer: React.FC = () => {
 
       <div className="flex flex-col md:flex-row flex-wrap justify-center md:justify-between items-center pt-8 border-t border-white/20 gap-4 text-center">
         <p className="text-sm text-white/50">
-          © 2025 Jadeja Pragati Pvt. Ltd. All rights reserved.
+          © 2025 Jadeja Pragati (I) Pvt. Ltd. All rights reserved.
         </p>
         <div className="flex flex-wrap justify-center gap-6">
           {footerBottomLinks.map((item) => (

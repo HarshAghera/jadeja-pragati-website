@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Button } from "@/components/ui/button";
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -103,12 +104,12 @@ const ContactForm = () => {
           required
         ></textarea>
       </div>
-      <button
+      <Button
         type="submit"
-        className="bg-[#0f2557] text-white px-6 py-2 rounded-full font-bold submit-btn"
+        className="bg-[#0f2557] text-white px-8 py-3 rounded-full font-bold text-base submit-btn cursor-pointer"
       >
         Submit
-      </button>
+      </Button>
     </form>
   );
 };

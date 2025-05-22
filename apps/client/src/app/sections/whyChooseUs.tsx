@@ -7,7 +7,12 @@ const WhyChooseUs = () => {
     <section className="whychooseus-container">
       <div className="box blue top-left">
         <div className="icon">
-          <Image src="/light-bulb.svg" alt="Bulb Icon" width={40} height={40} />
+          <Image
+            src="/icons/light-bulb.svg"
+            alt="Bulb Icon"
+            width={40}
+            height={40}
+          />
         </div>
         <h3>SAMPLE HEADLINE</h3>
         <p>
@@ -19,7 +24,12 @@ const WhyChooseUs = () => {
 
       <div className="box white bottom-left">
         <div className="icon">
-          <Image src="/clock.svg" alt="Clock Icon" width={40} height={40} />
+          <Image
+            src="/icons/clock.svg"
+            alt="Clock Icon"
+            width={40}
+            height={40}
+          />
         </div>
         <h3>SAMPLE HEADLINE</h3>
         <p>
@@ -31,7 +41,7 @@ const WhyChooseUs = () => {
 
       <div className="center-image">
         <Image
-          src="/boy.webp"
+          src="/pictures/boy.webp"
           alt="Why Choose Us"
           width={400}
           height={400}
@@ -50,7 +60,12 @@ const WhyChooseUs = () => {
 
       <div className="box blue bottom-right-left">
         <div className="icon">
-          <Image src="/calender.svg" alt="Setting Icon" width={40} height={40} />
+          <Image
+            src="/icons/calender.svg"
+            alt="Setting Icon"
+            width={40}
+            height={40}
+          />
         </div>
         <h3>SAMPLE HEADLINE</h3>
         <p>
@@ -62,7 +77,12 @@ const WhyChooseUs = () => {
 
       <div className="box white bottom-right-right">
         <div className="icon">
-          <Image src="/setting.svg" alt="Setting Icon" width={40} height={40} />
+          <Image
+            src="/icons/setting.svg"
+            alt="Setting Icon"
+            width={40}
+            height={40}
+          />
         </div>
         <h3>SAMPLE HEADLINE</h3>
         <p>
