@@ -192,7 +192,7 @@ export default function AboutLayout() {
                 alt="Certificate 1"
                 width={500}
                 height={300}
-                className="object-contain w-full transition-transform duration-600 ease-in-out transform cursor-pointer md:hover:scale-120 md:hover:z-40 md:hover:relative"
+                className="object-contain w-full transition-transform duration-600 ease-in-out transform cursor-pointer md:hover:scale-110 md:hover:z-30 md:hover:relative"
                 priority
               />
             </div>
@@ -203,7 +203,7 @@ export default function AboutLayout() {
                 alt="Certificate 2"
                 width={500}
                 height={300}
-                className="object-contain w-full transition-transform duration-600 ease-in-out transform cursor-pointer md:hover:scale-120 md:hover:z-40 md:hover:relative"
+                className="object-contain w-full transition-transform duration-600 ease-in-out transform cursor-pointer md:hover:scale-110 md:hover:z-30 md:hover:relative"
                 priority
               />
             </div>
@@ -232,22 +232,18 @@ export default function AboutLayout() {
             {[
               {
                 logo: "/partners/gurukrupaenterprise.webp",
-                name: "Shree Gurukrupa Enterprise",
               },
               {
                 logo: "/partners/phenixenterprise.webp",
-                name: "Phenix Enterprise",
               },
-              { logo: "/partners/buynsale.webp", name: "Buy And Sale Company" },
+              { logo: "/partners/buynsale.webp" },
               {
                 logo: "/partners/vihanaenterprise.webp",
-                name: "Vihana Enterprise",
               },
               {
                 logo: "/partners/divyarajrubber.webp",
-                name: "Divyaraj Rubber",
               },
-            ].map(({ logo, name }, idx) => (
+            ].map(({ logo }, idx) => (
               <div
                 key={idx}
                 className="flex flex-col items-center justify-center hover:scale-105 transition-transform duration-300 text-center cursor-pointer"
@@ -255,14 +251,13 @@ export default function AboutLayout() {
                 <div className="relative w-44 h-24 sm:w-48 sm:h-26">
                   <Image
                     src={logo}
-                    alt={name}
+                    alt="partners"
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 50vw, 100px"
                     priority={idx === 0}
                   />
                 </div>
-                {/* <p className="text-sm text-[#0f2557] font-medium">{name}</p> */}
               </div>
             ))}
           </div>
