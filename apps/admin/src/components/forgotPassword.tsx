@@ -2,28 +2,56 @@ import React, { useEffect, useState } from 'react';
 import '../styles/forgotPassword.css';
 import { toast, ToastContainer } from 'react-toastify';
 import bgImage from '../images/bg.webp';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [bgLoaded, setBgLoaded] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const img = new Image();
     img.src = bgImage;
     img.onload = () => setBgLoaded(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!email || !password || !confirmPassword) {
       toast.error('All fields are required.');
-    } else if (password !== confirmPassword) {
+      return;
+    }
+    if (password !== confirmPassword) {
       toast.error('Passwords do not match.');
-    } else {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast.error(errorData.message || 'Failed to reset password.');
+        return;
+      }
+
       toast.success('Password has been reset successfully.');
+      navigate('/');
+    } catch (error) {
+      toast.error('An error occurred. Please try again.');
     }
   };
 

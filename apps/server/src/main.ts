@@ -5,6 +5,11 @@ import { TransformerInterceptor } from './common/interceptors/transformer.interc
 import { CustomExceptionsFilter } from './common/filters/custom-exception.filter';
 async function main() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: process.env.ADMIN_URL,
+    credentials: true,
+  });
+
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new TransformerInterceptor());
   app.useGlobalFilters(new CustomExceptionsFilter());
