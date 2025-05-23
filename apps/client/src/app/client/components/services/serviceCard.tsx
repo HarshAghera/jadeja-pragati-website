@@ -21,7 +21,7 @@ const ServiceCard = ({ service }: { service: Service }) => {
       </div>
       <div className="mt-4">
         <Link href={service.link}>
-          <Button className="group bg-[#0f2557] text-white text-sm rounded-full px-5 py-2 flex items-center gap-2 third">
+          <Button className="group bg-[#0f2557] text-white text-sm rounded-full px-5 py-2 flex items-center gap-2 third cursor-pointer">
             Read More
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Button>

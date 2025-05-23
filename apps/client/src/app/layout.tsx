@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "JadejaPragati offers innovative compliance and recycling solutions to help businesses meet regulatory requirements in India.",
   icons: {
-    icon: "/icon.webp",
+    icon: "/pictures/icon.webp",
   },
   keywords: [
     "JadejaPragati",
@@ -75,7 +75,7 @@ export default function RootLayout({
         <Header />
         <PageLoader>{children}</PageLoader>
         <Link
-          href="https://wa.me/1111111111"
+          href="https://wa.me/7202096968"
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300"

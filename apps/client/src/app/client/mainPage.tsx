@@ -1,7 +1,5 @@
-"use client";
-
 import Services from "../sections/services";
-import HomePage from "../sections/homePage";
+import  HomePage  from "../sections/homePage";
 import AboutUs from "../sections/aboutUs";
 import WhyChooseUs from "../sections/whyChooseUs";
 import Testimonials from "../sections/testimonials";
