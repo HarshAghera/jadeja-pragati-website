@@ -35,7 +35,7 @@ export class CustomExceptionsFilter implements ExceptionFilter {
     }
 
     response.status(status).json({
-      data: {},
+      value: {},
       error: true,
       messages,
     });
