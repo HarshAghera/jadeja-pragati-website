@@ -8,8 +8,8 @@ export default function Blogs() {
       className="pt-20 overflow-x-hidden"
       style={{
         background: `
-        linear-gradient(to right, rgba(255, 255, 255, 0.7) 20%, rgba(255, 245, 240, 0.3) 100%),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 10%, rgba(255, 245, 240, 0.2) 30%)
+        linear-gradient(to right, rgba(255, 255, 255, 0.7) 20%, rgba(255, 245, 240, 0.8) 100%),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 10%, rgba(255, 245, 240, 0.8) 80%)
       `,
       }}
     >
