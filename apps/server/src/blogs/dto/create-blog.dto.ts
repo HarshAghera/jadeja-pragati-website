@@ -14,7 +14,7 @@ export class CreateBlogDto {
   shortDescription: string;
 
   @ValidateIf(
-    (o) =>
+    (o: Partial<CreateBlogDto>) =>
       typeof o.isPublished === 'boolean' || typeof o.isPublished === 'string',
   )
   isPublished?: string | boolean;

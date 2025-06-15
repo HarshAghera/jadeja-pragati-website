@@ -41,7 +41,7 @@ export class CloudinaryService {
 
         Readable.from(buffer).pipe(uploadStream);
       });
-    } catch (err) {
+    } catch {
       throw new InternalServerErrorException('Image upload failed');
     }
   }

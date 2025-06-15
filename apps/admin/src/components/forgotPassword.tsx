@@ -50,7 +50,7 @@ const ForgotPassword: React.FC = () => {
 
       toast.success('Password has been reset successfully.');
       navigate('/');
-    } catch (error) {
+    } catch {
       toast.error('An error occurred. Please try again.');
     }
   };

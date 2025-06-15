@@ -38,9 +38,19 @@ const Login: React.FC = () => {
 
       toast.success('Login successful!');
       navigate('/dashboard');
-    } catch (error: any) {
-      const message =
-        error.response?.data?.message || 'Login failed. Please try again.';
+    } catch (error: unknown) {
+      let message = 'Login failed. Please try again.';
+
+      if (
+        error instanceof Error &&
+        typeof (error as Error & { response?: { data?: { message?: string } } })
+          .response?.data?.message === 'string'
+      ) {
+        message = (
+          error as Error & { response?: { data?: { message?: string } } }
+        ).response!.data!.message!;
+      }
+
       toast.error(message);
     }
   };

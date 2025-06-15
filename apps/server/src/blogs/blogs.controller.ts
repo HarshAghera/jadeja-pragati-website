@@ -8,7 +8,6 @@ import {
   Param,
   Patch,
   Get,
-  NotFoundException,
   Delete,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
