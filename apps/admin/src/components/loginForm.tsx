@@ -3,25 +3,55 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
 import { toast, ToastContainer } from 'react-toastify';
 import bgImage from '../images/bg.webp';
+import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL!;
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [bgLoaded, setBgLoaded] = useState(false); // Track if background is loaded
+  const [bgLoaded, setBgLoaded] = useState(false);
 
   const navigate = useNavigate();
 
-  // Preload the background image
   useEffect(() => {
     const img = new Image();
-    img.src = bgImage; // Path to your background image
-    img.onload = () => setBgLoaded(true); // Set background loaded to true when it's loaded
+    img.src = bgImage;
+    img.onload = () => setBgLoaded(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!email || !password) {
       toast.error('Both fields are required.');
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(`${apiUrl}/auth/login`, {
+        email,
+        password,
+      });
+      const { access_token } = data.data;
+
+      localStorage.setItem('authToken', access_token);
+
+      toast.success('Login successful!');
+      navigate('/dashboard');
+    } catch (error: unknown) {
+      let message = 'Login failed. Please try again.';
+
+      if (
+        error instanceof Error &&
+        typeof (error as Error & { response?: { data?: { message?: string } } })
+          .response?.data?.message === 'string'
+      ) {
+        message = (
+          error as Error & { response?: { data?: { message?: string } } }
+        ).response!.data!.message!;
+      }
+
+      toast.error(message);
     }
   };
 
