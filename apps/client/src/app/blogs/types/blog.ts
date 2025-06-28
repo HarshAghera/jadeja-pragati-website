@@ -1,8 +1,9 @@
 export interface Blog {
-  slug: string;
+  id: string; 
   title: string;
-  description: string;
   content: string;
-  image: string;
-  date: string;
+  imageUrl: string;
+  isPublished: boolean;
+  shortDescription: string;
+  createdAt: string;
 }

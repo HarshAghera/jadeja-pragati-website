@@ -1,15 +1,17 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import BlogHeaderInformation from "@/app/client/components/blogPage/blogHeaderInformation";
-import { fetchBlogBySlug } from "../lib/api";
+import { fetchBlogById } from "../lib/api";
 import parse from "html-react-parser";
+import "@/app/styles/blogs.css"
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ id: string }>; 
 }
 
 export default async function BlogPost({ params }: Props) {
-  const blog = await fetchBlogBySlug(params.slug);
+  const { id } = await params; 
+  const blog = await fetchBlogById(id);
 
   if (!blog) return notFound();
 
@@ -17,11 +19,11 @@ export default async function BlogPost({ params }: Props) {
     <>
       <BlogHeaderInformation
         title={blog.title}
-        description={blog.description}
+        description={blog.shortDescription}
       />
       <div className="max-w-4xl mx-auto px-6 py-12">
         <p className="text-gray-500 mb-6">
-          {new Date(blog.date).toLocaleDateString("en-US", {
+          {new Date(blog.createdAt).toLocaleDateString("en-US", {
             month: "long",
             day: "numeric",
             year: "numeric",
@@ -29,7 +31,7 @@ export default async function BlogPost({ params }: Props) {
         </p>
         <div className="relative w-full h-auto mb-8 rounded-2xl overflow-hidden shadow-md">
           <Image
-            src={blog.image}
+            src={blog.imageUrl}
             alt={blog.title}
             width={800}
             height={300}
