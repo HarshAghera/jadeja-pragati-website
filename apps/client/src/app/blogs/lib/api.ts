@@ -1,16 +1,18 @@
-import { Blog } from "@/app/blogs/types/blog";
+import { Blog, RawBlog } from '@/app/blogs/types/blog';
 
 export async function fetchBlogById(id: string): Promise<Blog | null> {
   try {
-    const res = await fetch("http://localhost:4000/blogs/list", {
-      method: "POST", 
+    const res = await fetch('http://localhost:4000/blogs/list', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
     const data = await res.json();
 
-    const blog = data.value.data.find((item: any) => item._id === id);
+    const blog = data.value.data.find(
+      (item: { _id: string }) => item._id === id,
+    );
     if (!blog) return null;
 
     return {
@@ -23,16 +25,16 @@ export async function fetchBlogById(id: string): Promise<Blog | null> {
       createdAt: blog.createdAt,
     };
   } catch (error) {
-    console.error("Error fetching blog by ID:", error);
+    console.error('Error fetching blog by ID:', error);
     return null;
   }
 }
 export async function fetchBlogs(): Promise<Blog[]> {
   try {
-    const res = await fetch("http://localhost:4000/blogs/list", {
-      method: "POST",
+    const res = await fetch('http://localhost:4000/blogs/list', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     });
 
@@ -40,7 +42,7 @@ export async function fetchBlogs(): Promise<Blog[]> {
 
     if (data.error) return [];
 
-    return data.value.data.map((blog: any) => ({
+    return data.value.data.map((blog: RawBlog) => ({
       id: blog._id,
       title: blog.title,
       content: blog.content,
@@ -50,7 +52,7 @@ export async function fetchBlogs(): Promise<Blog[]> {
       createdAt: blog.createdAt,
     }));
   } catch (error) {
-    console.error("Failed to fetch blogs:", error);
+    console.error('Failed to fetch blogs:', error);
     return [];
   }
 }
