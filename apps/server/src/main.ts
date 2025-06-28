@@ -8,7 +8,7 @@ import * as express from 'express';
 async function main() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: process.env.ADMIN_URL,
+    origin: [process.env.CLIENT_URL, process.env.ADMIN_URL],
     credentials: true,
   });
 

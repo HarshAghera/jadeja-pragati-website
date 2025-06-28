@@ -140,19 +140,19 @@ const HeaderClient = () => {
                 })}
 
                 <Link
-                  href="projects"
+                  href="/projects"
                   className="hover:text-[#093f54] hover-underline"
                 >
                   Projects
                 </Link>
                 <Link
-                  href="blogs"
+                  href="/blogs"
                   className="hover:text-[#093f54] hover-underline"
                 >
                   Blogs
                 </Link>
                 <Link
-                  href="about-us"
+                  href="/about-us"
                   className="hover:text-[#093f54] hover-underline"
                 >
                   About Us
@@ -241,21 +241,21 @@ const HeaderClient = () => {
             })}
 
             <Link
-              href="projects"
+              href="/projects"
               className="text-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               Projects
             </Link>
             <Link
-              href="blogs"
+              href="/blogs"
               className="text-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               Blogs
             </Link>
             <Link
-              href="about-us"
+              href="/about-us"
               className="text-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
