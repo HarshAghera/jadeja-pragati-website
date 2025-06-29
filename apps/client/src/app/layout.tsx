@@ -4,9 +4,9 @@ import "./globals.css";
 import Footer from "./components/footer";
 import Link from "next/link";
 import { FaWhatsapp } from "react-icons/fa";
-import { Toaster } from "react-hot-toast";
 import Header from "./components/header";
 import PageLoader from "./components/pageLoader";
+import ToastProvider from "./toast-provider";
 
 const slab = Roboto_Slab({
   subsets: ["latin"],
@@ -59,19 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={slab.className}>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{
-            style: {
-              background: "#0f2557",
-              color: "white",
-              borderRadius: "8px",
-              padding: "12px",
-              fontSize: "16px",
-            },
-          }}
-        />
+        <ToastProvider/>
         <Header />
         <PageLoader>{children}</PageLoader>
         <Link

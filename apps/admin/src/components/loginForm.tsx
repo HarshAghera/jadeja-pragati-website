@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../styles/login.css';
-import { toast, ToastContainer } from 'react-toastify';
-import bgImage from '../images/bg.webp';
-import axios from 'axios';
-const apiUrl = import.meta.env.VITE_API_URL!;
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
+import { toast, ToastContainer } from "react-toastify";
+import bgImage from "../images/bg.webp";
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [bgLoaded, setBgLoaded] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,52 +19,51 @@ const Login: React.FC = () => {
     img.onload = () => setBgLoaded(true);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email || !password) {
-      toast.error('Both fields are required.');
+      toast.error("Both fields are required.");
       return;
     }
 
     try {
-      const { data } = await axios.post(`${apiUrl}/auth/login`, {
-        email,
-        password,
+      const res = await fetch(`${apiUrl}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       });
-      const { access_token } = data.data;
 
-      localStorage.setItem('authToken', access_token);
-
-      toast.success('Login successful!');
-      navigate('/dashboard');
-    } catch (error: unknown) {
-      let message = 'Login failed. Please try again.';
-
-      if (
-        error instanceof Error &&
-        typeof (error as Error & { response?: { data?: { message?: string } } })
-          .response?.data?.message === 'string'
-      ) {
-        message = (
-          error as Error & { response?: { data?: { message?: string } } }
-        ).response!.data!.message!;
+      if (!res.ok) {
+        const errorData = await res.json();
+        toast.error(errorData.message || "Login failed. Please try again.");
+        return;
       }
 
-      toast.error(message);
+      const responseData: { value: { access_token: string } } =
+        await res.json();
+
+      localStorage.setItem("authToken", responseData.value.access_token);
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("Something went wrong. Please try again later.");
     }
   };
 
   const handleForgotPasswordClick = () => {
-    navigate('/forgot-password');
+    navigate("/forgot-password");
   };
 
   return (
-    <div className={`login-container ${bgLoaded ? 'bg-loaded' : 'bg-loading'}`}>
+    <div className={`login-container ${bgLoaded ? "bg-loaded" : "bg-loading"}`}>
       <ToastContainer position="bottom-right" autoClose={2500} />
       <div className="card login-card">
         <div className="text-center mb-4">
-          <h2 className="text-navy font-playfair ">Login</h2>
+          <h2 className="text-navy font-playfair">Login</h2>
           <p className="text-muted font-inter">
             Welcome back! Please enter your credentials.
           </p>
@@ -77,8 +76,8 @@ const Login: React.FC = () => {
             </label>
             <input
               type="email"
-              className={`form-control ${email ? 'bg-light' : ''}`}
               id="email"
+              className={`form-control ${email ? "bg-light" : ""}`}
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -94,8 +93,8 @@ const Login: React.FC = () => {
             </label>
             <input
               type="password"
-              className="form-control"
               id="password"
+              className="form-control"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

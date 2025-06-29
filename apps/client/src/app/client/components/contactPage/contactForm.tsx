@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { Button } from "@/components/ui/button";
+const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const ContactForm = () => {
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ const ContactForm = () => {
     const trimmedMobile = mobile.trim();
     const trimmedMessage = message.trim();
 
-    if (!trimmedName || !trimmedEmail || !trimmedMobile || !trimmedMessage) {
+    if (!trimmedName || !trimmedEmail || !trimmedMobile ) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -29,20 +29,29 @@ const ContactForm = () => {
       toast.error("Please enter a valid 10-digit mobile number");
       return;
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(trimmedEmail)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
 
     try {
-      const formData = new FormData();
-      formData.append("name", trimmedName);
-      formData.append("email", trimmedEmail);
-      formData.append("mobile", trimmedMobile);
-      formData.append("message", trimmedMessage);
+      const res = await fetch(`${apiUrl}/contacts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: trimmedName,
+          email: trimmedEmail,
+          mobile: trimmedMobile,
+          message: trimmedMessage,
+        }),
+      });
 
-      const response = await axios.post(
-        "https://formspree.io/f/xyzweeeq",
-        formData
-      );
-
-      if (response.status === 200) {
+      if (res.ok) {
         toast.success("Your message has been submitted");
         setName("");
         setEmail("");
@@ -51,15 +60,13 @@ const ContactForm = () => {
       } else {
         toast.error("Submission failed. Please try again");
       }
-    } catch (error) {
-      console.error("Error submitting the form:", error);
+    } catch {
       toast.error("Something went wrong. Please try again later");
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {/* Fields */}
       <div>
         <label className="block mb-1 text-[#0f2557]">Name</label>
         <input
@@ -68,18 +75,16 @@ const ContactForm = () => {
           name="name"
           onChange={(e) => setName(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0f2557]"
-          required
         />
       </div>
       <div>
         <label className="block mb-1 text-[#0f2557]">Email</label>
         <input
-          type="email"
+          type="text"
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0f2557]"
-          required
         />
       </div>
       <div>
@@ -90,7 +95,6 @@ const ContactForm = () => {
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0f2557]"
-          required
         />
       </div>
       <div>
@@ -101,7 +105,6 @@ const ContactForm = () => {
           name="message"
           onChange={(e) => setMessage(e.target.value)}
           className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0f2557]"
-          required
         ></textarea>
       </div>
       <Button
