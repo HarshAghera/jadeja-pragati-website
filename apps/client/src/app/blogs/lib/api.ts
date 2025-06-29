@@ -1,8 +1,9 @@
 import { Blog, RawBlog } from '@/app/blogs/types/blog';
+const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export async function fetchBlogById(id: string): Promise<Blog | null> {
   try {
-    const res = await fetch('http://localhost:4000/blogs/list', {
+    const res = await fetch(`${apiUrl}/blogs/list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,10 +32,10 @@ export async function fetchBlogById(id: string): Promise<Blog | null> {
 }
 export async function fetchBlogs(): Promise<Blog[]> {
   try {
-    const res = await fetch('http://localhost:4000/blogs/list', {
-      method: 'POST',
+    const res = await fetch(`${apiUrl}/blogs/list`, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
