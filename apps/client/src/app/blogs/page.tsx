@@ -1,8 +1,14 @@
+// app/blogs/page.tsx (or /blogs/page.tsx if inside app router)
 import Image from "next/image";
 import BlogContent from "../client/components/blogPage/blogContent";
 import BlogCard from "../client/components/blogPage/blogCard";
+import { fetchBlogs } from "@/app/blogs/lib/api";
+import { Blog } from "@/app/blogs/types/blog";
 
-export default function Blogs() {
+export default async function BlogsPage() {
+  const blogs: Blog[] = await fetchBlogs();
+  const publishedBlogs = blogs.filter((blog) => blog.isPublished);
+
   return (
     <section
       className="pt-20 overflow-x-hidden"
@@ -22,9 +28,10 @@ export default function Blogs() {
           priority
         />
         <div className="absolute inset-0 bg-white/90 z-10"></div>
-        <BlogContent/>
+        <BlogContent />
       </div>
-      <BlogCard/>
+
+      <BlogCard blogs={publishedBlogs} />
     </section>
   );
 }
