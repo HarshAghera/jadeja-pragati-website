@@ -1,4 +1,5 @@
-// app/blogs/page.tsx (or /blogs/page.tsx if inside app router)
+export const dynamic = "force-dynamic";
+
 import Image from "next/image";
 import BlogContent from "../client/components/blogPage/blogContent";
 import BlogCard from "../client/components/blogPage/blogCard";
