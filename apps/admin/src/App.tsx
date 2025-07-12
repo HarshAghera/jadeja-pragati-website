@@ -11,6 +11,7 @@ import Dashboard from "./pages/dashboard/dashboard";
 import Layout from "./components/layout";
 import Blog from "./pages/blog/blog"; 
 import CreateBlog from "./pages/blog/createBlog"; 
+import UpdateBlog from "./pages/blog/updateBlog"; // Adjust the import path as needed
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -54,6 +55,7 @@ const App: React.FC = () => {
               </Layout>
             }
           />
+          <Route path="/blogs/:id/edit" element={<UpdateBlog />} />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

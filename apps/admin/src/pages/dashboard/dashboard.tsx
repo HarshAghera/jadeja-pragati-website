@@ -1,4 +1,3 @@
-// src/pages/Dashboard.tsx
 import React from 'react';
 import {
   BarChart,
@@ -83,7 +82,7 @@ const Dashboard: React.FC = () => {
         Welcome to Admin Dashboard!
       </h2>
 
-      {/* Key Metrics */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
         <div className="bg-white p-6 rounded-2xl shadow-md border hover:shadow-lg transition-all">
           <p className="text-gray-500 flex items-center gap-2">
@@ -114,7 +113,7 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Completion Trends */}
+      
       <div className="bg-white p-6 rounded-2xl shadow-md border mb-8">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-[#0a1d56]">
           <ClipboardList className="text-[#0a1d56]" /> Project Completion Trends
@@ -129,7 +128,7 @@ const Dashboard: React.FC = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Overall Progress */}
+    
       <div className="bg-white p-6 rounded-2xl shadow-md border mb-10">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-[#0a1d56]">
           <TrendingUp className="text-[#0a1d56]" /> Overall Project Progress
@@ -143,7 +142,7 @@ const Dashboard: React.FC = () => {
         <p className="text-sm text-gray-600 mt-2">{progressValue}% Completed</p>
       </div>
 
-      {/* Team Member Stats */}
+      
       <div className="bg-white p-6 rounded-2xl shadow-md border mb-8">
         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-[#0a1d56]">
           <UserCircle className="text-[#0a1d56]" /> Team Member Stats
@@ -161,7 +160,6 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Recent Activity */}
       <h3 className="text-xl font-semibold mb-4 flex items-center gap-2 text-[#0a1d56]">
         <ClipboardList className="text-[#0a1d56]" /> Recent Activity
       </h3>

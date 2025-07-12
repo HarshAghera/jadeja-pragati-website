@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";   // ← added useNavigate (optional)
 import { Pencil, Trash2 } from "lucide-react";
 
 interface BlogType {
@@ -19,6 +19,7 @@ const Blog: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  /* ‑‑‑ fetch list ---------------------------------------------------------------- */
   const fetchBlogs = async () => {
     setIsLoading(true);
     try {
@@ -44,11 +45,9 @@ const Blog: React.FC = () => {
     fetchBlogs();
   }, [currentPage, rowsPerPage, search]);
 
+  /* ‑‑‑ delete -------------------------------------------------------------------- */
   const handleDelete = async (id: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this blog?"
-    );
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this blog?")) return;
 
     try {
       await axios.delete(`http://localhost:4000/blogs/${id}`);
@@ -58,13 +57,12 @@ const Blog: React.FC = () => {
     }
   };
 
+  /* ‑‑‑ paging helpers ------------------------------------------------------------- */
   const totalPages = Math.ceil(totalCount / rowsPerPage);
-
   const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRowsPerPage(Number(e.target.value));
-    setCurrentPage(1); // reset to first page
+    setCurrentPage(1);
   };
-
   const goToPreviousPage = () =>
     currentPage > 1 && setCurrentPage(currentPage - 1);
   const goToNextPage = () =>
@@ -72,6 +70,7 @@ const Blog: React.FC = () => {
 
   return (
     <div className="p-6">
+      {/* header */}
       <div className="flex justify-between items-center mb-6">
         <Link to="/blog/create">
           <button className="bg-[#001f3f] hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold">
@@ -86,16 +85,17 @@ const Blog: React.FC = () => {
           value={search}
           onChange={(e) => {
             setSearch(e.target.value);
-            setCurrentPage(1); // reset to page 1 on search
+            setCurrentPage(1);
           }}
         />
       </div>
 
+      {/* table */}
       <div className="overflow-x-auto rounded-lg border border-gray-300">
         <table className="min-w-full text-sm text-left">
           <thead className="bg-[#001f3f] text-white">
             <tr>
-              <th className="px-4 py-3">#</th>
+              <th className="px-4 py-3">ID</th>
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Date</th>
               <th className="px-4 py-3">Publish</th>
@@ -144,12 +144,15 @@ const Blog: React.FC = () => {
                     </label>
                   </td>
                   <td className="px-4 py-3 flex gap-3 items-center">
-                    <button
+                    {/* ------------ EDIT -> navigate to /blogs/:id/edit ------------- */}
+                    <Link
+                      to={`/blogs/${blog._id}/edit`}
                       title="Edit"
                       className="text-blue-600 hover:text-blue-800"
                     >
                       <Pencil size={18} />
-                    </button>
+                    </Link>
+
                     <button
                       title="Delete"
                       onClick={() => handleDelete(blog._id)}
@@ -165,6 +168,7 @@ const Blog: React.FC = () => {
         </table>
       </div>
 
+      {/* footer  */}
       <div className="flex justify-between items-center mt-4">
         <div>
           <label className="mr-2 text-sm">Rows per page:</label>
