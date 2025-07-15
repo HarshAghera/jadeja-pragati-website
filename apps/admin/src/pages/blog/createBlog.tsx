@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { ImagePlus } from "lucide-react";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 const CreateBlog: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -35,6 +35,12 @@ const CreateBlog: React.FC = () => {
       return;
     }
 
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      toast.error("No token found. Please log in again.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", title);
     formData.append("shortDescription", shortDescription);
@@ -42,25 +48,40 @@ const CreateBlog: React.FC = () => {
     formData.append("isPublished", String(isPublished));
     formData.append("image", image);
 
-    try {
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        toast.error("No token found. Please log in again.");
-        return;
-      }
+    const toastId = toast.loading("Creating blog...");
 
-      const res = await axios.post(`${API_BASE_URL}/blogs`, formData, {
+    try {
+      const response = await fetch(`${API_BASE_URL}/blogs`, {
+        method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
         },
+        body: formData,
       });
 
-      toast.success("Blog created successfully!");
-      navigate("/blog");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Unknown error");
+      }
+
+      toast.update(toastId, {
+        render: " Blog created successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 2000,
+      });
+
+      setTimeout(() => {
+        navigate("/blog");
+      }, 1500);
     } catch (err: any) {
-      console.error("❌ Create Blog Error:", err.response?.data || err.message);
-      toast.error("Failed to create blog. Check console for details.");
+      console.error(" Create Blog Error:", err.message);
+      toast.update(toastId, {
+        render: " Failed to create blog.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -73,7 +94,6 @@ const CreateBlog: React.FC = () => {
         className="space-y-6 bg-white p-6 rounded-lg shadow-md border"
         encType="multipart/form-data"
       >
-        {/* Title */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">Title</label>
           <input
@@ -85,7 +105,6 @@ const CreateBlog: React.FC = () => {
           />
         </div>
 
-        {/* Short description */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">Short Description</label>
           <textarea
@@ -96,22 +115,45 @@ const CreateBlog: React.FC = () => {
           />
         </div>
 
-        {/* Content */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">Content</label>
           <ReactQuill value={content} onChange={setContent} />
         </div>
 
-        {/* Image */}
         <div>
           <label className="block font-medium mb-1 text-gray-700">Image</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} required />
-          {imagePreview && (
-            <img src={imagePreview} alt="Preview" className="mt-3 w-32 h-32 object-cover rounded border" />
-          )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <label
+              htmlFor="imageUpload"
+              className="cursor-pointer border border-dashed rounded-lg px-4 py-6 w-full sm:w-64 flex flex-col items-center justify-center text-gray-700 hover:border-blue-500 transition"
+            >
+              <ImagePlus className="w-8 h-8 mb-2" />
+              <span className="text-sm text-center">Click to upload Image</span>
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+                required
+              />
+            </label>
+
+            <div className="w-32 h-32 border rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-sm text-gray-700 text-center">No image selected</span>
+              )}
+            </div>
+          </div>
         </div>
 
-        {/* Publish */}
         <div className="flex items-center gap-2">
           <input
             type="checkbox"

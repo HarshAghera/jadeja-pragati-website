@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";   // ← added useNavigate (optional)
+import { Link } from "react-router-dom";
 import { Pencil, Trash2 } from "lucide-react";
+import Swal from "sweetalert2";
 
 interface BlogType {
   _id: string;
@@ -11,6 +11,8 @@ interface BlogType {
   isPublished: boolean;
 }
 
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 const Blog: React.FC = () => {
   const [blogs, setBlogs] = useState<BlogType[]>([]);
   const [search, setSearch] = useState("");
@@ -19,23 +21,36 @@ const Blog: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  /* ‑‑‑ fetch list ---------------------------------------------------------------- */
   const fetchBlogs = async () => {
     setIsLoading(true);
     try {
-      const res = await axios.post("http://localhost:4000/blogs/list", {
-        page: currentPage,
-        limit: rowsPerPage,
-        sortBy: "createdAt",
-        sortOrder: "desc",
-        search,
+      const token = localStorage.getItem("authToken");
+      if (!token) return;
+
+      const response = await fetch(`${API_BASE_URL}/blogs/list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          page: currentPage,
+          limit: rowsPerPage,
+          sortBy: "createdAt",
+          sortOrder: "desc",
+          search,
+        }),
       });
 
-      const data = res.data.value;
-      setBlogs(data.data);
-      setTotalCount(data.total);
+      if (!response.ok) throw new Error(`Status ${response.status}`);
+
+      const { value } = await response.json();
+      setBlogs(value.data);
+      setTotalCount(value.total);
     } catch (error) {
       console.error("Failed to fetch blogs:", error);
+      setBlogs([]);
+      setTotalCount(0);
     } finally {
       setIsLoading(false);
     }
@@ -45,32 +60,62 @@ const Blog: React.FC = () => {
     fetchBlogs();
   }, [currentPage, rowsPerPage, search]);
 
-  /* ‑‑‑ delete -------------------------------------------------------------------- */
   const handleDelete = async (id: string) => {
-    if (!window.confirm("Are you sure you want to delete this blog?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "This blog will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
-      await axios.delete(`http://localhost:4000/blogs/${id}`);
+      const token = localStorage.getItem("authToken");
+      if (!token) return;
+
+      const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) throw new Error(`Status ${response.status}`);
+
       setBlogs((prev) => prev.filter((blog) => blog._id !== id));
+
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Blog has been deleted.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+      });
     } catch (error) {
       console.error("Failed to delete blog:", error);
+      await Swal.fire({
+        title: "Error!",
+        text: "Failed to delete the blog.",
+        icon: "error",
+        confirmButtonColor: "#d33",
+      });
     }
   };
 
-  /* ‑‑‑ paging helpers ------------------------------------------------------------- */
   const totalPages = Math.ceil(totalCount / rowsPerPage);
   const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRowsPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
-  const goToPreviousPage = () =>
-    currentPage > 1 && setCurrentPage(currentPage - 1);
-  const goToNextPage = () =>
-    currentPage < totalPages && setCurrentPage(currentPage + 1);
+  const goToPreviousPage = () => currentPage > 1 && setCurrentPage(currentPage - 1);
+  const goToNextPage = () => currentPage < totalPages && setCurrentPage(currentPage + 1);
 
   return (
     <div className="p-6">
-      {/* header */}
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <Link to="/blog/create">
           <button className="bg-[#001f3f] hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold">
@@ -90,7 +135,7 @@ const Blog: React.FC = () => {
         />
       </div>
 
-      {/* table */}
+      {/* Table */}
       <div className="overflow-x-auto rounded-lg border border-gray-300">
         <table className="min-w-full text-sm text-left">
           <thead className="bg-[#001f3f] text-white">
@@ -118,9 +163,7 @@ const Blog: React.FC = () => {
             ) : (
               blogs.map((blog, index) => (
                 <tr key={blog._id} className="border-t hover:bg-gray-50">
-                  <td className="px-4 py-3">
-                    {(currentPage - 1) * rowsPerPage + index + 1}
-                  </td>
+                  <td className="px-4 py-3">{(currentPage - 1) * rowsPerPage + index + 1}</td>
                   <td className="px-4 py-3 flex items-center gap-3">
                     <img
                       src={blog.imageUrl}
@@ -129,9 +172,7 @@ const Blog: React.FC = () => {
                     />
                     <span>{blog.title}</span>
                   </td>
-                  <td className="px-4 py-3">
-                    {new Date(blog.createdAt).toLocaleDateString()}
-                  </td>
+                  <td className="px-4 py-3">{new Date(blog.createdAt).toLocaleDateString()}</td>
                   <td className="px-4 py-3">
                     <label className="inline-flex relative items-center cursor-pointer">
                       <input
@@ -144,7 +185,6 @@ const Blog: React.FC = () => {
                     </label>
                   </td>
                   <td className="px-4 py-3 flex gap-3 items-center">
-                    {/* ------------ EDIT -> navigate to /blogs/:id/edit ------------- */}
                     <Link
                       to={`/blogs/${blog._id}/edit`}
                       title="Edit"
@@ -168,7 +208,7 @@ const Blog: React.FC = () => {
         </table>
       </div>
 
-      {/* footer  */}
+      {/* Footer */}
       <div className="flex justify-between items-center mt-4">
         <div>
           <label className="mr-2 text-sm">Rows per page:</label>
@@ -183,15 +223,12 @@ const Blog: React.FC = () => {
           </select>
         </div>
         <div className="text-sm flex items-center gap-2">
-          {(currentPage - 1) * rowsPerPage + 1}–
-          {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
+          {(currentPage - 1) * rowsPerPage + 1}–{Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
           <button
             onClick={goToPreviousPage}
             disabled={currentPage === 1}
             className={`ml-2 px-2 py-1 rounded ${
-              currentPage === 1
-                ? "text-gray-300"
-                : "text-gray-600 hover:text-black"
+              currentPage === 1 ? "text-gray-300" : "text-gray-600 hover:text-black"
             }`}
           >
             Previous
@@ -200,9 +237,7 @@ const Blog: React.FC = () => {
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
             className={`ml-2 px-2 py-1 rounded ${
-              currentPage === totalPages
-                ? "text-gray-300"
-                : "text-blue-600 hover:text-blue-800"
+              currentPage === totalPages ? "text-gray-300" : "text-blue-600 hover:text-blue-800"
             }`}
           >
             Next

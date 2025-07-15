@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-import Layout from "./../../components/layout";
+import { ImagePlus } from "lucide-react";
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 interface BlogAPIResponse {
   value: {
@@ -28,15 +29,17 @@ const UpdateBlog: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const fetchBlog = async () => {
       try {
-        const res = await axios.get<BlogAPIResponse>(
-          `http://localhost:4000/blogs/${id}`
-        );
+        const response = await fetch(`${API_BASE_URL}/blogs/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch blog");
 
-        const blog = res.data.value;
+        const data: BlogAPIResponse = await response.json();
+        const blog = data.value;
+
         setTitle(blog.title);
         setShortDescription(blog.shortDescription);
         setContent(blog.content);
@@ -47,7 +50,9 @@ const UpdateBlog: React.FC = () => {
       } finally {
         setLoading(false);
       }
-    })();
+    };
+
+    fetchBlog();
   }, [id]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +71,7 @@ const UpdateBlog: React.FC = () => {
       return;
     }
 
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("authToken");
     if (!token) {
       toast.error("No token found. Please log in again.");
       return;
@@ -80,29 +85,37 @@ const UpdateBlog: React.FC = () => {
     if (image) formData.append("image", image);
 
     try {
-      await axios.patch(`http://localhost:4000/blogs/${id}`, formData, {
-        headers: { Authorization: `Bearer ${token}` },
+      setSubmitting(true);
+      const response = await fetch(`${API_BASE_URL}/blogs/${id}`, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
       });
-      toast.success("Blog updated successfully!");
-      navigate("/blog");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update blog");
+      }
+
+      toast.success(" Blog updated successfully!");
+      setTimeout(() => navigate("/blog"), 1000);
     } catch (error: any) {
-      console.error(error);
-      toast.error("Failed to update blog.");
+      console.error(" Update Blog Error:", error.message);
+      toast.error("Failed to update blog. Check console for details.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  if (loading)
-    return (
-      <Layout>
-        <p className="text-center p-6">Loading…</p>
-      </Layout>
-    );
+  if (loading) {
+    return <p className="text-center p-6">Loading…</p>;
+  }
 
   return (
-    <Layout>
-      <h2 className="text-2xl font-bold text-[#0a1d56] mb-6 ml-6">
-        Update Blog
-      </h2>
+    <>
+      <h2 className="text-2xl font-bold text-[#0a1d56] mb-6 ml-6">Update Blog</h2>
 
       <form
         onSubmit={handleSubmit}
@@ -121,9 +134,7 @@ const UpdateBlog: React.FC = () => {
         </div>
 
         <div>
-          <label className="block font-medium mb-1 text-gray-700">
-            Short Description
-          </label>
+          <label className="block font-medium mb-1 text-gray-700">Short Description</label>
           <textarea
             className="w-full border px-3 py-2 rounded resize-none"
             value={shortDescription}
@@ -133,22 +144,41 @@ const UpdateBlog: React.FC = () => {
         </div>
 
         <div>
-          <label className="block font-medium mb-1 text-gray-700">
-            Content
-          </label>
+          <label className="block font-medium mb-1 text-gray-700">Content</label>
           <ReactQuill value={content} onChange={setContent} />
         </div>
 
         <div>
           <label className="block font-medium mb-1 text-gray-700">Image</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-          {imagePreview && (
-            <img
-              src={imagePreview}
-              alt="Preview"
-              className="mt-3 w-32 h-32 object-cover rounded border"
-            />
-          )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            <label
+              htmlFor="imageUpload"
+              className="cursor-pointer border border-dashed border-gray-400 rounded-lg px-4 py-6 w-full sm:w-64 flex flex-col items-center justify-center text-gray-500 hover:border-blue-500 transition"
+            >
+              <ImagePlus className="w-8 h-8 mb-2" />
+              <span className="text-sm text-center">Click to upload or drag & drop</span>
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
+            </label>
+
+            <div className="w-32 h-32 border rounded overflow-hidden bg-gray-100 flex items-center justify-center">
+              {imagePreview ? (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span className="text-sm text-gray-400 text-center">No image selected</span>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="flex items-center gap-2">
@@ -166,11 +196,12 @@ const UpdateBlog: React.FC = () => {
         <button
           type="submit"
           className="bg-[#0a1d56] text-white px-6 py-2 rounded hover:bg-blue-900 font-medium"
+          disabled={submitting}
         >
-          Update Blog
+          {submitting ? "Updating..." : "Update Blog"}
         </button>
       </form>
-    </Layout>
+    </>
   );
 };
 

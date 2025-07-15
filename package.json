@@ -21,6 +21,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.10",
     "lucide-react": "^0.488.0",
-    "recharts": "^3.0.0"
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.0.0",
+    "sweetalert2": "^11.22.2"
   }
 }
