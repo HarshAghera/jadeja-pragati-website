@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -15,6 +16,9 @@ import Layout from "./components/layout";
 import Blog from "./pages/blog/blog";
 import CreateBlog from "./pages/blog/createBlog";
 import UpdateBlog from "./pages/blog/updateBlog";
+import ProtectedRoute from "./components/protect-route";
+import ContactPage from "./pages/contact/contactPage"; 
+
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -37,34 +41,53 @@ const App: React.FC = () => {
             <Route
               path="/dashboard"
               element={
-                <Layout>
-                  <Dashboard />
-                </Layout>
+                <ProtectedRoute>
+                  <Layout>
+                    <Dashboard />
+                  </Layout>
+                </ProtectedRoute>
               }
             />
 
             <Route
               path="/blog"
               element={
-                <Layout>
-                  <Blog />
-                </Layout>
+                <ProtectedRoute>
+                  <Layout>
+                    <Blog />
+                  </Layout>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/blog/create"
               element={
-                <Layout>
-                  <CreateBlog />
-                </Layout>
+                <ProtectedRoute>
+                  <Layout>
+                    <CreateBlog />
+                  </Layout>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/blogs/:id/edit"
               element={
-                <Layout>
-                  <UpdateBlog />
-                </Layout>
+                <ProtectedRoute>
+                  <Layout>
+                    <UpdateBlog />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/contact"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <ContactPage/>
+                  </Layout>
+                </ProtectedRoute>
               }
             />
 
