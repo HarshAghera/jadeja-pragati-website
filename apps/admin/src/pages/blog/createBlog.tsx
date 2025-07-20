@@ -113,14 +113,23 @@ const CreateBlog: React.FC = () => {
       });
 
       setTimeout(() => navigate("/blog"), 1500);
-    } catch (err: any) {
-      console.error("Create Blog Error:", err.message);
-      toast.update(toastId, {
-        render: "Failed to create blog.",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Create Blog Error:", err.message);
+        toast.update(toastId, {
+          render: err.message || "Failed to create blog.",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        toast.update(toastId, {
+          render: "An unknown error occurred.",
+          type: "error",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }
     }
   };
 
@@ -187,7 +196,7 @@ const CreateBlog: React.FC = () => {
           </div>
         </div>
 
-        <div >
+        <div>
           <label className="block font-medium mb-1 text-gray-700 lg:mt-3">
             Image
           </label>

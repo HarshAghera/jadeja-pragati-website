@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Pencil, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
@@ -22,7 +22,7 @@ const Blog: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchBlogs = async () => {
+  const fetchBlogs = useCallback(async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("authToken");
@@ -55,11 +55,11 @@ const Blog: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage, rowsPerPage, search]);
 
   useEffect(() => {
     fetchBlogs();
-  }, [currentPage, rowsPerPage, search]);
+  }, [fetchBlogs]);
 
   const handleDelete = async (id: string) => {
     const result = await Swal.fire({
@@ -193,8 +193,6 @@ const Blog: React.FC = () => {
                   <td className="px-4 py-3">
                     {(currentPage - 1) * rowsPerPage + index + 1}
                   </td>
-
-        
                   <td className="px-4 py-3 w-full max-w-[240px] sm:max-w-none">
                     <div className="flex flex-row items-center gap-3">
                       <img
@@ -207,7 +205,6 @@ const Blog: React.FC = () => {
                       </span>
                     </div>
                   </td>
-
                   <td className="px-4 py-3">
                     {new Date(blog.createdAt).toLocaleDateString()}
                   </td>
@@ -261,8 +258,7 @@ const Blog: React.FC = () => {
           </select>
         </div>
         <div className="text-sm flex flex-wrap items-center gap-2">
-          {(currentPage - 1) * rowsPerPage + 1}–
-          {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
+          {(currentPage - 1) * rowsPerPage + 1}–{Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
           <button
             onClick={goToPreviousPage}
             disabled={currentPage === 1}

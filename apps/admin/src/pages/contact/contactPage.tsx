@@ -1,5 +1,5 @@
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Trash2, Mail, Phone, MessageSquare } from "lucide-react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
   );
   const [showMessageModal, setShowMessageModal] = useState(false);
 
-  const fetchContacts = async () => {
+  const fetchContacts = useCallback(async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("authToken");
@@ -55,6 +55,7 @@ const Contact: React.FC = () => {
             contact.mobile.includes(search)
         );
       }
+
       const startIndex = (currentPage - 1) * rowsPerPage;
       const endIndex = startIndex + rowsPerPage;
       const paginatedContacts = filteredContacts.slice(startIndex, endIndex);
@@ -69,11 +70,11 @@ const Contact: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [search, currentPage, rowsPerPage]);
 
   useEffect(() => {
     fetchContacts();
-  }, [currentPage, rowsPerPage, search]);
+  }, [fetchContacts]);
 
   const handleDelete = async (id: string) => {
     const result = await Swal.fire({
@@ -253,8 +254,7 @@ const Contact: React.FC = () => {
           </select>
         </div>
         <div className="text-sm flex flex-wrap items-center gap-2">
-          {(currentPage - 1) * rowsPerPage + 1}–
-          {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
+          {(currentPage - 1) * rowsPerPage + 1}–{Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
           <button
             onClick={goToPreviousPage}
             disabled={currentPage === 1}

@@ -18,7 +18,6 @@ interface BlogAPIResponse {
   error: boolean;
 }
 
-
 const quillModules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
@@ -85,8 +84,12 @@ const UpdateBlog: React.FC = () => {
         setContent(blog.content);
         setIsPublished(blog.isPublished);
         setImagePreview(blog.imageUrl);
-      } catch {
-        toast.error("Failed to fetch blog data.");
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        } else {
+          toast.error("Failed to fetch blog data.");
+        }
       } finally {
         setLoading(false);
       }
@@ -143,9 +146,14 @@ const UpdateBlog: React.FC = () => {
 
       toast.success("Blog updated successfully!");
       setTimeout(() => navigate("/blog"), 1000);
-    } catch (error: any) {
-      console.error("Update Blog Error:", error.message);
-      toast.error("Failed to update blog. Check console for details.");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("Update Blog Error:", error.message);
+        toast.error(error.message || "Failed to update blog.");
+      } else {
+        console.error("Update Blog Error:", error);
+        toast.error("An unknown error occurred.");
+      }
     } finally {
       setSubmitting(false);
     }
