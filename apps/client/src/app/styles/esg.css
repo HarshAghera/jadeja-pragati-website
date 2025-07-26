@@ -1,0 +1,47 @@
+.custom-checklist li {
+    position: relative;
+    padding-left: 2rem;
+    line-height: 1.6;
+  }
+  
+  .custom-checklist li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+    color: #10b981; /* Green check */
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
+    color: #0f2557;
+  }
+  .form-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #ff6600;
+  }
+  .custom-gradient-btn {
+    color: #0f2557;
+    border: 3px solid #ffffff;
+    background-image: linear-gradient(30deg, #ffffff 70%, transparent 70%);
+    background-size: 500px;
+    background-repeat: no-repeat;
+    background-position: 0%;
+    background-color: transparent;
+    transition: background-position 600ms ease-in-out, color 400ms ease-in-out,
+      background-color 400ms ease-in-out;
+  }
+  
+  .custom-gradient-btn:hover {
+    background-position: 130%;
+    color: #ffffff;
+    background-color: #0f2557;
+  }
+  
+  
+  

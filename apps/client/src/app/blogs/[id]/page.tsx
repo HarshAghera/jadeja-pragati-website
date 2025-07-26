@@ -3,17 +3,17 @@ import Image from "next/image";
 import BlogHeaderInformation from "@/app/client/components/blogPage/blogHeaderInformation";
 import { fetchBlogById } from "../lib/api";
 import parse from "html-react-parser";
-import "@/app/styles/blogs.css"
+import "@/app/styles/blogs.css";
 
 interface Props {
-  params: Promise<{ id: string }>; 
+  params: Promise<{ id: string }>;
 }
 
 export default async function BlogPost({ params }: Props) {
-  const { id } = await params; 
+  const { id } = await params;
   const blog = await fetchBlogById(id);
 
-  if (!blog) return notFound();
+  if (!blog || !blog.isPublished) return notFound();
 
   return (
     <>
