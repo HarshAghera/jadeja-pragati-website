@@ -11,6 +11,7 @@ import {
 import { PagesService } from './pages.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { GroupedNav } from './pages.interface';
 
 @Controller('pages')
 export class PagesController {
@@ -30,7 +31,7 @@ export class PagesController {
 
   @Get('nav')
   @UseGuards(JwtAuthGuard)
-  async getNavStructure() {
+  async getNavStructure(): Promise<GroupedNav> {
     return this.pagesService.findGroupedNav();
   }
 

@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Page, PageDocument } from './schema/pages.schema';
 import { CreatePageDto } from './dto/create-page.dto';
+import { GroupedNav } from './pages.interface';
 
 @Injectable()
 export class PagesService {
@@ -39,12 +40,12 @@ export class PagesService {
     return { deleted: true };
   }
 
-  async findGroupedNav(): Promise<any> {
+  async findGroupedNav(): Promise<GroupedNav> {
     const pages = await this.pageModel
       .find({ showInNavbar: true, isActive: true })
       .exec();
 
-    const grouped: any = {};
+    const grouped: GroupedNav = {};
 
     for (const page of pages) {
       const cat = page.category || 'Uncategorized';
