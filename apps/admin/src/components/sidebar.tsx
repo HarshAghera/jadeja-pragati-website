@@ -24,7 +24,7 @@ const navItems: NavItem[] = [
     icon: <BookText size={18} className="text-inherit flex-shrink-0" />,
   },
   {
-    label: "Contact Submissions",
+    label: "Contact",
     to: "/contact",
     icon: <Mail size={18} className="text-inherit flex-shrink-0" />,
   },
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                 <Link
                   to={to}
                   onClick={onClose} 
-                  className={`flex items-center gap-2 pl-1 py-3 rounded-lg transition-all duration-200 whitespace-nowrap ${
+                  className={`flex items-center gap-2 pl-4 py-3 rounded-lg transition-all duration-200 whitespace-nowrap ${
                     active
                       ? "bg-white text-[#0a1d56] font-semibold shadow-md"
                       : "text-white hover:bg-[#132c72] hover:text-white"
