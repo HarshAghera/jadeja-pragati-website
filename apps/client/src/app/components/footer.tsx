@@ -42,8 +42,6 @@ const Footer: React.FC = () => {
   const footerBottomLinks: FooterLink[] = [
     { name: "Privacy Policy", link: "/privacy-policy" },
     { name: "Terms of Service", link: "/terms" },
-    { name: "Cookie Policy", link: "/cookie-policy" },
-    { name: "Sitemap", link: "/sitemap" },
   ];
 
   const socialMedia: SocialMediaLink[] = [
@@ -68,11 +66,11 @@ const Footer: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
         <div className="lg:mr-8 pl-4 sm:pl-6">
           <Image
-            src="/pictures/fullLogo.webp"
+            src="/pictures/jadejaPragati_logo.webp"
             alt="Company Logo"
-            width={130}
+            width={170}
             height={40}
-            className="mb-4"
+            className="mb-8"
           />
           <p className="text-white/50 mb-8">
             Empowering organizations to navigate regulatory complexities with
@@ -89,7 +87,6 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Major Services */}
         <div className="flex flex-col items-start lg:ml-12 pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Major Services</h3>
           <ul className="space-y-3">
@@ -109,7 +106,6 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Informative Links */}
         <div className="flex flex-col items-start pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Informative</h3>
           <ul className="space-y-3">
@@ -129,7 +125,6 @@ const Footer: React.FC = () => {
           </ul>
         </div>
 
-        {/* Contact Info */}
         <div className="flex flex-col items-start pl-4 sm:pl-6">
           <h3 className="text-lg font-bold mb-6">Contact Us</h3>
           <ul className="space-y-4 text-white/50 text-sm">

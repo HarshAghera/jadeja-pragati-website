@@ -32,17 +32,17 @@ const missionVisionData = [
   {
     icon: "icons/target.svg",
     title: "Our Mission",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "We empower businesses with expert consultancy for growth, compliance, and sustainability.Our focus is simplifying processes and building long-term, value-driven partnerships.",
   },
   {
     icon: "icons/light-bulb.svg",
     title: "Our Vision",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "To lead with trust and innovation, enabling businesses to grow smarter and greener.We aim to shape a future of sustainable success for every client.",
   },
   {
     icon: "icons/value.svg",
     title: "Our Values",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "We listen, understand, and tailor solutions to each client’s unique needs.Our process is transparent, efficient, and focused on delivering real results.",
   },
 ];
 const teamMembers = [
