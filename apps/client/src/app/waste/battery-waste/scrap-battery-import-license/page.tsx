@@ -9,7 +9,7 @@ import "@/app/styles/esg.css";
 export default function ScrapBatteryImportPage() {
   const [active, setActive] = useState("");
   const [sidebarFixed, setSidebarFixed] = useState(false);
-  const mainRef = useRef<HTMLDivElement>(null); // Ref to track start of main content
+  const mainRef = useRef<HTMLDivElement>(null); 
 
   useEffect(() => {
     const handleScroll = () => {
