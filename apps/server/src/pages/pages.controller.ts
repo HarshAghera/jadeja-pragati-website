@@ -30,7 +30,6 @@ export class PagesController {
   }
 
   @Get('nav')
-  @UseGuards(JwtAuthGuard)
   async getNavStructure(): Promise<GroupedNav> {
     return this.pagesService.findGroupedNav();
   }
