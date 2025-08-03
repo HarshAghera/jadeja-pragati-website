@@ -1,20 +1,20 @@
-import { Module, Logger } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
-
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { BlogModule } from './blogs/blogs.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { PagesModule } from './pages/pages.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: join(__dirname, '../../.env'), // 👈 important: load .env from root
+      envFilePath: join(__dirname, '../../.env'),
     }),
 
     MongooseModule.forRootAsync({
@@ -25,7 +25,6 @@ import { ContactsModule } from './contacts/contacts.module';
         if (!mongoUri) {
           throw new Error('❌ MONGODB_URI not found in environment variables');
         }
-        Logger.log(`✅ MONGODB_URI found: ${mongoUri}`, 'AppModule');
         return {
           uri: mongoUri,
         };
@@ -36,6 +35,7 @@ import { ContactsModule } from './contacts/contacts.module';
     AuthModule,
     BlogModule,
     ContactsModule,
+    PagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
