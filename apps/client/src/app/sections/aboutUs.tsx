@@ -8,7 +8,7 @@ const AboutUs = () => {
   return (
     <div className="aboutus-section w-full px-4 sm:px-6 md:px-12 lg:px-20 relative overflow-hidden pt-11 sm:pt-11 md:pt-13 lg:pt-15">
       <div className="text-center ">
-        <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0f2557]">
+        <h1 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl text-[#0f2557] ">
           Who We Are?
         </h1>
       </div>
@@ -27,15 +27,15 @@ const AboutUs = () => {
         </div>
 
         <div>
-          <h2 className="text-2xl sm:text-2xl md:text-3xl text-[#0f2557] mb-6 leading-snug">
-            Empowering You to Feel
+          <h2 className="text-2xl sm:text-2xl md:text-2xl text-[#0f2557] mb-6 leading-snug font-semibold ">
+            Empowering You to Succeed —
             <br className="hidden sm:block" />
-            Your Best Every Day
+            Every Single Day
           </h2>
           <p className="text-[#0f2557] text-sm sm:text-base md:text-md mb-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi,
-            possimus officia asperiores amet in, ab minima soluta similique
-            nostrum quis tenetur. Dignissimos consequatur quo dicta?
+            We are committed to helping businesses navigate complex regulations,
+            licensing processes, and sustainable business practices with ease
+            and confidence.
           </p>
 
           <ul className="space-y-4 mb-8 text-[#0f2557] text-sm sm:text-base">

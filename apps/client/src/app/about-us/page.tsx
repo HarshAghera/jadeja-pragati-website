@@ -30,19 +30,19 @@ export const metadata: Metadata = {
 
 const missionVisionData = [
   {
-    icon: "icons/target.svg",
+    icon: "/icons/mission_icon.webp",
     title: "Our Mission",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "We empower businesses with consultancy for growth, compliance, and sustainability. Our focus is simplifying processes and building value-driven partnerships.",
   },
   {
-    icon: "icons/light-bulb.svg",
+    icon: "/icons/vision_icon.webp",
     title: "Our Vision",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "To lead with trust and innovation, enabling businesses to grow smarter and greener.We aim to shape a future of sustainable success for every client.",
   },
   {
-    icon: "icons/value.svg",
+    icon: "/icons/values_icon.webp",
     title: "Our Values",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt ea, natus sit cum fugit distinctio id vitae perferendis qui! Quod iste velit alias.",
+    desc: "We listen, understand, and tailor solutions to each client’s unique needs.Our process is transparent, efficient, and focused on delivering real results.",
   },
 ];
 const teamMembers = [
@@ -88,7 +88,7 @@ export default function AboutLayout() {
       </div>
       <section
         id="mission-section"
-        className="px-4 sm:px-6 lg:px-8 py-14 bg-gradient-to-br from-[#dbe3ec]/50 via-[#f2f6fa]/50 to-white/60"
+        className="px-4 sm:px-6 lg:px-8 py-14 bg-[#f5f5f5]"
       >
         <div className="cards">
           {missionVisionData.map((card, index) => (
@@ -109,41 +109,71 @@ export default function AboutLayout() {
               Our Story
             </h2>
             <p className="text-center text-gray-600 mb-12">
-              From humble beginnings to a future built on innovation — this is
-              our journey.
+              Every great journey begins with a single step — and ours began
+              with a vision.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8 text-gray-700  leading-relaxed">
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-[#0f2557]">
+              <div className="space-y-1/2">
+                {/* <h3 className="text-xl font-semibold text-[#0f2557]">
                   Our Beginning
-                </h3>
+                </h3> */}
                 <p className="text-sm md:text-base">
-                  We started with a shared vision to raise the bar on what
-                  quality means. A small team fueled by big dreams, we’ve always
-                  believed in delivering value through trust and integrity.
+                  Hemantsinh Anirudhsinh Jadeja, a man of foresight and
+                  commitment, started offering consultancy services even before
+                  the company was officially formed. With strong determination
+                  and a deep understanding of licensing and regulatory
+                  frameworks, he took on his very first project — laying the
+                  foundation for what would eventually become a trusted name in
+                  the industry.
                 </p>
               </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold  text-[#0f2557]">
+              <div className="space-y-1/2">
+                {/* <h3 className="text-xl font-semibold  text-[#0f2557]">
                   Growth & Expansion
-                </h3>
+                </h3> */}
                 <p className="text-sm md:text-base">
-                  Over time, we diversified our services and embraced new
-                  technologies — building long-term partnerships and adapting to
-                  the ever-evolving needs of our clients.
+                  From that single project, Jadeja Pragati (I) Pvt. Ltd. was
+                  born. What started as a one-man mission has grown into a
+                  professional consultancy company handling multiple complex
+                  projects across sectors like import licensing, recycling
+                  compliance, pollution control, EPR certification, and more.
                 </p>
               </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-semibold text-[#0f2557]">
+              <div className="space-y-1/2">
+                {/* <h3 className="text-xl font-semibold text-[#0f2557]">
                   Today & Tomorrow
-                </h3>
+                </h3> */}
                 <p className="text-sm md:text-base">
-                  Today, we’re proud of our legacy and excited about the future.
-                  Innovation, resilience, and impact continue to guide our every
-                  step.
+                  Today, the company is proudly led by his son, Rudrarajsinh
+                  Hemantsinh Jadeja, who brings a modern outlook and a strong
+                  commitment to continuing his father’s legacy. Under his
+                  leadership, Jadeja Pragati (I) Pvt. Ltd. is expanding its
+                  horizons, forging new paths for clients, and aiming to partner
+                  with leading national and international companies.
+                </p>
+              </div>
+              <div className="space-y-1/2">
+                {/* <h3 className="text-xl font-semibold text-[#0f2557]">
+                  Today & Tomorrow
+                </h3> */}
+                <p className="text-sm md:text-base">
+                  As we look to the future, our goal is simple — to empower more
+                  businesses with smart solutions, build long-term
+                  relationships, and make compliance and growth easier than ever
+                  before.
+                </p>
+              </div>
+              <div className="space-y-1/2">
+                {/* <h3 className="text-xl font-semibold text-[#0f2557]">
+                  Today & Tomorrow
+                </h3> */}
+                <p className="text-sm md:text-base">
+                  From one project to many. From one vision to many
+                  possibilities. This is the journey of Jadeja Pragati — built
+                  on trust, driven by progress.
                 </p>
               </div>
             </div>

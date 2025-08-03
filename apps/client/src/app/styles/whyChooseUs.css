@@ -70,14 +70,13 @@
   grid-row: 2 / 3;
 }
 
-/* Colors */
 .blue {
   background-color: #0f2557;
 }
 
 .white {
   background-color: #ffffff;
-  color: #000;
+  color: #0f2557;
 }
 
 .right-top h1 {
@@ -91,6 +90,15 @@
 .right-top p {
   margin-top: 1rem;
   color: #555;
+}
+.box h3{
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.box p{
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .icon {
