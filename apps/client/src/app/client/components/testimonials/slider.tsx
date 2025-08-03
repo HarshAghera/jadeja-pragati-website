@@ -33,7 +33,7 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
         clickable: true,
         el: ".custom-pagination",
       }}
-      autoplay={{ delay: 4000, disableOnInteraction: false }}
+      autoplay={{ delay: 6000, disableOnInteraction: false }}
       breakpoints={{
         768: { slidesPerView: 2 },
         1024: { slidesPerView: 3 },
@@ -44,18 +44,18 @@ const TestimonialsSlider: React.FC<TestimonialsSliderProps> = ({
           <div className="testimonials backdrop-blur-sm rounded-2xl shadow-sm p-6 mx-2 flex flex-col justify-between text-left text-[#0f2557] relative overflow-hidden">
             <div className="absolute top-4 right-4 flex gap-1">
               {[...Array(t.stars)].map((_, i) => (
-                <FaStar key={i} className="text-yellow-400 text-sm" />
+                <FaStar key={i} className="text-yellow-400 text-md" />
               ))}
             </div>
             <div className="absolute top-4 left-4">
-              <FaQuoteLeft className="text-[#0f2557]/80 text-xl" />
+              <FaQuoteLeft className="text-[#0f2557]/80 text-2xl" />
             </div>
             <div className="mt-10 mb-4 flex-1">
-              <p className="text-sm line-clamp-4">{t.text}</p>
+              <p className="text-sm">{t.text}</p>
             </div>
             <div className="mt-auto">
-              <p className="font-semibold text-sm">{t.name}</p>
-              <p className="text-xs text-gray-500">{t.role}</p>
+              <p className="font-semibold text-lg">{t.name}</p>
+              <p className="text-sm text-gray-500">{t.role}</p>
             </div>
           </div>
         </SwiperSlide>

@@ -14,9 +14,10 @@ export default function BlogContent() {
         Blog
       </h2>
       <p className="text-gray-700 text-sm sm:text-base md:text-xl leading-relaxed">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur,
-        accusamus obcaecati. Optio, sit repellat, est voluptatum iste tenetur
-        dignissimos minus fugit magni eaque odio dolorem!
+        Welcome to Our Blog Here, we share useful tips and updates for your
+        business. Learn about licenses, rules, and how to grow smoothly. Stay
+        updated with the latest news in the industry. Easy-to-read, helpful
+        posts — made for you
       </p>
     </motion.div>
   );
