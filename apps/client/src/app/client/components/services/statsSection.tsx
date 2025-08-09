@@ -24,17 +24,17 @@ const StatsSection = () => {
         {[
           {
             Icon: FaBriefcase,
-            end: 5,
+            end: 10,
             label: "Years of Experience",
             unit: "+",
           },
           {
             Icon: FaProjectDiagram,
-            end: 20,
+            end: 25,
             label: "Projects Completed",
             unit: "+",
           },
-          { Icon: FaUsers, end: 25, label: "Employees", unit: "+" },
+          { Icon: FaUsers, end: 15, label: "Employees", unit: "+" },
           { Icon: FaSmile, end: 98, label: "Client Satisfaction", unit: "%" },
         ].map((item, index) => (
           <div

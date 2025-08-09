@@ -5,6 +5,36 @@ import BlogContent from "../client/components/blogPage/blogContent";
 import BlogCard from "../client/components/blogPage/blogCard";
 import { fetchBlogs } from "@/app/blogs/lib/api";
 import { Blog } from "@/app/blogs/types/blog";
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Blogs | Jadeja Pragati",
+  description:
+    "Explore the latest updates, insights, and articles from Jadeja Pragati covering business, environment, and innovation.",
+  keywords: [
+    "Jadeja Pragati Blogs",
+    "Business Insights",
+    "Environmental News",
+    "Sustainability Blogs",
+    "Innovation Articles",
+    "Company Updates",
+    "Indian Business Blog",
+    "Corporate News",
+    "EPR Blogs",
+    "Green Initiatives",
+    "Waste Management Blog",
+  ],
+  openGraph: {
+    title: "Blogs | Jadeja Pragati",
+    description:
+      "Explore the latest updates, insights, and articles from Jadeja Pragati covering business, environment, and innovation.",
+    url: "https://www.jadejapragati.com/blogs",
+    siteName: "Jadeja Pragati",
+    type: "website",
+  },
+};
+
 
 export default async function BlogsPage() {
   const blogs: Blog[] = await fetchBlogs();

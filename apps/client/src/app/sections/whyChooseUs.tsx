@@ -8,34 +8,33 @@ const WhyChooseUs = () => {
       <div className="box blue top-left">
         <div className="icon">
           <Image
-            src="/icons/light-bulb.svg"
-            alt="Bulb Icon"
-            width={40}
-            height={40}
+            src="/icons/expert_led.webp"
+            alt="Exper-led Consultancy"
+            width={50}
+            height={50}
           />
         </div>
-        <h3>SAMPLE HEADLINE</h3>
+        <h3>EXPERT-LED CONSULTANCY</h3>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Exercitationem non similique eum inventore saepe accusamus eligendi
-          eaque temporibus nesciunt consequuntur.
+          Our team of seasoned professionals brings deep industry knowledge to
+          every project. We guide you through complex regulations with
+          confidence and clarity.
         </p>
       </div>
 
       <div className="box white bottom-left">
         <div className="icon">
           <Image
-            src="/icons/clock.svg"
-            alt="Clock Icon"
-            width={40}
-            height={40}
+            src="/icons/reliable.webp"
+            alt="Reliable service"
+            width={50}
+            height={50}
           />
         </div>
-        <h3>SAMPLE HEADLINE</h3>
+        <h3>TRANSPARENT & RELIABLE SERVICE</h3>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Obcaecati,
-          eligendi fugiat quas iusto quia quis temporibus non pariatur excepturi
-          accusamus!
+          We believe in honesty, accountability, and timely delivery. Our
+          clients trust us for clear communication and dependable results.
         </p>
       </div>
 
@@ -61,34 +60,33 @@ const WhyChooseUs = () => {
       <div className="box blue bottom-right-left">
         <div className="icon">
           <Image
-            src="/icons/calender.svg"
-            alt="Setting Icon"
-            width={40}
-            height={40}
+            src="/icons/end_support.webp"
+            alt="End Support"
+            width={50}
+            height={50}
           />
         </div>
-        <h3>SAMPLE HEADLINE</h3>
+        <h3>END-TO-END SUPPORT</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-          dolorem dignissimos itaque nostrum, quis harum non magnam dicta,
-          molestiae nam iste voluptate earum fuga accusantium?
+          From licensing and compliance to business setup, we manage it all. You
+          focus on growth — we handle the paperwork and procedures.
         </p>
       </div>
 
       <div className="box white bottom-right-right">
         <div className="icon">
           <Image
-            src="/icons/setting.svg"
-            alt="Setting Icon"
-            width={40}
-            height={40}
+            src="/icons/customize_solutions.webp"
+            alt="Customized solutions"
+            width={50}
+            height={50}
           />
         </div>
-        <h3>SAMPLE HEADLINE</h3>
+        <h3>CUSTOMIZED SOLUTIONS</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-          deserunt maiores ipsa vero eos porro eius maxime nam non dicta dolor,
-          delectus vitae omnis iure?
+          We tailor every service to meet your specific business goals and
+          sector needs. No one-size-fits-all — just practical, results-driven
+          strategies.
         </p>
       </div>
     </section>
