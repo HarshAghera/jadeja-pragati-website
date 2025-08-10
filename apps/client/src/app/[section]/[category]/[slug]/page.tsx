@@ -6,10 +6,10 @@ import ContactFormSmall from "@/app/client/components/small-contact-form";
 import "@/app/styles/esg.css";
 import { sections } from "./sections/section";
 
-export default function ScrapBatteryImportPage() {
+export default function DynamicInnerPage() {
   const [active, setActive] = useState("");
   const [sidebarFixed, setSidebarFixed] = useState(false);
-  const mainRef = useRef<HTMLDivElement>(null); 
+  const mainRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
