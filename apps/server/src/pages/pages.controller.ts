@@ -24,7 +24,6 @@ export class PagesController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
   async findAll() {
     return this.pagesService.findAll();
   }
@@ -35,7 +34,6 @@ export class PagesController {
   }
 
   @Get(':slug')
-  @UseGuards(JwtAuthGuard)
   async findBySlug(@Param('slug') slug: string) {
     return this.pagesService.findBySlug(slug);
   }

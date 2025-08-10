@@ -14,8 +14,9 @@ export default function HowWeWorkSection() {
           How we work?
         </h2>
         <p className="text-gray-700 mb-8 text-base sm:text-lg">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab quos
-          minima molestias?
+          We listen, understand, and tailor solutions to each client’s unique
+          needs. Our process is transparent, efficient, and focused on
+          delivering real results.
         </p>
 
         <div className="relative w-full max-w-3xl mx-auto aspect-video rounded-lg shadow-lg overflow-hidden group">

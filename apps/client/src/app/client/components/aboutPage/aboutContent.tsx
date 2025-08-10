@@ -14,9 +14,9 @@ export default function AboutContent() {
         Who we are?
       </h2>
       <p className="text-gray-700 text-sm sm:text-base md:text-xl leading-relaxed">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur,
-        accusamus obcaecati. Optio, sit repellat, est voluptatum iste tenetur
-        dignissimos minus fugit magni eaque odio dolorem!
+        We are a team of dedicated professionals who help businesses grow and
+        stay compliant. Our goal is to make complex processes simple and provide
+        clear, reliable guidance every step of the way.
       </p>
     </motion.div>
   );

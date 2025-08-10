@@ -4,9 +4,43 @@ import BlogHeaderInformation from "@/app/client/components/blogPage/blogHeaderIn
 import { fetchBlogById } from "../lib/api";
 import parse from "html-react-parser";
 import "@/app/styles/blogs.css";
+import { Metadata } from "next";
 
 interface Props {
   params: Promise<{ id: string }>;
+}
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const blog = await fetchBlogById((await params).id);
+
+  if (!blog) return {};
+
+  return {
+    title: `${blog.title} | Jadeja Pragati`,
+    description: blog.shortDescription,
+    keywords: [
+      blog.title,
+      "Jadeja Pragati Blog",
+      "Business Blog",
+      "Environmental Updates",
+      "Sustainability Articles",
+      "EPR",
+      "Waste",
+      "Consulting",
+    ],
+    openGraph: {
+      title: `${blog.title} | Jadeja Pragati`,
+      description: blog.shortDescription,
+      url: `https://www.jadejapragati.com/blogs/${(await params).id}`,
+      siteName: "Jadeja Pragati",
+      type: "article",
+      images: [
+        {
+          url: blog.imageUrl,
+          alt: blog.title,
+        },
+      ],
+    },
+  };
 }
 
 export default async function BlogPost({ params }: Props) {
@@ -29,16 +63,16 @@ export default async function BlogPost({ params }: Props) {
             year: "numeric",
           })}
         </p>
-        <div className="relative w-full h-auto mb-8 rounded-2xl overflow-hidden shadow-md">
+        <div className="relative h-[250px] w-full sm:h-[250px]  md:h-[400px] lg:h-[500px] mb-8 rounded-xl overflow-hidden shadow-md">
           <Image
             src={blog.imageUrl}
             alt={blog.title}
-            width={800}
-            height={300}
+            fill
+            className="object-cover"
             sizes="100vw"
-            className="w-full h-auto rounded shadow-md"
           />
         </div>
+
         <div className="blog-content">{parse(blog.content)}</div>
       </div>
     </>

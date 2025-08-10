@@ -2,10 +2,10 @@ import React from "react";
 import "@/app/styles/servicesSection.css";
 import CategorySection from "../client/components/services/categorySection";
 import StatsSection from "../client/components/services/statsSection";
-import { FaGem, FaRocket, FaReact } from "react-icons/fa";
+import { FaGem, FaRocket } from "react-icons/fa";
 
 const serviceData = {
-  License: [
+  Consulting: [
     {
       icon: <FaGem className="icons" />,
       title: "Permit Application",
@@ -19,15 +19,43 @@ const serviceData = {
       link: "/services/renewal-management",
     },
   ],
-  Environmental: [
+  Business: [
     {
-      icon: <FaRocket className="icons" />,
+      icon: <FaGem className="icons" />,
       title: "Sustainability Audits",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
       link: "/services/sustainability-audits",
     },
     {
-      icon: <FaReact className="icons" />,
+      icon: <FaRocket className="icons" />,
+      title: "Green Certifications",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
+      link: "/services/green-certifications",
+    },
+  ],
+  Waste: [
+    {
+      icon: <FaGem className="icons" />,
+      title: "Sustainability Audits",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
+      link: "/services/sustainability-audits",
+    },
+    {
+      icon: <FaRocket className="icons" />,
+      title: "Green Certifications",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
+      link: "/services/green-certifications",
+    },
+  ],
+  EPR: [
+    {
+      icon: <FaGem className="icons" />,
+      title: "Sustainability Audits",
+      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
+      link: "/services/sustainability-audits",
+    },
+    {
+      icon: <FaRocket className="icons" />,
       title: "Green Certifications",
       desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, ipsum accusantium in animi molestiae magni",
       link: "/services/green-certifications",
