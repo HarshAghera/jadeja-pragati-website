@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { Plus, X, Menu, ChevronDown } from "react-feather";
+import { Plus, X, Menu, ChevronDown, ArrowRight } from "react-feather";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import "@/app/styles/header.css";
@@ -172,7 +172,9 @@ const HeaderClient = () => {
                                           : "hover:bg-gray-200 text-gray-800"
                                       }`}
                                     >
-                                      <span>{cat}</span>
+                                      <span className="text-sm lg:text-md xl:text-lg">
+                                        {cat}
+                                      </span>
                                       <ChevronDown
                                         className={`w-4 h-4 ml-2 transition-transform ${
                                           activeCategory === cat
@@ -187,17 +189,29 @@ const HeaderClient = () => {
                             </div>
 
                             <div className="w-2/3 pl-6">
-                              <h3 className="text-[#0f2557] text-xl font-semibold mb-3">
+                              <h3 className="text-[#0f2557] text-md lg:text-xl xl:text-2xl text-2xl font-semibold mb-3">
                                 {activeCategory}
                               </h3>
-                              <div className="columns-1 sm:columns-2 lg:columns-3 gap-5 overflow-y-auto max-h-[380px] pr-2 text-md list-none space-x-2">
+                              <ul
+                                className="
+                                      list-none pr-2
+                                      max-h-[420px]
+                                      [column-fill:_auto] 
+                                      columns-1
+                                      sm:columns-2
+                                      lg:columns-2
+                                    "
+                              >
                                 {dropdownMenus[openDropdown] &&
                                   dropdownMenus[openDropdown][activeCategory] &&
                                   Object.entries(
                                     dropdownMenus[openDropdown][activeCategory]
                                   ).map(([subSubCategoryName, items]) =>
                                     items.map((item, i) => (
-                                      <li key={i}>
+                                      <li
+                                        key={i}
+                                        className="break-inside-avoid"
+                                      >
                                         <Link
                                           href={`/${String(openDropdown)
                                             .toLowerCase()
@@ -215,14 +229,20 @@ const HeaderClient = () => {
                                             setOpenDropdown(null);
                                             setActiveCategory("");
                                           }}
-                                          className="text-gray-800 hover:text-[#0f2557] inline-block py-1 text-sm"
+                                          className="group relative flex items-center text-gray-800 hover:text-[#0f2557] py-2 "
                                         >
-                                          {subSubCategoryName}
+                                          <ArrowRight
+                                            className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                                            size={16}
+                                          />
+                                          <span className="pl-5 text-sm lg:text-md xl:text-lg">
+                                            {subSubCategoryName}
+                                          </span>
                                         </Link>
                                       </li>
                                     ))
                                   )}
-                              </div>
+                              </ul>
                             </div>
                           </motion.div>
                         )}
