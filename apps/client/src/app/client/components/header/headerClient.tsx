@@ -43,7 +43,6 @@ const HeaderClient = () => {
     loadMenus();
   }, []);
 
-
   const [openDropdown, setOpenDropdown] = useState<Section | null>(null);
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState<Section | null>(
     null
@@ -100,7 +99,7 @@ const HeaderClient = () => {
           scrolled ? "bg-white/80 backdrop-blur-md shadow-md" : "bg-transparent"
         }`}
       >
-        <div className="max-w-[90vw] min-w-[320px] mx-auto">
+        <div className="max-w-[94vw] min-w-[320px] mx-auto">
           <div className="flex items-center justify-between py-1">
             <Link href="/" className="flex items-center">
               <Image
@@ -112,7 +111,7 @@ const HeaderClient = () => {
               />
             </Link>
 
-            <div className="hidden lg:flex items-center flex-grow justify-between text-[#0f2557] ml-12 relative">
+            <div className="hidden [@media(min-width:1060px)]:flex items-center flex-grow justify-between text-[#0f2557] ml-12 relative">
               <div className="flex items-center gap-7">
                 {sectionNames.map((name) => {
                   const title = name;
@@ -262,7 +261,7 @@ const HeaderClient = () => {
               </div>
             </div>
 
-            <div className="lg:hidden">
+            <div className="[@media(min-width:1060px)]:hidden">
               <button onClick={() => setMobileMenuOpen(true)}>
                 <Menu size={30} className="text-[#0f2557]" />
               </button>
@@ -270,7 +269,6 @@ const HeaderClient = () => {
           </div>
         </div>
 
-        {/* MOBILE SIDEBAR */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div

@@ -11,6 +11,7 @@ type PageData = {
 export async function getDropdownMenus(): Promise<DropdownMenus> {
   const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
   const res = await fetch(`${apiUrl}/pages`, {
+    method: "GET",
     headers: {
       Accept: "application/json",
     },

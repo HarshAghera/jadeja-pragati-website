@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
+const apiUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
 export type SectionKey = "Consulting" | "Business" | "Waste" | "EPR";
 
-// Single item under a sub-subcategory
 export type DropdownItem = {
   label: string; 
   slug: string; 
@@ -11,6 +12,7 @@ export type DropdownMenus = {
   [section: string]: {
     [category: string]: {
       [subSubCategory: string]: {
+        [x: string]: ReactNode;
         title: string;
         slug: string;
       }[];
@@ -22,7 +24,8 @@ export type DropdownMenus = {
 
 export const fetchDropdownMenus = async (): Promise<DropdownMenus> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/pages/nav`, {
+    const res = await fetch(`${apiUrl}/pages/nav`, {
+      method: "GET",
       cache: "no-store",
     });
 
@@ -32,11 +35,10 @@ export const fetchDropdownMenus = async (): Promise<DropdownMenus> => {
 
     const json = await res.json();
 
-    // console.log("✅ Fetched DropdownMenus from backend:", json.value);
 
     return json.value as DropdownMenus;
-  } catch (error) {
-    // console.error("❌ Error fetching dropdownMenus:", error);
+  } catch (err) {
+    console.error("❌ Error fetching dropdownMenus:", err);
     return {
       Consulting: {},
       Business: {},

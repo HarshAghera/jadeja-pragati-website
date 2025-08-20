@@ -1,4 +1,4 @@
- @media (min-width: 1024px) and (max-width: 1280px) {
+ @media (min-width: 1060px) and (max-width: 1280px) {
     .nav-links {
       flex-wrap: nowrap;
       justify-content: flex-start;
