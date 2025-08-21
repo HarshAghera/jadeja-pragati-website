@@ -5,13 +5,18 @@ import Lenis from "@studio-freight/lenis";
 
 export default function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+
     const lenis = new Lenis({
-      duration: 1.4, // increase duration for smoother effect
-      easing: (t) => 1 - Math.pow(2, -10 * t), // smooth exponential easing
-      wheelMultiplier: 0.9, // control wheel speed
-      touchMultiplier: 1.2, // smooth out touch on mobile
-      gestureOrientation: "vertical", // keep vertical scroll
+      duration: isMobile ? 1.2 : 0.6, 
+      easing: (t) => 1 - Math.pow(2, -10 * t),
+      wheelMultiplier: isMobile ? 1 : 1,
+      touchMultiplier: isMobile ? 1 : 1, 
+      gestureOrientation: "vertical",
+      syncTouch: true,
+      smoothWheel: true,
     });
+
 
     function raf(time: number) {
       lenis.raf(time);
