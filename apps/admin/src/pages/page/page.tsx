@@ -12,6 +12,7 @@ interface PageType {
   category: string;
   subcategory: string;
   subsubcategory: string;
+  htmlContent?: string;
   showInNavbar: boolean;
 }
 
@@ -42,9 +43,7 @@ const Page: React.FC = () => {
       if (!token) return toast.error("User not authenticated");
 
       const response = await fetch(`${API_BASE_URL}/pages`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       const data = await response.json();
@@ -84,9 +83,7 @@ const Page: React.FC = () => {
 
       const response = await fetch(`${API_BASE_URL}/pages/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (!response.ok) throw new Error("Delete failed");
@@ -103,11 +100,15 @@ const Page: React.FC = () => {
     const token = localStorage.getItem("authToken");
     if (!token) return toast.error("Authentication token missing");
 
-
     const page = pages.find((p) => p._id === id);
     if (!page) return;
 
-    const updatedPage = { ...page, showInNavbar: !current };
+    const updatedPage = {
+      title: page.title,
+      slug: page.slug,
+      htmlContent: page.htmlContent || "",
+      showInNavbar: !current,
+    };
 
     try {
       const response = await fetch(`${API_BASE_URL}/pages/${id}`, {
@@ -119,13 +120,21 @@ const Page: React.FC = () => {
         body: JSON.stringify(updatedPage),
       });
 
-      if (!response.ok) throw new Error("Update failed");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("Toggle Navbar Error Response:", errorData);
+        throw new Error(errorData.message || "Update failed");
+      }
 
-      setPages((prev) => prev.map((p) => (p._id === id ? updatedPage : p)));
+      setPages((prev) =>
+        prev.map((p) => (p._id === id ? { ...p, showInNavbar: !current } : p))
+      );
+
       toast.success(
         `Page ${!current ? "added to" : "removed from"} navbar successfully.`
       );
-    } catch {
+    } catch (err) {
+      console.error("Toggle Navbar Exception:", err);
       toast.error("Failed to update navbar visibility.");
     }
   };
@@ -150,7 +159,6 @@ const Page: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-     
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <Link to="/pages/create">
           <motion.button
@@ -202,7 +210,7 @@ const Page: React.FC = () => {
               <th className="px-4 py-3">Category</th>
               <th className="px-4 py-3">Subcategory</th>
               <th className="px-4 py-3">Subsubcategory</th>
-              <th className="px-4 py-3 ">Navbar</th>
+              <th className="px-4 py-3">Navbar</th>
               <th className="px-4 py-3">Actions</th>
             </tr>
           </thead>
@@ -257,7 +265,7 @@ const Page: React.FC = () => {
                         <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-green-500 transition-all after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:w-5 after:h-5 after:bg-white after:rounded-full peer-checked:after:translate-x-full after:transition-all" />
                       </label>
                     </td>
-                    <td className="px-4 py-3 ">
+                    <td className="px-4 py-3">
                       <div className="flex gap-3">
                         <motion.div whileHover={{ scale: 1.2 }}>
                           <Link
@@ -285,27 +293,22 @@ const Page: React.FC = () => {
         </table>
       </div>
 
-     
-      <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
         <div>
-          <label className="text-sm mr-2">Rows per page:</label>
+          <label className="mr-2 text-sm">Rows per page:</label>
           <select
             className="border px-2 py-1 rounded text-sm"
             value={rowsPerPage}
             onChange={handleRowsPerPageChange}
           >
             <option value={5}>5</option>
+            <option value={8}>8</option>
             <option value={10}>10</option>
-            <option value={20}>20</option>
           </select>
         </div>
-        <div className="flex items-center gap-2 text-sm">
-          {totalCount > 0 && (
-            <>
-              {(currentPage - 1) * rowsPerPage + 1}–
-              {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
-            </>
-          )}
+        <div className="text-sm flex flex-wrap items-center gap-2">
+          {(currentPage - 1) * rowsPerPage + 1}–
+          {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
           <button
             onClick={goToPreviousPage}
             disabled={currentPage === 1}
