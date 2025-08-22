@@ -10,13 +10,13 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
     const lenis = new Lenis({
       duration: isMobile ? 1.2 : 0.6, 
       easing: (t) => 1 - Math.pow(2, -10 * t),
-      wheelMultiplier: isMobile ? 1 : 1,
-      touchMultiplier: isMobile ? 1 : 1, 
+      wheelMultiplier: isMobile ? 1 : 0.6, 
+      touchMultiplier: isMobile ? 1 : 1,
       gestureOrientation: "vertical",
       syncTouch: true,
       smoothWheel: true,
+      // smoothTouch: true,
     });
-
 
     function raf(time: number) {
       lenis.raf(time);
