@@ -344,7 +344,10 @@ const HeaderClient = () => {
                             exit={{ height: 0, opacity: 0 }}
                             className="pl-4 mt-2"
                           >
-                            <div className="max-h-[200px] overflow-y-auto space-y-1">
+                            <div
+                              data-lenis-prevent
+                              className="pl-4 max-h-[200px] overflow-y-auto pr-2 space-y-1"
+                            >
                               {categories.map((cat) => (
                                 <div key={cat}>
                                   <button
