@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { ReactNode, useEffect } from 'react';
-import Lenis from 'lenis';
+import { ReactNode, useEffect } from "react";
+import Lenis from "lenis";
 
 export default function LenisProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -9,11 +9,11 @@ export default function LenisProvider({ children }: { children: ReactNode }) {
 
     const lenis = new Lenis({
       autoRaf: true,
-      duration: isMobile ? 1.2 : 0.6,
-      easing: (t) => 1 - Math.pow(2, -10 * t),
-      wheelMultiplier: isMobile ? 1 : 0.6,
-      touchMultiplier: isMobile ? 1 : 1,
-      gestureOrientation: 'vertical',
+      duration: isMobile ? 0.6 : 0.6,
+      easing: (t: number) => 1 - Math.pow(2, -10 * t),
+      wheelMultiplier: isMobile ? 1.2 : 0.6,
+      touchMultiplier: isMobile ? 1.8 : 1,
+      gestureOrientation: "vertical",
       syncTouch: true,
     });
 
