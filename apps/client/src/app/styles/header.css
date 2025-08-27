@@ -46,6 +46,11 @@
   color: #0f2557;
   background-color: #ffffff;
 }
+/* Make Lenis skip this container */
+[data-lenis-prevent] {
+  overflow-y: auto;
+}
+
 
 
 

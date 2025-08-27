@@ -21,6 +21,9 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
   const [descriptionContent, setDescriptionContent] = useState("");
   const [mounted, setMounted] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [sidebarLeft, setSidebarLeft] = useState<number | null>(null);
+
 
   useEffect(() => {
     setMounted(true);
@@ -143,6 +146,19 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
 
     return () => window.removeEventListener("scroll", handleSidebarStop);
   }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      if (sidebarRef.current) {
+        const rect = sidebarRef.current.getBoundingClientRect();
+        setSidebarLeft(rect.left);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
 
   if (!mounted) {
     return (
@@ -188,6 +204,7 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
 
       <div ref={mainRef} className="flex gap-8 px-4 lg:px-12 mt-10 mb-24">
         <nav
+          ref={sidebarRef}
           className="hidden xl:block w-64 overflow-auto max-h-[calc(100vh-6rem)]"
           style={{
             position: sidebarFixed
@@ -196,7 +213,10 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
                 : "fixed"
               : "relative",
             top: sidebarFixed ? (stopSidebar ? "auto" : "6rem") : "auto",
-            left: sidebarFixed && !stopSidebar ? "1rem" : "auto",
+            left:
+              sidebarFixed && !stopSidebar && sidebarLeft !== null
+                ? `${sidebarLeft}px`
+                : "auto",
             bottom: stopSidebar ? "0" : "auto",
             paddingTop: sidebarFixed ? "20px" : "0px",
             transition: "all 0.3s ease-in-out",
@@ -222,7 +242,7 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
 
         <main
           className={`flex-1 space-y-16 ${
-            sidebarFixed ? "xl:ml-[272px]" : "ml-0"
+            sidebarFixed ? "xl:ml-[289px]" : "ml-0"
           }`}
         >
           {htmlContent && (
