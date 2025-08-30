@@ -22,6 +22,11 @@ import Page from "./pages/page/page";
 import CreatePage from "./pages/page/createPage";
 import UpdatePage from "./pages/page/updatePage";
 
+// ✅ Import SuperAdmin page, CreateUser, and UpdatePassword
+import SuperAdminPage from "./components/SuperAdminPage";
+import CreateUser from "./components/CreateUser";
+import UpdatePassword from "./components/UpdatePassword"; // <-- new
+
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
@@ -135,6 +140,43 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
+
+            {/* ✅ SuperAdmin User List */}
+            <Route
+              path="/superadmin"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <SuperAdminPage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ Create User Page */}
+            <Route
+              path="/superadmin/CreateUser"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <CreateUser />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ Update Password Page */}
+    <Route
+  path="/superadmin/update-password/:id"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <UpdatePassword />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
 
             <Route path="*" element={<PageNotFound />} />
           </Routes>
