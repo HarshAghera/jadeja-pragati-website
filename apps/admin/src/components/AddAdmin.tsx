@@ -26,7 +26,7 @@ const getEmailFromToken = (token: string | null): string | null => {
   }
 };
 
-const CreateUser: React.FC = () => {
+const AddAdmin: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const role = "admin";
@@ -174,7 +174,7 @@ const CreateUser: React.FC = () => {
             className="text-3xl font-bold mt-4 text-gray-800 text-center 
                          max-sm:text-xl max-sm:mt-3"
           >
-            Create Admin User
+            Add Admin User
           </h2>
           <p
             className="text-gray-500 text-sm mt-2 text-center 
@@ -222,11 +222,11 @@ const CreateUser: React.FC = () => {
                      max-sm:text-sm max-sm:px-4 max-sm:py-2.5"
         >
           <UserPlus size={20} className="max-sm:size-5" />
-          Create Admin
+          Add Admin
         </motion.button>
       </motion.div>
     </div>
   );
 };
 
-export default CreateUser;
+export default AddAdmin;

@@ -24,7 +24,7 @@ import UpdatePage from "./pages/page/updatePage";
 
 // ✅ Import SuperAdmin page, CreateUser, and UpdatePassword
 import SuperAdminPage from "./components/SuperAdminPage";
-import CreateUser from "./components/CreateUser";
+import CreateUser from "./components/AddAdmin";
 import UpdatePassword from "./components/UpdatePassword"; // <-- new
 
 const App: React.FC = () => {
@@ -155,7 +155,7 @@ const App: React.FC = () => {
 
             {/* ✅ Create User Page */}
             <Route
-              path="/superadmin/CreateUser"
+              path="/superadmin/AddAdmin"
               element={
                 <ProtectedRoute>
                   <Layout>

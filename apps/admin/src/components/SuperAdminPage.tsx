@@ -201,12 +201,12 @@ const SuperAdminPage: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.08, rotate: 2 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate("/superadmin/CreateUser")}
+            onClick={() => navigate("/superadmin/addadmin")}
             className="bg-[#001f3f] text-white px-6 py-3 rounded-xl flex items-center gap-2 
               hover:bg-blue-800 shadow-lg transition duration-300 text-base font-semibold"
           >
             <UserPlus size={22} />
-            Create User
+            Create Admin
           </motion.button>
         </motion.div>
 
