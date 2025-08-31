@@ -457,7 +457,7 @@ const Contact: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowMessageModal(false)}
-                className="px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base rounded-full text-white bg-[#001f3f] border border-gray-300 hover:bg-blue-800"
+                className="px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base rounded text-white bg-[#001f3f] border border-gray-300 hover:bg-blue-800"
               >
                 Close
               </motion.button>

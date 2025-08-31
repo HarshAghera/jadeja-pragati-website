@@ -2,31 +2,57 @@
 
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { Plus, X, Menu } from "react-feather";
+import { Plus, X, Menu, ChevronDown, ArrowRight } from "react-feather";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import "@/app/styles/header.css";
+import { fetchDropdownMenus, DropdownMenus } from "./servicesdata";
+
+type Section = keyof DropdownMenus;
 
 const HeaderClient = () => {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(
+  const [dropdownMenus, setDropdownMenus] = useState<DropdownMenus>({
+    Consulting: {},
+    Business: {},
+    Waste: {},
+    EPR: {},
+  });
+
+  useEffect(() => {
+    const loadMenus = async () => {
+      const data = await fetchDropdownMenus();
+
+      const cleaned: DropdownMenus = {};
+      for (const section in data) {
+        cleaned[section] = {};
+        for (const category in data[section]) {
+          cleaned[section][category] = {};
+
+          const subSubCategories = data[section][category];
+          for (const subSubCategory in subSubCategories) {
+            const items = subSubCategories[subSubCategory];
+            cleaned[section][category][subSubCategory] = Array.isArray(items)
+              ? items
+              : [items];
+          }
+        }
+      }
+
+      setDropdownMenus(cleaned);
+    };
+    loadMenus();
+  }, []);
+
+  const [openDropdown, setOpenDropdown] = useState<Section | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<Section | null>(
     null
   );
+  const [mobileActiveCategory, setMobileActiveCategory] = useState<string>("");
+  const [activeCategory, setActiveCategory] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const dropdownLinks: Record<string, { label: string; href: string }[]> = {
-    environmental: [
-      { label: "Environmental Item 1", href: "environmental-item1" },
-      { label: "Environmental Item 2", href: "environmental-item2" },
-    ],
-    license: [
-      { label: "License Item 1", href: "license-item1" },
-      { label: "License Item 2", href: "license-item2" },
-    ],
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -61,6 +87,8 @@ const HeaderClient = () => {
     };
   }, []);
 
+  const sectionNames: Section[] = ["Consulting", "Business", "Waste", "EPR"];
+
   return (
     <>
       <motion.header
@@ -71,7 +99,7 @@ const HeaderClient = () => {
           scrolled ? "bg-white/80 backdrop-blur-md shadow-md" : "bg-transparent"
         }`}
       >
-        <div className="max-w-[90vw] min-w-[320px] mx-auto">
+        <div className="max-w-[94vw] min-w-[320px] mx-auto">
           <div className="flex items-center justify-between py-1">
             <Link href="/" className="flex items-center">
               <Image
@@ -83,16 +111,22 @@ const HeaderClient = () => {
               />
             </Link>
 
-            <div className="hidden lg:flex items-center flex-grow justify-between text-[#0f2557] ml-12">
+            <div className="hidden [@media(min-width:1060px)]:flex items-center flex-grow justify-between text-[#0f2557] ml-12 relative">
               <div className="flex items-center gap-7">
-                {["environmental", "license"].map((name) => {
-                  const title = name.charAt(0).toUpperCase() + name.slice(1);
+                {sectionNames.map((name) => {
+                  const title = name;
+                  const menu = dropdownMenus[name];
+                  const categories = Object.keys(menu);
+
                   return (
                     <div
                       key={name}
                       className="relative"
                       ref={openDropdown === name ? dropdownRef : null}
-                      onMouseEnter={() => setOpenDropdown(name)}
+                      onMouseEnter={() => {
+                        setOpenDropdown(name);
+                        setActiveCategory(categories[0]);
+                      }}
                       onMouseLeave={() => setOpenDropdown(null)}
                     >
                       <div
@@ -114,6 +148,7 @@ const HeaderClient = () => {
                           }`}
                         />
                       </div>
+
                       <AnimatePresence>
                         {openDropdown === name && (
                           <motion.div
@@ -121,17 +156,94 @@ const HeaderClient = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.5 }}
-                            className="absolute top-full left-0 mt-4 w-64 bg-white rounded-lg shadow-lg overflow-hidden z-50 "
+                            className="fixed top-[80px] left-[8vw] w-[84vw] max-w-[1280px] h-auto lg:h-[500px] z-50 flex flex-col lg:flex-row bg-[#f8f9fa] rounded-md shadow-lg p-4 sm:p-6"
                           >
-                            {dropdownLinks[name].map((item, i) => (
-                              <Link
-                                key={i}
-                                href={item.href}
-                                className="px-5 py-3 text-sm hover-underline inline-block"
+                            <div className="w-1/3 pr-4 border-r border-gray-300 overflow-y-auto lg:overflow-y-visible lg:max-h-none max-h-[200px]">
+                              <ul className="space-y-2">
+                                {categories.map((cat) => (
+                                  <li key={cat}>
+                                    <button
+                                      onMouseEnter={() =>
+                                        setActiveCategory(cat)
+                                      }
+                                      className={`w-full text-left flex justify-between items-center px-4 py-2 rounded ${
+                                        activeCategory === cat
+                                          ? "bg-[#0f2557] text-white"
+                                          : "hover:bg-gray-200 text-gray-800"
+                                      }`}
+                                    >
+                                      <span className="text-sm lg:text-md xl:text-lg">
+                                        {cat}
+                                      </span>
+                                      <ChevronDown
+                                        className={`w-4 h-4 ml-2 transition-transform ${
+                                          activeCategory === cat
+                                            ? "rotate-90"
+                                            : ""
+                                        }`}
+                                      />
+                                    </button>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="w-2/3 pl-6">
+                              <h3 className="text-[#0f2557] text-md lg:text-xl xl:text-2xl text-2xl font-semibold mb-3">
+                                {activeCategory}
+                              </h3>
+                              <ul
+                                className="
+                                      list-none pr-2
+                                      max-h-[420px]
+                                      [column-fill:_auto] 
+                                      columns-1
+                                      sm:columns-2
+                                      lg:columns-2
+                                    "
                               >
-                                {item.label}
-                              </Link>
-                            ))}
+                                {dropdownMenus[openDropdown] &&
+                                  dropdownMenus[openDropdown][activeCategory] &&
+                                  Object.entries(
+                                    dropdownMenus[openDropdown][activeCategory]
+                                  ).map(([subSubCategoryName, items]) =>
+                                    items.map((item, i) => (
+                                      <li
+                                        key={i}
+                                        className="break-inside-avoid"
+                                      >
+                                        <Link
+                                          href={`/${String(openDropdown)
+                                            .toLowerCase()
+                                            .replace(/\s+/g, "-")}/${String(
+                                            activeCategory
+                                          )
+                                            .toLowerCase()
+                                            .replace(
+                                              /\s+/g,
+                                              "-"
+                                            )}/${encodeURIComponent(
+                                            item.slug
+                                          )}`}
+                                          onClick={() => {
+                                            setOpenDropdown(null);
+                                            setActiveCategory("");
+                                          }}
+                                          className="group relative flex items-center text-gray-800 hover:text-[#0f2557] py-2 "
+                                        >
+                                          <ArrowRight
+                                            className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                                            size={16}
+                                          />
+                                          <span className="pl-5 text-sm lg:text-md xl:text-lg">
+                                            {subSubCategoryName}
+                                          </span>
+                                        </Link>
+                                      </li>
+                                    ))
+                                  )}
+                              </ul>
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -169,108 +281,195 @@ const HeaderClient = () => {
               </div>
             </div>
 
-            <div className="lg:hidden">
+            <div className="[@media(min-width:1060px)]:hidden">
               <button onClick={() => setMobileMenuOpen(true)}>
                 <Menu size={30} className="text-[#0f2557]" />
               </button>
             </div>
           </div>
         </div>
-      </motion.header>
 
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ duration: 0.4 }}
-            className="lg:hidden fixed inset-0 bg-white text-[#0f2557] z-50 flex flex-col items-center justify-center text-center space-y-6 p-6"
-          >
-            <button
-              className="absolute top-6 right-6"
-              onClick={() => setMobileMenuOpen(false)}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.4 }}
+              className="fixed top-0 right-0 w-full h-screen bg-white shadow-lg z-[999] overflow-y-auto"
             >
-              <X size={32} className="text-[#0f2557]" />
-            </button>
+              <div className="flex justify-between items-center p-4 border-b">
+                <Link href="/">
+                  <Image
+                    src="/pictures/jp_logo.webp"
+                    alt="Logo"
+                    width={120}
+                    height={40}
+                  />
+                </Link>
 
-            {["environmental", "license"].map((name) => {
-              const isOpen = mobileOpenDropdown === name;
-              return (
-                <div key={name} className="w-full max-w-xs mx-auto">
-                  <button
-                    className="flex items-center justify-center w-full text-lg mb-2"
-                    onClick={() =>
-                      setMobileOpenDropdown((prev) =>
-                        prev === name ? null : name
-                      )
-                    }
-                  >
-                    <span className="capitalize">{name}</span>
-                    <Plus
-                      size={18}
-                      className={`ml-2 transition-transform ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="overflow-hidden"
+                <button onClick={() => setMobileMenuOpen(false)}>
+                  <X size={28} />
+                </button>
+              </div>
+
+              <ul className="px-4 py-2 space-y-3">
+                {sectionNames.map((section) => {
+                  const menu = dropdownMenus[section];
+                  const categories = Object.keys(menu ?? {});
+
+                  return (
+                    <li key={section}>
+                      <button
+                        className="w-full flex justify-between items-center text-left text-md font-semibold text-[#0f2557] py-2"
+                        onClick={() =>
+                          setMobileOpenDropdown((prev) =>
+                            prev === section ? null : section
+                          )
+                        }
                       >
-                        {dropdownLinks[name].map((item, i) => (
-                          <Link
-                            key={i}
-                            href={item.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="block py-2 text-sm"
-                          >
-                            {item.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              );
-            })}
+                        {section}
+                        <ChevronDown
+                          className={`transition-transform ${
+                            mobileOpenDropdown === section ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
 
-            <Link
-              href="/projects"
-              className="text-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Projects
-            </Link>
-            <Link
-              href="/blogs"
-              className="text-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Blogs
-            </Link>
-            <Link
-              href="/about-us"
-              className="text-lg"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              About Us
-            </Link>
-            <Link
-              href="/contact-us"
-              className="third px-6 py-2 text-base rounded-full font-semibold"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Get in touch
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                      <AnimatePresence>
+                        {mobileOpenDropdown === section && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="pl-4 mt-2"
+                          >
+                            <div
+                              data-lenis-prevent
+                              className="pl-4 max-h-[200px] overflow-y-auto pr-2 space-y-1"
+                            >
+                              {categories.map((cat) => (
+                                <div key={cat}>
+                                  <button
+                                    className="w-full flex justify-between items-center text-left py-2 text-[#0f2557] font-medium hover:text-[#093f54]"
+                                    onClick={() =>
+                                      setMobileActiveCategory((prev) =>
+                                        prev === cat ? "" : cat
+                                      )
+                                    }
+                                  >
+                                    <span>{cat}</span>
+                                    <ChevronDown
+                                      className={`transition-transform ${
+                                        mobileActiveCategory === cat
+                                          ? "rotate-180"
+                                          : ""
+                                      }`}
+                                      size={18}
+                                    />
+                                  </button>
+                                  {mobileActiveCategory === cat && (
+                                    <div className="pl-4 max-h-[300px] overflow-y-auto pr-2 space-y-1">
+                                      {menu[cat] &&
+                                        Object.entries(menu[cat]).map(
+                                          ([subSubCategoryName, items]) =>
+                                            items.map((item, idx) => (
+                                              <Link
+                                                href={`/${String(
+                                                  mobileOpenDropdown
+                                                )
+                                                  .toLowerCase()
+                                                  .replace(
+                                                    /\s+/g,
+                                                    "-"
+                                                  )}/${String(
+                                                  mobileActiveCategory
+                                                )
+                                                  .toLowerCase()
+                                                  .replace(/\s+/g, "-")}/${
+                                                  item.slug
+                                                }`}
+                                                key={idx}
+                                                className="block text-sm text-gray-700 hover:text-[#0f2557] py-1"
+                                                onClick={() => {
+                                                  setMobileMenuOpen(false);
+                                                  setMobileOpenDropdown(null);
+                                                  setMobileActiveCategory("");
+                                                }}
+                                              >
+                                                {subSubCategoryName}
+                                              </Link>
+                                            ))
+                                        )}
+                                    </div>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </li>
+                  );
+                })}
+
+                <li>
+                  <Link
+                    href="/projects"
+                    className="block py-2 text-[#0f2557] font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileOpenDropdown(null);
+                      setMobileActiveCategory("");
+                    }}
+                  >
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/blogs"
+                    className="block py-2 text-[#0f2557] font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileOpenDropdown(null);
+                      setMobileActiveCategory("");
+                    }}
+                  >
+                    Blogs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/about-us"
+                    className="block py-2 text-[#0f2557] font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileOpenDropdown(null);
+                      setMobileActiveCategory("");
+                    }}
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/contact-us"
+                    className="block py-2 text-[#0f2557] font-semibold"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      setMobileOpenDropdown(null);
+                      setMobileActiveCategory("");
+                    }}
+                  >
+                    Contact Us
+                  </Link>
+                </li>
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
     </>
   );
 };

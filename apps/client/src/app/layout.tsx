@@ -7,6 +7,7 @@ import { FaWhatsapp } from "react-icons/fa";
 import Header from "./components/header";
 import PageLoader from "./components/pageLoader";
 import ToastProvider from "./toast-provider";
+import LenisProvider from "./components/lenis_provider";
 
 const slab = Roboto_Slab({
   subsets: ["latin"],
@@ -59,18 +60,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={slab.className}>
-        <ToastProvider/>
-        <Header />
-        <PageLoader>{children}</PageLoader>
-        <Link
-          href="https://wa.me/7202096968"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300"
-        >
-          <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6" />
-        </Link>
-        <Footer />
+        {/* ✅ Smooth scroll wrapper */}
+        <LenisProvider>
+          <ToastProvider />
+          <Header />
+          <PageLoader>{children}</PageLoader>
+
+          {/* WhatsApp Floating Button */}
+          <Link
+            href="https://wa.me/7202096968"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-4 right-4 z-50 bg-[#25D366] hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300"
+          >
+            <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6" />
+          </Link>
+
+          <Footer />
+        </LenisProvider>
       </body>
     </html>
   );

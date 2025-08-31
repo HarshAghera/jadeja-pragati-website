@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,8 +16,16 @@ import Blog from "./pages/blog/blog";
 import CreateBlog from "./pages/blog/createBlog";
 import UpdateBlog from "./pages/blog/updateBlog";
 import ProtectedRoute from "./components/protect-route";
-import ContactPage from "./pages/contact/contactPage"; 
+import ContactPage from "./pages/contact/contactPage";
 
+import Page from "./pages/page/page";
+import CreatePage from "./pages/page/createPage";
+import UpdatePage from "./pages/page/updatePage";
+
+// ✅ Import SuperAdmin page, CreateUser, and UpdatePassword
+import SuperAdminPage from "./components/SuperAdminPage";
+import CreateUser from "./components/AddAdmin";
+import UpdatePassword from "./components/UpdatePassword"; // <-- new
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -85,11 +92,91 @@ const App: React.FC = () => {
               element={
                 <ProtectedRoute>
                   <Layout>
-                    <ContactPage/>
+                    <ContactPage />
                   </Layout>
                 </ProtectedRoute>
               }
             />
+
+            <Route
+              path="/pages"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Page />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/pages/create"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <CreatePage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/pages/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <UpdatePage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/pages/update/:slug"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <UpdatePage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ SuperAdmin User List */}
+            <Route
+              path="/superadmin"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <SuperAdminPage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ Create User Page */}
+            <Route
+              path="/superadmin/AddAdmin"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <CreateUser />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ Update Password Page */}
+    <Route
+  path="/superadmin/update-password/:id"
+  element={
+    <ProtectedRoute>
+      <Layout>
+        <UpdatePassword />
+      </Layout>
+    </ProtectedRoute>
+  }
+/>
+
 
             <Route path="*" element={<PageNotFound />} />
           </Routes>

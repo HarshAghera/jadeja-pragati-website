@@ -3,11 +3,11 @@ import Image from "next/image";
 import BlogHeaderInformation from "@/app/client/components/blogPage/blogHeaderInformation";
 import { fetchBlogById } from "../lib/api";
 import parse from "html-react-parser";
-import "@/app/styles/blogs.css"
+import "@/app/styles/blogs.css";
 import { Metadata } from "next";
 
 interface Props {
-  params: Promise<{ id: string }>; 
+  params: Promise<{ id: string }>;
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const blog = await fetchBlogById((await params).id);
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       "Sustainability Articles",
       "EPR",
       "Waste",
-      "Consulting"
+      "Consulting",
     ],
     openGraph: {
       title: `${blog.title} | Jadeja Pragati`,
@@ -44,10 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPost({ params }: Props) {
-  const { id } = await params; 
+  const { id } = await params;
   const blog = await fetchBlogById(id);
 
-  if (!blog) return notFound();
+  if (!blog || !blog.isPublished) return notFound();
 
   return (
     <>

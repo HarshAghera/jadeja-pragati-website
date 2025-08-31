@@ -1,4 +1,4 @@
- @media (min-width: 1024px) and (max-width: 1280px) {
+ @media (min-width: 1060px) and (max-width: 1280px) {
     .nav-links {
       flex-wrap: nowrap;
       justify-content: flex-start;
@@ -46,6 +46,11 @@
   color: #0f2557;
   background-color: #ffffff;
 }
+/* Make Lenis skip this container */
+[data-lenis-prevent] {
+  overflow-y: auto;
+}
+
 
 
 
