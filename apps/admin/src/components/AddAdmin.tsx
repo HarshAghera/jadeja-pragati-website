@@ -108,6 +108,11 @@ const AddAdmin: React.FC = () => {
       return;
     }
 
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("authToken");
       if (!token) throw new Error("No auth token found");
@@ -206,7 +211,7 @@ const AddAdmin: React.FC = () => {
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Password (min 8 chars)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="border px-10 py-3 rounded-lg w-full focus:ring-2 focus:ring-[#001f3f] outline-none transition-all text-base 

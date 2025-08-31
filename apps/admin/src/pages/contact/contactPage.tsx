@@ -105,13 +105,6 @@ const Contact: React.FC = () => {
 
       setContacts((prev) => prev.filter((contact) => contact._id !== id));
       toast.success("Contact deleted successfully");
-
-      await Swal.fire({
-        title: "Deleted!",
-        text: "Contact has been deleted.",
-        icon: "success",
-        confirmButtonColor: "#3085d6",
-      });
     } catch (error) {
       console.error("Failed to delete contact:", error);
       toast.error("Failed to delete contact");
