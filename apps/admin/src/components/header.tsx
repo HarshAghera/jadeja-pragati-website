@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import type React from "react";
-import { useEffect, useState } from "react";
-import { Search, Menu } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import { Search, Menu } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -20,9 +20,9 @@ type User = {
 const getEmailFromToken = (token: string | null): string | null => {
   try {
     if (!token) return null;
-    const [, payload] = token.split(".");
+    const [, payload] = token.split('.');
     if (!payload) return null;
-    const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
     const json = JSON.parse(atob(base64));
     return json?.email || json?.user_email || json?.sub || null;
   } catch {
@@ -38,21 +38,21 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
 
   const fetchProfile = async () => {
     try {
-      if (!API_URL) throw new Error("Missing VITE_API_URL");
-      const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found. Please login first.");
+      if (!API_URL) throw new Error('Missing VITE_API_URL');
+      const token = localStorage.getItem('authToken');
+      if (!token) throw new Error('No auth token found. Please login first.');
 
       const storedEmail =
-        localStorage.getItem("userEmail") ||
-        localStorage.getItem("email") ||
-        localStorage.getItem("authEmail");
+        localStorage.getItem('userEmail') ||
+        localStorage.getItem('email') ||
+        localStorage.getItem('authEmail');
       const email = storedEmail || getEmailFromToken(token);
-      if (!email) throw new Error("Could not determine current user email.");
+      if (!email) throw new Error('Could not determine current user email.');
 
       const res = await fetch(`${API_URL}/users/${encodeURIComponent(email)}`, {
-        method: "GET",
+        method: 'GET',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
@@ -67,13 +67,13 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
               email: data.value.email,
               type: data.value.type,
             }
-          : null
+          : null,
       );
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.error("Profile error:", err.message);
+        console.error('Profile error:', err.message);
       } else {
-        console.error("Profile error:", err);
+        console.error('Profile error:', err);
       }
       setProfile(null);
     }
@@ -84,35 +84,35 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userRole");
-    toast.success("Logged out successfully!");
-    navigate("/");
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
+    toast.success('Logged out successfully!');
+    setTimeout(() => navigate('/'), 500);
   };
 
   const handleProfileClick = () => {
-    if (profile?.type?.toLowerCase() === "superadmin") {
-      navigate("/superadmin");
+    if (profile?.type?.toLowerCase() === 'superadmin') {
+      navigate('/superadmin');
     } else {
-      toast.error("You don’t have access to the Superadmin page.");
+      toast.error('You don’t have access to the Superadmin page.');
     }
   };
 
   const avatarUrl =
-    profile?.type?.toLowerCase() === "superadmin"
-      ? "https://img.freepik.com/premium-vector/stylish-businessman-profile-circle-vector-illustration_123673-428.jpg"
-      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkq0k0XsXaUViO7OX7JVyp3QUSYEzmetopEg&s";
+    profile?.type?.toLowerCase() === 'superadmin'
+      ? 'https://img.freepik.com/premium-vector/stylish-businessman-profile-circle-vector-illustration_123673-428.jpg'
+      : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkq0k0XsXaUViO7OX7JVyp3QUSYEzmetopEg&s';
 
   const containerVariants = {
-    hidden: { opacity: 0, y: -30, filter: "blur(4px)" },
+    hidden: { opacity: 0, y: -30, filter: 'blur(4px)' },
     visible: {
       opacity: 1,
       y: 0,
-      filter: "blur(0px)",
+      filter: 'blur(0px)',
       transition: {
         duration: 0.6,
-        ease: "easeOut",
-        when: "beforeChildren",
+        ease: 'easeOut',
+        when: 'beforeChildren',
         staggerChildren: 0.1,
       },
     },
@@ -169,7 +169,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           onClick={handleProfileClick}
           whileHover={{ scale: 1.15, rotate: 5 }}
           whileTap={{ scale: 0.99, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          transition={{ type: 'spring', stiffness: 300 }}
           className="flex flex-col items-center cursor-pointer"
         >
           <div className="bg-white text-[#0a1d56] p-1 sm:p-2 rounded-full w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center overflow-hidden">
@@ -189,10 +189,10 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           variants={itemVariants}
           whileHover={{
             scale: 1.1,
-            boxShadow: "0 0 0.5rem rgba(255,255,255,0.6)",
+            boxShadow: '0 0 0.5rem rgba(255,255,255,0.6)',
           }}
           whileTap={{ scale: 0.95, rotate: -2 }}
-          transition={{ type: "spring", stiffness: 200 }}
+          transition={{ type: 'spring', stiffness: 200 }}
           className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 md:text-lg rounded transition-all text-sm sm:text-base shadow-md"
         >
           Logout
