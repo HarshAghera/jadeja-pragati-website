@@ -32,7 +32,7 @@ export class UsersController {
   async create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
-  @UseGuards(JwtAuthGuard)
+
   @Patch()
   async updatePassword(@Body() updateUserDto: UpdateUserDto) {
     return this.usersService.updatePassword(updateUserDto);
