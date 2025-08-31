@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../styles/login.css";
-import { toast, ToastContainer } from "react-toastify";
-import bgImage from "../images/bg.webp";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/login.css';
+import { toast } from 'react-toastify';
+import bgImage from '../images/bg.webp';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [bgLoaded, setBgLoaded] = useState(false);
   const navigate = useNavigate();
 
@@ -23,44 +22,43 @@ const Login: React.FC = () => {
     e.preventDefault();
 
     if (!email || !password) {
-      toast.error("Both fields are required.");
+      toast.error('Both fields are required.');
       return;
     }
 
     try {
       const res = await fetch(`${apiUrl}/auth/login`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
 
       if (!res.ok) {
         const errorData = await res.json();
-        toast.error(errorData.message || "Login failed. Please try again.");
+        toast.error(errorData.message || 'Login failed. Please try again.');
         return;
       }
 
       const responseData: { value: { access_token: string } } =
         await res.json();
 
-      localStorage.setItem("authToken", responseData.value.access_token);
-      toast.success("Login successful!");
-      navigate("/dashboard");
+      localStorage.setItem('authToken', responseData.value.access_token);
+      toast.success('Login successful!');
+      navigate('/dashboard');
     } catch (error) {
-      console.error("Login error:", error);
-      toast.error("Something went wrong. Please try again later.");
+      console.error('Login error:', error);
+      toast.error('Something went wrong. Please try again later.');
     }
   };
 
   const handleForgotPasswordClick = () => {
-    navigate("/forgot-password");
+    navigate('/forgot-password');
   };
 
   return (
-    <div className={`login-container ${bgLoaded ? "bg-loaded" : "bg-loading"}`}>
-      <ToastContainer position="bottom-right" autoClose={2500} />
+    <div className={`login-container ${bgLoaded ? 'bg-loaded' : 'bg-loading'}`}>
       <div className="card login-card">
         <div className="text-center mb-4">
           <h2 className="text-navy font-playfair">Login</h2>
@@ -77,7 +75,7 @@ const Login: React.FC = () => {
             <input
               type="email"
               id="email"
-              className={`form-control ${email ? "bg-light" : ""}`}
+              className={`form-control ${email ? 'bg-light' : ''}`}
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
