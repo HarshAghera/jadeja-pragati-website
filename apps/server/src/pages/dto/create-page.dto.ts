@@ -11,3 +11,7 @@ export class CreatePageDto {
   @IsOptional() @IsBoolean() showInNavbar?: boolean;
   @IsOptional() @IsBoolean() isActive?: boolean;
 }
+
+export class PageListDto {
+  @IsOptional() @IsString() category?: string;
+}
