@@ -1,10 +1,12 @@
 import type React from "react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
   CircleUserRound,
   BookText,
   BookA,
+  UserCog,
   X,
   ChevronRight,
 } from "lucide-react";
@@ -20,71 +22,171 @@ interface SidebarProps {
   onClose?: () => void;
 }
 
-const navItems: NavItem[] = [
-  {
-    label: "Dashboard",
-    to: "/dashboard",
-    icon: <LayoutDashboard size={18} className="text-inherit flex-shrink-0" />,
-  },
-  {
-    label: "Blog",
-    to: "/blog",
-    icon: <BookA size={18} className="text-inherit flex-shrink-0" />,
-  },
-  {
-    label: "Contact",
-    to: "/contact",
-    icon: <CircleUserRound size={18} className="text-inherit flex-shrink-0" />,
-  },
-  {
-    label: "Pages",
-    to: "/pages",
-    icon: <BookText size={18} className="text-inherit flex-shrink-0" />,
-  },
-];
+type User = {
+  _id: string;
+  email: string;
+  type: string;
+};
 
+const getEmailFromToken = (token: string | null): string | null => {
+  try {
+    if (!token) return null;
+    const [, payload] = token.split(".");
+    if (!payload) return null;
+    const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const json = JSON.parse(atob(base64));
+    return json?.email || json?.user_email || json?.sub || null;
+  } catch {
+    return null;
+  }
+};
+
+const API_URL = import.meta.env.VITE_API_URL;
+
+// Sidebar smooth animations
 const sidebarVariants = {
   hidden: {
     x: "-100%",
     opacity: 0,
+    scale: 0.98,
     transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 30,
+      ease: "easeInOut",
+      duration: 0.4,
     },
   },
   visible: {
     x: 0,
     opacity: 1,
+    scale: 1,
     transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
+      ease: "easeInOut",
+      duration: 0.5,
+      when: "beforeChildren",
+      staggerChildren: 0.08,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: (i: number) => ({
+  hidden: { opacity: 0, x: -15 },
+  visible: {
     opacity: 1,
     x: 0,
-    transition: { delay: i * 0.05 },
-  }),
+    transition: {
+      ease: "easeOut",
+      duration: 0.3,
+    },
+  },
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
 
+  const [profile, setProfile] = useState<User | null>(null);
+
+  const fetchProfile = async () => {
+    try {
+      if (!API_URL) throw new Error("Missing VITE_API_URL");
+      const token = localStorage.getItem("authToken");
+      if (!token) throw new Error("No auth token found. Please login first.");
+
+      const storedEmail =
+        localStorage.getItem("userEmail") ||
+        localStorage.getItem("email") ||
+        localStorage.getItem("authEmail");
+      const email = storedEmail || getEmailFromToken(token);
+      if (!email) throw new Error("Could not determine current user email.");
+
+      const res = await fetch(`${API_URL}/users/${encodeURIComponent(email)}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) throw new Error(`Failed to fetch profile: ${res.status}`);
+
+      const data = await res.json();
+      setProfile(
+        data?.value
+          ? {
+              _id: data.value._id,
+              email: data.value.email,
+              type: data.value.type,
+            }
+          : null
+      );
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Sidebar profile error:", err.message);
+      } else {
+        console.error("Sidebar profile error:", err);
+      }
+      setProfile(null);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const navItems: NavItem[] = [
+    {
+      label: "Dashboard",
+      to: "/dashboard",
+      icon: (
+        <LayoutDashboard size={18} className="text-inherit flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Blog",
+      to: "/blog",
+      icon: <BookA size={18} className="text-inherit flex-shrink-0" />,
+    },
+    {
+      label: "Contact",
+      to: "/contact",
+      icon: (
+        <CircleUserRound size={18} className="text-inherit flex-shrink-0" />
+      ),
+    },
+    {
+      label: "Pages",
+      to: "/pages",
+      icon: <BookText size={18} className="text-inherit flex-shrink-0" />,
+    },
+  ];
+
+  if (profile?.type?.toLowerCase() === "superadmin") {
+    navItems.push({
+      label: "Manage Admin",
+      to: "/superadmin",
+      icon: <UserCog size={18} className="text-inherit flex-shrink-0" />,
+    });
+  }
+
   return (
     <AnimatePresence>
+      {/* Overlay for smooth fade-in */}
+      {onClose && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed inset-0 bg-black z-40 md:hidden"
+          onClick={onClose}
+        />
+      )}
+
       <motion.aside
         initial="hidden"
         animate="visible"
         exit="hidden"
         variants={sidebarVariants}
-        className="h-full w-full max-w-[16rem] bg-[#0a1d56] p-6 flex flex-col shadow-lg overflow-y-auto md:rounded-2xl md:m-4"
+        className="fixed left-0 top-0 z-50 h-full w-full max-w-[16rem] bg-[#0a1d56] p-6 flex flex-col shadow-xl overflow-y-auto md:relative md:rounded-2xl md:m-4"
       >
         {onClose && (
           <div className="flex justify-end mb-4 md:hidden">
@@ -112,7 +214,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                 >
                   <motion.div
                     whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+                    transition={{ type: "spring", stiffness: 250 }}
                     className="group"
                   >
                     <Link
@@ -132,12 +234,11 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                         <span className="text-sm font-medium">{label}</span>
                       </div>
 
-                      {/* Arrow Icon on hover */}
+                      {/* Smooth Chevron animation */}
                       <motion.div
-                        initial={{ x: -10, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -10, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
+                        initial={{ x: -8, opacity: 0 }}
+                        whileHover={{ x: 0, opacity: 1 }}
+                        transition={{ ease: "easeOut", duration: 0.25 }}
                         className="opacity-0 group-hover:opacity-100 text-white md:text-[#0a1d56]"
                       >
                         <ChevronRight size={18} />

@@ -24,6 +24,7 @@ import SuperAdminPage from "./components/SuperAdminPage";
 import CreateUser from "./components/AddAdmin";
 import UpdatePassword from "./components/UpdatePassword";
 import UserProfile from "./components/userProfile";
+import AdminProfile from "./components/adminProfile";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -178,6 +179,18 @@ const App: React.FC = () => {
                 <ProtectedRoute>
                   <Layout>
                     <UserProfile />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* ✅ New AdminProfile route */}
+            <Route
+              path="/adminprofile"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <AdminProfile />
                   </Layout>
                 </ProtectedRoute>
               }

@@ -2,15 +2,7 @@
 
 import type React from "react";
 import { useEffect, useState } from "react";
-import {
-  Trash2,
-  Pencil,
-  UserPlus,
-  Mail,
-  UserCog,
-  User,
-  LogOut,
-} from "lucide-react";
+import { Trash2, Pencil, UserPlus } from "lucide-react";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -181,13 +173,6 @@ const SuperAdminPage: React.FC = () => {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userRole");
-    toast.success("Logged out successfully!");
-    setTimeout(() => navigate("/"), 500);
-  };
-
   if (profile && !isSuperAdmin) {
     return null;
   }
@@ -207,14 +192,13 @@ const SuperAdminPage: React.FC = () => {
           className="flex justify-start"
         >
           <motion.button
-            whileHover={{ scale: 1.08, rotate: 2 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => navigate("/superadmin/addadmin")}
-            className="bg-[#001f3f] text-white px-6 py-3 rounded-xl flex items-center gap-2 
-              hover:bg-blue-800 shadow-lg transition duration-300 text-base font-semibold"
+            className="bg-[#001f3f] hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold w-full sm:w-auto transition-all shadow-md flex items-center justify-center gap-2"
           >
-            <UserPlus size={22} />
-            Create Admin
+            <UserPlus size={18} />
+            CREATE ADMIN
           </motion.button>
         </motion.div>
 
@@ -319,102 +303,6 @@ const SuperAdminPage: React.FC = () => {
             </>
           )}
         </motion.div>
-
-        {profile && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="bg-white shadow-xl rounded-2xl overflow-hidden"
-          >
-            <div className="h-32 w-full bg-[#001f3f] rounded-t-2xl relative flex items-center px-5">
-              <User className="text-white w-8 h-8 mr-3" />
-              <h2 className="text-white text-2xl font-bold">Your Profile</h2>
-            </div>
-
-            <div className="p-6">
-              <AnimatePresence>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="flex flex-col gap-6"
-                >
-                  <motion.div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10 w-full">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 200,
-                        delay: 0.3,
-                      }}
-                      className="relative w-28 h-28 flex-shrink-0"
-                    >
-                      <img
-                        src={
-                          profile.avatar ||
-                          "https://img.freepik.com/premium-vector/stylish-businessman-profile-circle-vector-illustration_123673-428.jpg"
-                        }
-                        alt="Profile"
-                        className="w-28 h-28 rounded-full border-4 border-gray-200 object-cover shadow-md"
-                      />
-                    </motion.div>
-
-                    <motion.div className="flex-1 flex flex-col sm:flex-row gap-4 w-full">
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                        onClick={() => {
-                          navigator.clipboard.writeText(profile.email);
-                          toast.success("Email copied!");
-                        }}
-                        className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 cursor-pointer hover:bg-gray-100 transition flex-1"
-                      >
-                        <Mail className="text-blue-500" size={20} />
-                        <div>
-                          <p className="text-gray-500 text-xs">Email</p>
-                          <p className="text-gray-800 font-semibold text-sm break-all">
-                            {profile.email}
-                          </p>
-                        </div>
-                      </motion.div>
-
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3 flex-1"
-                      >
-                        <UserCog className="text-purple-500" size={20} />
-                        <div>
-                          <p className="text-gray-500 text-xs">Role</p>
-                          <p className="text-gray-800 font-semibold capitalize">
-                            {profile.type}
-                          </p>
-                        </div>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-
-                  <motion.div className="flex justify-center mt-6">
-                    <motion.button
-                      onClick={handleLogout}
-                      whileHover={{
-                        scale: 1.05,
-                        boxShadow: "0 0 0.5rem rgba(239,68,68,0.6)",
-                      }}
-                      whileTap={{ scale: 0.9 }}
-                      className="bg-red-500 hover:bg-red-600 text-white font-semibold px-8 py-3 text-lg rounded shadow-lg transition flex items-center gap-2"
-                    >
-                      <LogOut className="w-5 h-5" />
-                      Logout
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        )}
       </motion.div>
     </div>
   );
