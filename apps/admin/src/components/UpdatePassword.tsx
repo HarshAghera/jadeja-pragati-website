@@ -139,6 +139,11 @@ const UpdatePassword: React.FC = () => {
       return;
     }
 
+    if (newPassword.length < 8) {
+      toast.error("Password must be at least 8 characters long");
+      return;
+    }
+
     try {
       const token = localStorage.getItem("authToken");
       if (!token) throw new Error("No auth token found");
@@ -233,7 +238,7 @@ const UpdatePassword: React.FC = () => {
           />
           <input
             type="password"
-            placeholder="Enter new password"
+            placeholder="Enter new password (min 8 chars)"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             className="w-full border rounded-lg px-10 py-3 focus:ring-2 focus:ring-[#001f3f] outline-none transition-all text-base 

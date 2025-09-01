@@ -17,15 +17,13 @@ import CreateBlog from "./pages/blog/createBlog";
 import UpdateBlog from "./pages/blog/updateBlog";
 import ProtectedRoute from "./components/protect-route";
 import ContactPage from "./pages/contact/contactPage";
-
 import Page from "./pages/page/page";
 import CreatePage from "./pages/page/createPage";
 import UpdatePage from "./pages/page/updatePage";
-
-// ✅ Import SuperAdmin page, CreateUser, and UpdatePassword
 import SuperAdminPage from "./components/SuperAdminPage";
 import CreateUser from "./components/AddAdmin";
-import UpdatePassword from "./components/UpdatePassword"; // <-- new
+import UpdatePassword from "./components/UpdatePassword";
+import UserProfile from "./components/userProfile";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -141,7 +139,6 @@ const App: React.FC = () => {
               }
             />
 
-            {/* ✅ SuperAdmin User List */}
             <Route
               path="/superadmin"
               element={
@@ -153,7 +150,6 @@ const App: React.FC = () => {
               }
             />
 
-            {/* ✅ Create User Page */}
             <Route
               path="/superadmin/AddAdmin"
               element={
@@ -165,18 +161,27 @@ const App: React.FC = () => {
               }
             />
 
-            {/* ✅ Update Password Page */}
-    <Route
-  path="/superadmin/update-password/:id"
-  element={
-    <ProtectedRoute>
-      <Layout>
-        <UpdatePassword />
-      </Layout>
-    </ProtectedRoute>
-  }
-/>
+            <Route
+              path="/superadmin/update-password/:id"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <UpdatePassword />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
 
+            <Route
+              path="/userprofile"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <UserProfile />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
 
             <Route path="*" element={<PageNotFound />} />
           </Routes>
