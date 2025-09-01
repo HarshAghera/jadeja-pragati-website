@@ -21,20 +21,10 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 const Page: React.FC = () => {
   const [pages, setPages] = useState<PageType[]>([]);
   const [search, setSearch] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [loading, setLoading] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const filteredPages = pages.filter((page) =>
-    page.title.toLowerCase().includes(search.toLowerCase())
-  );
-
-  const totalCount = filteredPages.length;
-  const totalPages = Math.ceil(totalCount / rowsPerPage);
-  const paginatedPages = filteredPages.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
 
   const fetchPages = useCallback(async () => {
     setLoading(true);
@@ -48,7 +38,11 @@ const Page: React.FC = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setPages(data.value || []);
+        const pagesArray = data.value || [];
+        pagesArray.sort((a: PageType, b: PageType) =>
+          b._id.localeCompare(a._id)
+        );
+        setPages(pagesArray);
       } else {
         toast.error(data.message || "Failed to fetch pages");
       }
@@ -139,6 +133,24 @@ const Page: React.FC = () => {
     }
   };
 
+  const categories = Array.from(new Set(pages.map((p) => p.category)));
+
+  const filteredPages = pages.filter((page) => {
+    const matchesSearch = page.title
+      .toLowerCase()
+      .includes(search.toLowerCase());
+    const matchesCategory =
+      selectedCategory === "All" || page.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const totalCount = filteredPages.length;
+  const totalPages = Math.ceil(totalCount / rowsPerPage);
+  const paginatedPages = filteredPages.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
+
   const handleRowsPerPageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setRowsPerPage(Number(e.target.value));
     setCurrentPage(1);
@@ -170,33 +182,58 @@ const Page: React.FC = () => {
           </motion.button>
         </Link>
 
-        <div className="relative w-full sm:w-64">
-          <input
-            type="text"
-            placeholder="Search pages..."
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm shadow-sm"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
-          <svg
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            width="18"
-            height="18"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
+        <div
+          className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto 
+                  bg-white/20 backdrop-blur-md border border-gray-200/30 rounded-lg p-3 shadow-sm"
+        >
+          {/* Search Box */}
+          <div className="relative w-full sm:w-64">
+            <input
+              type="text"
+              placeholder="Search pages..."
+              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300/50 focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm shadow-sm transition bg-white/30 backdrop-blur-sm"
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
             />
-          </svg>
+            <svg
+              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              width="18"
+              height="18"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
+              />
+            </svg>
+          </div>
+
+          {/* Category Filter */}
+          <div className="w-full sm:w-48">
+            <select
+              className="w-full border px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none shadow-sm transition bg-white/30 backdrop-blur-sm"
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setCurrentPage(1);
+              }}
+            >
+              <option value="All">All Categories</option>
+              {categories.map((cat) => (
+                <option key={cat} value={cat}>
+                  {cat}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 

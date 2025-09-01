@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/forgotPassword.css';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import bgImage from '../images/bg.webp';
 import { useNavigate } from 'react-router-dom';
 
@@ -61,8 +61,6 @@ const ForgotPassword: React.FC = () => {
         bgLoaded ? 'bg-loaded' : 'bg-loading'
       }`}
     >
-      <ToastContainer position="bottom-right" autoClose={2500} />
-
       <div className="card forgot-password-card">
         <div className="text-center mb-4">
           <h2 className="text-navy font-playfair">Reset Password</h2>

@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { PagesService } from './pages.service';
-import { CreatePageDto } from './dto/create-page.dto';
+import { CreatePageDto, PageListDto } from './dto/create-page.dto';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { GroupedNav } from './pages.interface';
 
@@ -24,8 +24,8 @@ export class PagesController {
   }
 
   @Get()
-  async findAll() {
-    return this.pagesService.findAll();
+  async findAll(@Body() pageListDto: PageListDto) {
+    return this.pagesService.findAll(pageListDto);
   }
 
   @Get('nav')

@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Page, PageDocument } from './schema/pages.schema';
-import { CreatePageDto } from './dto/create-page.dto';
+import { CreatePageDto, PageListDto } from './dto/create-page.dto';
 import { GroupedNav } from './pages.interface';
 
 @Injectable()
@@ -15,8 +15,12 @@ export class PagesService {
     return createdPage.save();
   }
 
-  async findAll(): Promise<Page[]> {
-    return this.pageModel.find().exec();
+  async findAll(pageListDto: PageListDto): Promise<Page[]> {
+    const findObj = {};
+    if (pageListDto.category) {
+      findObj['category'] = pageListDto.category;
+    }
+    return await this.pageModel.find(findObj).sort({ createdAt: -1 }).exec();
   }
 
   async findBySlug(slug: string): Promise<Page> {

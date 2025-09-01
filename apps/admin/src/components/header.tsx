@@ -4,7 +4,6 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { Search, Menu } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 
 interface HeaderProps {
@@ -83,25 +82,18 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
     fetchProfile();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("userRole");
-    toast.success("Logged out successfully!");
-    navigate("/");
-  };
-
   const handleProfileClick = () => {
     if (profile?.type?.toLowerCase() === "superadmin") {
       navigate("/superadmin");
     } else {
-      toast.error("You don’t have access to the Superadmin page.");
+      navigate("/userprofile");
     }
   };
 
   const avatarUrl =
     profile?.type?.toLowerCase() === "superadmin"
       ? "https://img.freepik.com/premium-vector/stylish-businessman-profile-circle-vector-illustration_123673-428.jpg"
-      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkq0k0XsXaUViO7OX7JVyp3QUSYEzmetopEg&s";
+      : "https://thumbs.dreamstime.com/b/smiling-businessman-avatar-dark-suit-orange-tie-circular-frame-smiling-businessman-avatar-dark-suit-orange-400005652.jpg";
 
   const containerVariants = {
     hidden: { opacity: 0, y: -30, filter: "blur(4px)" },
@@ -183,20 +175,6 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             User Profile
           </span>
         </motion.div>
-
-        <motion.button
-          onClick={handleLogout}
-          variants={itemVariants}
-          whileHover={{
-            scale: 1.1,
-            boxShadow: "0 0 0.5rem rgba(255,255,255,0.6)",
-          }}
-          whileTap={{ scale: 0.95, rotate: -2 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 sm:px-4 sm:py-2 md:px-6 md:py-2.5 md:text-lg rounded transition-all text-sm sm:text-base shadow-md"
-        >
-          Logout
-        </motion.button>
       </motion.div>
     </motion.div>
   );
