@@ -2,9 +2,10 @@
 
 import type React from "react";
 import { useEffect, useState } from "react";
-import { Search, Menu } from "lucide-react";
+import { Search, Menu, Power } from "lucide-react"; // ⬅️ changed LogOut → Power
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -69,11 +70,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
           : null
       );
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error("Profile error:", err.message);
-      } else {
-        console.error("Profile error:", err);
-      }
+      console.error("Profile error:", err);
       setProfile(null);
     }
   };
@@ -84,10 +81,17 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
 
   const handleProfileClick = () => {
     if (profile?.type?.toLowerCase() === "superadmin") {
-      navigate("/superadmin");
+      navigate("/adminprofile");
     } else {
       navigate("/userprofile");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("userRole");
+    toast.success("Logged out successfully!");
+    setTimeout(() => navigate("/"), 500);
   };
 
   const avatarUrl =
@@ -155,8 +159,9 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
 
       <motion.div
         variants={itemVariants}
-        className="flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6 flex-shrink-0"
+        className="flex items-center gap-3 sm:gap-4 md:gap-5 lg:gap-6 flex-shrink-0"
       >
+        {/* Profile Avatar */}
         <motion.div
           onClick={handleProfileClick}
           whileHover={{ scale: 1.15, rotate: 5 }}
@@ -175,6 +180,21 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
             User Profile
           </span>
         </motion.div>
+
+        {/* Logout Button */}
+        <motion.button
+          onClick={handleLogout}
+          whileHover={{
+            scale: 1.15,
+            rotate: 5,
+            backgroundColor: "rgba(239,68,68,0.9)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 250 }}
+          className="bg-red-500 hover:bg-red-600 text-white rounded w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center shadow-md"
+        >
+          <Power className="w-5 h-5" /> {/* ⬅️ new icon */}
+        </motion.button>
       </motion.div>
     </motion.div>
   );
