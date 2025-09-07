@@ -33,8 +33,10 @@ export class BlogService {
     }
 
     if (imageBuffer) {
-      const { url, public_id } =
-        await this.cloudinaryService.uploadImage(imageBuffer);
+      const { url, public_id } = await this.cloudinaryService.uploadImage(
+        imageBuffer,
+        'blogs',
+      );
       imageUrl = url;
       imagePublicId = public_id;
     }
@@ -65,8 +67,10 @@ export class BlogService {
         await cloudinary.uploader.destroy(blog.imagePublicId);
       }
 
-      const { url, public_id } =
-        await this.cloudinaryService.uploadImage(imageBuffer);
+      const { url, public_id } = await this.cloudinaryService.uploadImage(
+        imageBuffer,
+        'blogs',
+      );
       updateBlogDto.imageUrl = url;
       updateBlogDto.imagePublicId = public_id;
     }
