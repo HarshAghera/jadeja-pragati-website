@@ -12,7 +12,7 @@ cloudinary.config({
 export class CloudinaryService {
   async uploadImage(
     buffer: Buffer,
-    folder = 'blogs',
+    folder: string,
   ): Promise<{ url: string; public_id: string }> {
     try {
       return await new Promise((resolve, reject) => {
