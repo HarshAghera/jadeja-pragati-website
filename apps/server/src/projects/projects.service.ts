@@ -158,21 +158,26 @@ export class ProjectsService {
     }
 
     // Deep merge util: updates nested objects while preserving old data if not in updateDto
-    function deepMerge(target: any, src: any) {
-      Object.keys(src || {}).forEach((key) => {
-        if (
-          src[key] !== undefined &&
-          src[key] !== null &&
-          typeof src[key] === 'object' &&
-          !Array.isArray(src[key]) &&
-          target[key] !== undefined &&
-          target[key] !== null
-        ) {
-          deepMerge(target[key], src[key]);
-        } else if (src[key] !== undefined) {
-          target[key] = src[key];
+    function deepMerge<T extends object, S extends object>(
+      target: T,
+      src: S,
+    ): T & S {
+      Object.keys(src).forEach((key) => {
+        const srcValue = (src as Record<string, unknown>)[key];
+        const targetValue = (target as Record<string, unknown>)[key];
+
+        if (isObject(srcValue) && isObject(targetValue)) {
+          deepMerge(targetValue, srcValue);
+        } else if (srcValue !== undefined) {
+          (target as Record<string, unknown>)[key] = srcValue;
         }
       });
+
+      return target as T & S;
+    }
+
+    function isObject(item: unknown): item is Record<string, unknown> {
+      return item !== null && typeof item === 'object' && !Array.isArray(item);
     }
 
     // Perform deep merge: update only provided fields, keep old data for others
