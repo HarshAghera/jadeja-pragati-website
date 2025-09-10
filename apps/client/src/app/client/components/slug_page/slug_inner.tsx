@@ -24,7 +24,6 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [sidebarLeft, setSidebarLeft] = useState<number | null>(null);
 
-
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -159,7 +158,6 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
   if (!mounted) {
     return (
       <div className="w-full flex justify-center items-center py-20">
@@ -202,7 +200,7 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
         </div>
       </section>
 
-      <div ref={mainRef} className="flex gap-8 px-4 lg:px-12 mt-10 mb-24">
+      <div ref={mainRef} className="flex gap-8 px-4 lg:px-12 mt-10 mb-10">
         <nav
           ref={sidebarRef}
           className="hidden xl:block w-64 overflow-auto max-h-[calc(100vh-6rem)]"
@@ -279,13 +277,12 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
       </div>
 
       <div ref={milestoneRef} className="milestones-main">
-        {/* <div className="container-main">
+        <div className="container-main">
           <div className="milestone-heading">
             <h2>Path to Your Certificate</h2>
           </div>
           <div className="timeline">
             <div className="timeline-start"></div>
-
 
             <div className="milestone bottom">
               <div className="dot"></div>
@@ -343,7 +340,7 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
 
             <div className="timeline-end"></div>
           </div>
-        </div> */}
+        </div>
       </div>
     </>
   );

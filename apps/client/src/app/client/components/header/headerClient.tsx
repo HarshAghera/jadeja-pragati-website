@@ -89,6 +89,13 @@ const HeaderClient = () => {
 
   const sectionNames: Section[] = ["Consulting", "Business", "Waste", "EPR"];
 
+   const projectItems = [
+     { name: "Investment", slug: "investment" },
+     { name: "Proprietor Firm", slug: "proprietor-firm" },
+     { name: "Partnership Firm", slug: "partnership-firm" },
+     { name: "Private Limited Company", slug: "private-limited-company" },
+     { name: "LLP Company", slug: "llp-company" },
+   ];
   return (
     <>
       <motion.header
@@ -251,12 +258,64 @@ const HeaderClient = () => {
                   );
                 })}
 
-                <Link
-                  href="/projects"
-                  className="hover:text-[#093f54] hover-underline"
+                <div
+                  className="relative"
+                  ref={openDropdown === "Projects" ? dropdownRef : null}
+                  onMouseEnter={() => setOpenDropdown("Projects")}
+                  onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  Projects
-                </Link>
+                  <div
+                    className="group flex items-center cursor-pointer"
+                    onClick={() =>
+                      setOpenDropdown((prev) =>
+                        prev === "Projects" ? null : "Projects"
+                      )
+                    }
+                  >
+                    <span className="relative group-hover:text-[#0f2557]">
+                      Projects
+                      <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#0f2557] transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <Plus
+                      size={18}
+                      className={`ml-1 transition-transform ${
+                        openDropdown === "Projects" ? "rotate-45" : ""
+                      }`}
+                    />
+                  </div>
+
+                  <AnimatePresence>
+                    {openDropdown === "Projects" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="absolute top-full left-0 mt-2 bg-[#f8f9fa] rounded-md shadow-lg z-50 w-64"
+                      >
+                        <ul className="p-3 space-y-2">
+                          {projectItems.map((item, i) => (
+                            <li key={i} className="relative group">
+                              <Link
+                                href={`/projects/${item.slug}`}
+                                onClick={() => setOpenDropdown(null)}
+                                className="flex items-center text-gray-800 hover:text-[#0f2557] py-2 pl-5"
+                              >
+                                <ArrowRight
+                                  className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                                  size={16}
+                                />
+                                <span className="text-sm lg:text-sm xl:text-lg">
+                                  {item.name}
+                                </span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <Link
                   href="/blogs"
                   className="hover:text-[#093f54] hover-underline"
@@ -414,17 +473,44 @@ const HeaderClient = () => {
                 })}
 
                 <li>
-                  <Link
-                    href="/projects"
-                    className="block py-2 text-[#0f2557] font-semibold"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileOpenDropdown(null);
-                      setMobileActiveCategory("");
-                    }}
+                  <button
+                    className="w-full flex justify-between items-center text-left text-md font-semibold text-[#0f2557] py-2"
+                    onClick={() =>
+                      setMobileOpenDropdown((prev) =>
+                        prev === "Projects" ? null : "Projects"
+                      )
+                    }
                   >
                     Projects
-                  </Link>
+                    <ChevronDown
+                      className={`transition-transform ${
+                        mobileOpenDropdown === "Projects" ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {mobileOpenDropdown === "Projects" && (
+                      <motion.ul
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="pl-6 space-y-2"
+                      >
+                        {projectItems.map((item, i) => (
+                          <li key={i}>
+                            <Link
+                              href={`/projects/${item.slug}`}
+                              className="block py-2 text-sm text-gray-700 hover:text-[#0f2557]"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
                 </li>
                 <li>
                   <Link
