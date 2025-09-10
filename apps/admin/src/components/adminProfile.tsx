@@ -1,4 +1,4 @@
-// apps/admin/src/components/userProfile.tsx
+// src/pages/adminProfile.tsx
 "use client";
 
 import type React from "react";
@@ -31,7 +31,7 @@ const getEmailFromToken = (token: string | null): string | null => {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const UserProfile: React.FC = () => {
+const AdminProfile: React.FC = () => {
   const [profile, setProfile] = useState<UserType | null>(null);
   const [profileError, setProfileError] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -112,7 +112,7 @@ const UserProfile: React.FC = () => {
         >
           <div className="h-32 w-full bg-[#001f3f] rounded-t-2xl relative flex items-center px-5">
             <User className="text-white w-8 h-8 mr-3" />
-            <h2 className="text-white text-2xl font-bold">User Profile</h2>
+            <h2 className="text-white text-2xl font-bold">Your Profile</h2>
           </div>
 
           <div className="p-6">
@@ -137,9 +137,9 @@ const UserProfile: React.FC = () => {
                     <img
                       src={
                         profile.avatar ||
-                        "https://thumbs.dreamstime.com/b/smiling-businessman-avatar-dark-suit-orange-tie-circular-frame-smiling-businessman-avatar-dark-suit-orange-400005652.jpg"
+                        "https://img.freepik.com/premium-vector/stylish-businessman-profile-circle-vector-illustration_123673-428.jpg"
                       }
-                      alt="User Profile"
+                      alt="Profile"
                       className="w-28 h-28 rounded-full border-4 border-gray-200 object-cover shadow-md"
                     />
                   </motion.div>
@@ -202,4 +202,4 @@ const UserProfile: React.FC = () => {
   );
 };
 
-export default UserProfile;
+export default AdminProfile;

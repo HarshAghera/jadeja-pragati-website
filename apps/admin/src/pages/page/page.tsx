@@ -165,212 +165,237 @@ const Page: React.FC = () => {
   };
 
   return (
-    <motion.div
-      className="p-4 sm:p-6"
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
-        <Link to="/pages/create">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-[#001f3f] hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold w-full sm:w-auto transition-all shadow-md"
-          >
-            + CREATE PAGE
-          </motion.button>
-        </Link>
-
-        <div
-          className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto 
-                  bg-white/20 backdrop-blur-md border border-gray-200/30 rounded-lg p-3 shadow-sm"
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-7xl mx-auto space-y-8"
+      >
+        {/* Top bar */}
+        <motion.div
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4"
         >
-          {/* Search Box */}
-          <div className="relative w-full sm:w-64">
-            <input
-              type="text"
-              placeholder="Search pages..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300/50 focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm shadow-sm transition bg-white/30 backdrop-blur-sm"
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setCurrentPage(1);
-              }}
-            />
-            <svg
-              className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              width="18"
-              height="18"
+          <Link to="/pages/create">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#001f3f] hover:bg-blue-800 text-white px-4 py-2 rounded font-semibold w-full sm:w-auto transition-all shadow-md"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
+              + CREATE PAGE
+            </motion.button>
+          </Link>
+
+          {/* Search + Filter */}
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto bg-white/20 backdrop-blur-md border border-gray-200/30 rounded-lg p-3 shadow-sm"
+          >
+            {/* Search */}
+            <div className="relative w-full sm:w-64">
+              <input
+                type="text"
+                placeholder="Search pages..."
+                className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300/50 focus:ring-2 focus:ring-blue-600 focus:outline-none text-sm shadow-sm transition bg-white/30 backdrop-blur-sm"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setCurrentPage(1);
+                }}
               />
-            </svg>
+              <svg
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                width="18"
+                height="18"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"
+                />
+              </svg>
+            </div>
+
+            {/* Category */}
+            <div className="w-full sm:w-48">
+              <select
+                className="w-full border px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none shadow-sm transition bg-white/30 backdrop-blur-sm"
+                value={selectedCategory}
+                onChange={(e) => {
+                  setSelectedCategory(e.target.value);
+                  setCurrentPage(1);
+                }}
+              >
+                <option value="All">All Categories</option>
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Table + Pagination inside */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="bg-white shadow-2xl rounded-xl overflow-hidden"
+        >
+          <div className="p-6 overflow-x-auto">
+            <table className="rounded-xl border border-gray-200 shadow-lg overflow-hidden w-full">
+              <thead className="bg-[#001f3f] text-white">
+                <tr>
+                  <th className="px-4 py-3">ID</th>
+                  <th className="px-4 py-3">Title</th>
+                  <th className="px-4 py-3">Slug</th>
+                  <th className="px-4 py-3">Category</th>
+                  <th className="px-4 py-3">Subcategory</th>
+                  <th className="px-4 py-3">Subsubcategory</th>
+                  <th className="px-4 py-3">Navbar</th>
+                  <th className="px-4 py-3">Actions</th>
+                </tr>
+              </thead>
+              <AnimatePresence>
+                <motion.tbody
+                  className="bg-white"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {loading ? (
+                    <tr>
+                      <td colSpan={8} className="text-center py-6 text-gray-500">
+                        Loading...
+                      </td>
+                    </tr>
+                  ) : paginatedPages.length === 0 ? (
+                    <tr>
+                      <td colSpan={8} className="text-center py-6 text-gray-500">
+                        No pages found.
+                      </td>
+                    </tr>
+                  ) : (
+                    paginatedPages.map((page, index) => (
+                      <motion.tr
+                        key={page._id}
+                        layout
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="border-t hover:bg-gray-50"
+                      >
+                        <td className="px-4 py-3">
+                          {(currentPage - 1) * rowsPerPage + index + 1}
+                        </td>
+                        <td className="px-4 py-3">{page.title}</td>
+                        <td className="px-4 py-3">{page.slug}</td>
+                        <td className="px-4 py-3">{page.category}</td>
+                        <td className="px-4 py-3">{page.subcategory}</td>
+                        <td className="px-4 py-3">{page.subsubcategory}</td>
+                        <td className="px-4 py-3">
+                          <label className="inline-flex items-center cursor-pointer relative">
+                            <input
+                              type="checkbox"
+                              checked={page.showInNavbar}
+                              onChange={() =>
+                                handleToggleNavbar(page._id, page.showInNavbar)
+                              }
+                              className="sr-only peer"
+                            />
+                            <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-green-500 transition-all after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:w-5 after:h-5 after:bg-white after:rounded-full peer-checked:after:translate-x-full after:transition-all" />
+                          </label>
+                        </td>
+                        <td className="px-4 py-3">
+                          <div className="flex gap-3">
+                            <motion.div whileHover={{ scale: 1.2 }}>
+                              <Link
+                                to={`/pages/update/${page.slug}`}
+                                className="text-blue-600 hover:text-blue-800"
+                              >
+                                <Pencil size={18} />
+                              </Link>
+                            </motion.div>
+                            <motion.div whileHover={{ scale: 1.2 }}>
+                              <button
+                                onClick={() => handleDelete(page._id)}
+                                className="text-red-600 hover:text-red-700"
+                              >
+                                <Trash2 size={18} />
+                              </button>
+                            </motion.div>
+                          </div>
+                        </td>
+                      </motion.tr>
+                    ))
+                  )}
+                </motion.tbody>
+              </AnimatePresence>
+            </table>
           </div>
 
-          {/* Category Filter */}
-          <div className="w-full sm:w-48">
-            <select
-              className="w-full border px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none shadow-sm transition bg-white/30 backdrop-blur-sm"
-              value={selectedCategory}
-              onChange={(e) => {
-                setSelectedCategory(e.target.value);
-                setCurrentPage(1);
-              }}
-            >
-              <option value="All">All Categories</option>
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div className="overflow-x-auto border border-gray-300 rounded-lg">
-        <table className="min-w-full text-sm text-left">
-          <thead className="bg-[#001f3f] text-white">
-            <tr>
-              <th className="px-4 py-3">ID</th>
-              <th className="px-4 py-3">Title</th>
-              <th className="px-4 py-3">Slug</th>
-              <th className="px-4 py-3">Category</th>
-              <th className="px-4 py-3">Subcategory</th>
-              <th className="px-4 py-3">Subsubcategory</th>
-              <th className="px-4 py-3">Navbar</th>
-              <th className="px-4 py-3">Actions</th>
-            </tr>
-          </thead>
-          <AnimatePresence>
-            <motion.tbody
-              className="bg-white"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {loading ? (
-                <tr>
-                  <td colSpan={8} className="text-center py-6 text-gray-500">
-                    Loading...
-                  </td>
-                </tr>
-              ) : paginatedPages.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="text-center py-6 text-gray-500">
-                    No pages found.
-                  </td>
-                </tr>
-              ) : (
-                paginatedPages.map((page, index) => (
-                  <motion.tr
-                    key={page._id}
-                    layout
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="border-t hover:bg-gray-50"
-                  >
-                    <td className="px-4 py-3">
-                      {(currentPage - 1) * rowsPerPage + index + 1}
-                    </td>
-                    <td className="px-4 py-3">{page.title}</td>
-                    <td className="px-4 py-3">{page.slug}</td>
-                    <td className="px-4 py-3">{page.category}</td>
-                    <td className="px-4 py-3">{page.subcategory}</td>
-                    <td className="px-4 py-3">{page.subsubcategory}</td>
-                    <td className="px-4 py-3">
-                      <label className="inline-flex items-center cursor-pointer relative">
-                        <input
-                          type="checkbox"
-                          checked={page.showInNavbar}
-                          onChange={() =>
-                            handleToggleNavbar(page._id, page.showInNavbar)
-                          }
-                          className="sr-only peer"
-                        />
-                        <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-green-500 transition-all after:content-[''] after:absolute after:left-[2px] after:top-[2px] after:w-5 after:h-5 after:bg-white after:rounded-full peer-checked:after:translate-x-full after:transition-all" />
-                      </label>
-                    </td>
-                    <td className="px-4 py-3">
-                      <div className="flex gap-3">
-                        <motion.div whileHover={{ scale: 1.2 }}>
-                          <Link
-                            to={`/pages/update/${page.slug}`}
-                            className="text-blue-600 hover:text-blue-800"
-                          >
-                            <Pencil size={18} />
-                          </Link>
-                        </motion.div>
-                        <motion.div whileHover={{ scale: 1.2 }}>
-                          <button
-                            onClick={() => handleDelete(page._id)}
-                            className="text-red-600 hover:text-red-700"
-                          >
-                            <Trash2 size={18} />
-                          </button>
-                        </motion.div>
-                      </div>
-                    </td>
-                  </motion.tr>
-                ))
-              )}
-            </motion.tbody>
-          </AnimatePresence>
-        </table>
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-4">
-        <div>
-          <label className="mr-2 text-sm">Rows per page:</label>
-          <select
-            className="border px-2 py-1 rounded text-sm"
-            value={rowsPerPage}
-            onChange={handleRowsPerPageChange}
+          {/* Pagination inside with border */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex flex-col sm:flex-row justify-between items-start sm:items-center border-t px-6 py-4 gap-4"
           >
-            <option value={5}>5</option>
-            <option value={8}>8</option>
-            <option value={10}>10</option>
-          </select>
-        </div>
-        <div className="text-sm flex flex-wrap items-center gap-2">
-          {(currentPage - 1) * rowsPerPage + 1}–
-          {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
-          <button
-            onClick={goToPreviousPage}
-            disabled={currentPage === 1}
-            className={`ml-2 px-2 py-1 rounded ${
-              currentPage === 1
-                ? "text-gray-300"
-                : "text-gray-600 hover:text-black"
-            }`}
-          >
-            Previous
-          </button>
-          <button
-            onClick={goToNextPage}
-            disabled={currentPage === totalPages}
-            className={`ml-2 px-2 py-1 rounded ${
-              currentPage === totalPages
-                ? "text-gray-300"
-                : "text-blue-600 hover:text-blue-800"
-            }`}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </motion.div>
+            <div>
+              <label className="mr-2 text-sm">Rows per page:</label>
+              <select
+                className="border px-2 py-1 rounded text-sm"
+                value={rowsPerPage}
+                onChange={handleRowsPerPageChange}
+              >
+                <option value={5}>5</option>
+                <option value={8}>8</option>
+                <option value={10}>10</option>
+              </select>
+            </div>
+            <div className="text-sm flex flex-wrap items-center gap-2">
+              {(currentPage - 1) * rowsPerPage + 1}–
+              {Math.min(currentPage * rowsPerPage, totalCount)} of {totalCount}
+              <button
+                onClick={goToPreviousPage}
+                disabled={currentPage === 1}
+                className={`ml-2 px-2 py-1 rounded ${
+                  currentPage === 1
+                    ? "text-gray-300"
+                    : "text-gray-600 hover:text-black"
+                }`}
+              >
+                Previous
+              </button>
+              <button
+                onClick={goToNextPage}
+                disabled={currentPage === totalPages}
+                className={`ml-2 px-2 py-1 rounded ${
+                  currentPage === totalPages
+                    ? "text-gray-300"
+                    : "text-blue-600 hover:text-blue-800"
+                }`}
+              >
+                Next
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

@@ -53,6 +53,7 @@ const CreateBlog: React.FC = () => {
   const [isPublished, setIsPublished] = useState(false);
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +74,9 @@ const CreateBlog: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // ✅ Simple validation
     if (!title || !shortDescription || !content || !image) {
-      toast.error("All fields—including image—are required.");
+      toast.error("Please fill in all required fields.");
       return;
     }
 
@@ -115,7 +117,6 @@ const CreateBlog: React.FC = () => {
       setTimeout(() => navigate("/blog"), 1500);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.error("Create Blog Error:", err.message);
         toast.update(toastId, {
           render: err.message || "Failed to create blog.",
           type: "error",
@@ -162,7 +163,6 @@ const CreateBlog: React.FC = () => {
             className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            required
           />
         </div>
 
@@ -174,7 +174,6 @@ const CreateBlog: React.FC = () => {
             className="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-200"
             value={shortDescription}
             onChange={(e) => setShortDescription(e.target.value)}
-            required
           />
         </div>
 
@@ -183,7 +182,7 @@ const CreateBlog: React.FC = () => {
             <label className="block font-medium mb-2 text-gray-700">
               Content
             </label>
-            <div className="w-full md:h-40  lg:h-56">
+            <div className="w-full md:h-40 lg:h-56">
               <ReactQuill
                 value={content}
                 onChange={setContent}
@@ -213,7 +212,6 @@ const CreateBlog: React.FC = () => {
                 accept="image/*"
                 onChange={handleImageChange}
                 className="hidden"
-                required
               />
             </label>
 
