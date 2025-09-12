@@ -1,36 +1,28 @@
 "use client";
 import { useState } from "react";
 
-const faqs = [
-  {
-    question: "What is a Limited Liability Partnership (LLP)?",
-    answer:
-      "An LLP is a hybrid business structure that combines the flexibility of a partnership with the limited liability benefits of a company.",
-  },
-  {
-    question: "Who can register an LLP in India?",
-    answer:
-      "Any two or more individuals or entities can form an LLP, provided at least one partner is a resident of India.",
-  },
-  {
-    question: "What are the benefits of LLP over a traditional partnership?",
-    answer:
-      "LLPs offer limited liability protection, separate legal entity status, easier compliance, and no limit on the maximum number of partners.",
-  },
-  {
-    question: "Is there a minimum capital requirement for LLP?",
-    answer:
-      "No, there is no minimum capital requirement to register an LLP in India.",
-  },
-];
+interface FAQ {
+  question: string;
+  answer: string;
+}
 
-export default function FAQSection() {
-  // First FAQ open by default
+interface FAQSectionProps {
+  faqs?: FAQ[] | null;
+}
+
+export default function FAQSection({ faqs }: FAQSectionProps) {
+  // fallback if API gives nothing
+  const items = faqs && Array.isArray(faqs) ? faqs : [];
+
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
+
+  if (!items.length) {
+    return null; // nothing to show
+  }
 
   return (
     <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gradient-to-b from-gray-50 to-white">
@@ -42,7 +34,7 @@ export default function FAQSection() {
 
         {/* FAQs */}
         <div className="space-y-5">
-          {faqs.map((faq, index) => {
+          {items.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div

@@ -18,6 +18,54 @@ const HeaderClient = () => {
     EPR: {},
   });
 
+  const [projects, setProjects] = useState<{ name: string; slug: string }[]>(
+    []
+  );
+
+ useEffect(() => {
+   const fetchProjects = async () => {
+     try {
+       const res = await fetch(
+         `${process.env.NEXT_PUBLIC_SERVER_URL}/projects/list`,
+         {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify({
+             page: 1,
+             limit: 10,
+           }),
+         }
+       );
+
+       const data = await res.json();
+       console.log("Projects API response:", data);
+
+       if (!data.error && Array.isArray(data.value?.data)) {
+         const projectList = data.value.data.map((p: any) => ({
+           name: p.title,
+           slug: p.slug,
+         }));
+         setProjects(projectList);
+       } else {
+         console.warn("No projects found or API returned error:", data);
+       }
+     } catch (err) {
+       console.error("Failed to fetch projects:", err);
+     }
+   };
+
+   fetchProjects();
+ }, []);
+
+
+
+
+
+
+
+
   useEffect(() => {
     const loadMenus = async () => {
       const data = await fetchDropdownMenus();
@@ -294,7 +342,7 @@ const HeaderClient = () => {
                         className="absolute top-full left-0 mt-2 bg-[#f8f9fa] rounded-md shadow-lg z-50 w-64"
                       >
                         <ul className="p-3 space-y-2">
-                          {projectItems.map((item, i) => (
+                          {projects.map((item, i) => (
                             <li key={i} className="relative group">
                               <Link
                                 href={`/projects/${item.slug}`}
@@ -497,7 +545,7 @@ const HeaderClient = () => {
                         exit={{ height: 0, opacity: 0 }}
                         className="pl-6 space-y-2"
                       >
-                        {projectItems.map((item, i) => (
+                        {projects.map((item, i) => (
                           <li key={i}>
                             <Link
                               href={`/projects/${item.slug}`}

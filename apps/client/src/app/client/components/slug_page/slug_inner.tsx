@@ -282,7 +282,6 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
             <h2>Path to Your Certificate</h2>
           </div>
           <div className="timeline">
-            <div className="timeline-start"></div>
 
             <div className="milestone bottom">
               <div className="dot"></div>
@@ -338,7 +337,6 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               </div>
             </div>
 
-            <div className="timeline-end"></div>
           </div>
         </div>
       </div>

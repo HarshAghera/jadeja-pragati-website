@@ -1,16 +1,41 @@
 "use client";
 import Image from "next/image";
 
-export default function DocumentsNeeded() {
-  const docs = [
-    "PAN of all partners",
-    "Aadhaar copy of all partners",
-    "Passport-size photo of all partners",
-    "Subscriber sheet duly signed by all partners",
-    "Rental agreement copy if the registered office is rented",
-    "Copy of utility bill (water/gas/electricity) of the rented property",
-    "No Objection Certificate from the owner of the property",
-  ];
+type DocsObject = {
+  title?: string;
+  paragraph?: string;
+  items?: string[];
+};
+
+interface DocumentsNeededProps {
+  docs?: string[] | DocsObject | null;
+}
+
+export default function DocumentsNeeded({ docs }: DocumentsNeededProps) {
+  // Normalize into an items array and optional metadata
+  const items: string[] = Array.isArray(docs)
+    ? docs
+    : Array.isArray((docs as DocsObject)?.items)
+    ? (docs as DocsObject).items!
+    : [];
+
+  const title =
+    !Array.isArray(docs) && (docs as DocsObject)?.title
+      ? (docs as DocsObject).title
+      : "Documents Required";
+
+  const paragraph =
+    !Array.isArray(docs) && (docs as DocsObject)?.paragraph
+      ? (docs as DocsObject).paragraph
+      : "The following documents are required:";
+
+  if (!items || items.length === 0) {
+    // Option: return null to hide, or show fallback message
+    return null;
+    // or return (
+    //   <section className="py-16 px-6"><p className="text-center text-gray-600">No documents listed.</p></section>
+    // );
+  }
 
   return (
     <section className="relative py-16 px-6 sm:px-10 lg:px-20">
@@ -27,15 +52,12 @@ export default function DocumentsNeeded() {
 
       <div className="relative z-10 max-w-6xl mx-auto text-white">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">
-          Documents Required for Limited Liability Partnership Registration
+          {title}
         </h2>
-        <p className="mb-10 text-base sm:text-lg">
-          The following documents are required for registering a Limited
-          Liability Partnership in India:
-        </p>
+        <p className="mb-10 text-base sm:text-lg">{paragraph}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
-          {docs.map((doc, index) => (
+          {items.map((doc, index) => (
             <div key={index} className="flex items-start space-x-3">
               <Image
                 src="/icons/docs-required.webp"

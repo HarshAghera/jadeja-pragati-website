@@ -1,37 +1,20 @@
 import Image from "next/image";
 
-const cards = [
-  {
-    title: "Easy Registration",
-    description:
-      "LLP registration is simple and quick with minimal paperwork required.",
-    img: "/pictures/about-llp.webp",
-  },
-  {
-    title: "Limited Liability",
-    description:
-      "Partners are not personally liable for business debts, offering financial protection.",
-    img: "/pictures/about-llp.webp",
-  },
-  {
-    title: "Flexible Structure",
-    description:
-      "LLPs combine the benefits of partnerships and companies with fewer compliance requirements.",
-    img: "/pictures/about-llp.webp",
-  },
-  {
-    title: "Tax Benefits",
-    description:
-      "LLPs enjoy taxation benefits while maintaining flexibility in operations.",
-    img: "/pictures/about-llp.webp",
-  },
-];
+interface Card {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
 
-export default function GlassLLPCards() {
+interface GlassLLPCardsProps {
+  cards: Card[];
+}
+
+export default function GlassLLPCards({ cards }: GlassLLPCardsProps) {
   return (
     <section
       className="py-16 px-6 sm:px-10 lg:px-20 
-                    bg-gradient-to-br from-[#0f2557] via-[#11234e] to-[#676666]"
+                 bg-gradient-to-br from-[#0f2557] via-[#11234e] to-[#676666]"
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-7xl mx-auto">
         {cards.map((card, index) => (
@@ -45,7 +28,7 @@ export default function GlassLLPCards() {
             {/* Image */}
             <div className="relative w-full sm:w-1/2 h-56 sm:h-64 flex-shrink-0 rounded-2xl overflow-hidden">
               <Image
-                src={card.img}
+                src={card.imageUrl}
                 alt={card.title}
                 fill
                 className="object-cover w-full h-full"
