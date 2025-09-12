@@ -172,7 +172,6 @@ const Page: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="max-w-7xl mx-auto space-y-8"
       >
-        {/* Top bar */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -189,14 +188,12 @@ const Page: React.FC = () => {
             </motion.button>
           </Link>
 
-          {/* Search + Filter */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto bg-white/20 backdrop-blur-md border border-gray-200/30 rounded-lg p-3 shadow-sm"
           >
-            {/* Search */}
             <div className="relative w-full sm:w-64">
               <input
                 type="text"
@@ -226,7 +223,6 @@ const Page: React.FC = () => {
               </svg>
             </div>
 
-            {/* Category */}
             <div className="w-full sm:w-48">
               <select
                 className="w-full border px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-600 focus:outline-none shadow-sm transition bg-white/30 backdrop-blur-sm"
@@ -247,7 +243,6 @@ const Page: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Table + Pagination inside */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -277,13 +272,19 @@ const Page: React.FC = () => {
                 >
                   {loading ? (
                     <tr>
-                      <td colSpan={8} className="text-center py-6 text-gray-500">
+                      <td
+                        colSpan={8}
+                        className="text-center py-6 text-gray-500"
+                      >
                         Loading...
                       </td>
                     </tr>
                   ) : paginatedPages.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="text-center py-6 text-gray-500">
+                      <td
+                        colSpan={8}
+                        className="text-center py-6 text-gray-500"
+                      >
                         No pages found.
                       </td>
                     </tr>
@@ -347,7 +348,6 @@ const Page: React.FC = () => {
             </table>
           </div>
 
-          {/* Pagination inside with border */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}

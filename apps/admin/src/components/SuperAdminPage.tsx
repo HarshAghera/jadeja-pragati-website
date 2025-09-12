@@ -39,7 +39,6 @@ const SuperAdminPage: React.FC = () => {
   const [profileError, setProfileError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Fetch profile
   const fetchProfile = async () => {
     try {
       if (!API_URL) throw new Error("Missing VITE_API_URL. Set it in .env");
