@@ -20,6 +20,9 @@ import ContactPage from "./pages/contact/contactPage";
 import Page from "./pages/page/page";
 import CreatePage from "./pages/page/createPage";
 import UpdatePage from "./pages/page/updatePage";
+import Project from "./pages/projects/project";
+import CreateProject from "./pages/projects/createProject";
+import UpdateProject from "./pages/projects/updateProject";
 import SuperAdminPage from "./components/SuperAdminPage";
 import CreateUser from "./components/AddAdmin";
 import UpdatePassword from "./components/UpdatePassword";
@@ -117,7 +120,6 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/pages/:id/edit"
               element={
@@ -128,13 +130,44 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/pages/update/:slug"
               element={
                 <ProtectedRoute>
                   <Layout>
                     <UpdatePage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Project Routes */}
+            <Route
+              path="/projects"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <Project />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/projects/create"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <CreateProject />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/projects/:slug/edit"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <UpdateProject />
                   </Layout>
                 </ProtectedRoute>
               }
@@ -150,7 +183,6 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/superadmin/AddAdmin"
               element={
@@ -161,7 +193,6 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-
             <Route
               path="/superadmin/update-password/:id"
               element={
@@ -183,8 +214,6 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
-
-            {/* ✅ New AdminProfile route */}
             <Route
               path="/adminprofile"
               element={

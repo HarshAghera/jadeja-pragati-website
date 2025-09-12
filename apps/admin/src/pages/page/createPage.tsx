@@ -242,7 +242,6 @@ const CreatePage: React.FC = () => {
             />
           </div>
 
-          {/* Description as Rich Text Editor */}
           <div className="container mx-auto p-1">
             <div className="mb-4">
               <label className="block font-medium mb-2 text-gray-700">
@@ -261,7 +260,6 @@ const CreatePage: React.FC = () => {
             </div>
           </div>
 
-          {/* HTML Content Editor */}
           <div className="container mx-auto p-1">
             <div className="mb-4">
               <label className="block font-medium mb-2 text-gray-700">
