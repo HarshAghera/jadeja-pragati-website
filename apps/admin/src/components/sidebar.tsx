@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard,
+  Globe,
   CircleUserRound,
   BookText,
   BookA,
@@ -43,7 +44,6 @@ const getEmailFromToken = (token: string | null): string | null => {
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// Sidebar smooth animations
 const sidebarVariants = {
   hidden: {
     x: "-100%",
@@ -159,6 +159,12 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
     },
   ];
 
+  navItems.push({
+    label: "Project",
+    to: "/projects",
+    icon: <Globe size={18} className="text-inherit flex-shrink-0" />, // change icon if needed
+  });
+
   if (profile?.type?.toLowerCase() === "superadmin") {
     navItems.push({
       label: "Manage Admin",
@@ -169,7 +175,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
 
   return (
     <AnimatePresence>
-      {/* Overlay for smooth fade-in */}
       {onClose && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -234,7 +239,6 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
                         <span className="text-sm font-medium">{label}</span>
                       </div>
 
-                      {/* Smooth Chevron animation */}
                       <motion.div
                         initial={{ x: -8, opacity: 0 }}
                         whileHover={{ x: 0, opacity: 1 }}
