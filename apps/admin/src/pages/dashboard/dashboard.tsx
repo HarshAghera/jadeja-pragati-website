@@ -17,6 +17,7 @@ import {
   Loader,
   Book,
   Navigation,
+  Briefcase,
 } from "lucide-react";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -44,14 +45,11 @@ interface PageType {
   showInNavbar: boolean;
 }
 
-type Activity = {
-  id: string;
+interface ProjectType {
+  _id: string;
   title: string;
-  author?: string;
-  type: "created" | "deleted";
-  time: string;
-  source: "blog" | "contact" | "page";
-};
+  createdAt: string;
+}
 
 const Dashboard: React.FC = () => {
   const [totalCount, setTotalCount] = useState(0);
@@ -59,6 +57,8 @@ const Dashboard: React.FC = () => {
   const [totalContacts, setTotalContacts] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [pagesInNavbar, setPagesInNavbar] = useState(0);
+  const [totalProjects, setTotalProjects] = useState(0); // ✅ added state for projects
+
   const [blogChartData, setBlogChartData] = useState<
     { date: string; count: number }[]
   >([]);
@@ -68,6 +68,10 @@ const Dashboard: React.FC = () => {
   const [pageChartData, setPageChartData] = useState<
     { date: string; count: number }[]
   >([]);
+  const [projectChartData, setProjectChartData] = useState<
+    { date: string; count: number }[]
+  >([]); // ✅ added state
+
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<number>(
     new Date().getMonth()
@@ -76,8 +80,8 @@ const Dashboard: React.FC = () => {
     new Date().getFullYear()
   );
   const [selectedChartType, setSelectedChartType] = useState<
-    "blog" | "contact" | "page"
-  >("blog");
+    "blog" | "contact" | "page" | "project"
+  >("blog"); // ✅ include "project"
 
   const months = [
     "January",
@@ -93,6 +97,7 @@ const Dashboard: React.FC = () => {
     "November",
     "December",
   ];
+
   const token = localStorage.getItem("authToken");
   const days = 30;
 
@@ -112,8 +117,7 @@ const Dashboard: React.FC = () => {
           return dailyCount;
         };
 
-        const recent: Activity[] = [];
-
+        // Fetch Blogs
         const blogResp = await fetch(`${API_BASE_URL}/blogs/list`, {
           method: "POST",
           headers: {
@@ -133,36 +137,12 @@ const Dashboard: React.FC = () => {
         const blogs: BlogType[] = blogValue.data;
         const total = blogValue.total;
         const published = blogs.filter((b) => b.isPublished).length;
-
         const blogDailyCount = makeDailyCount();
         blogs.forEach((blog) => {
           const createdDate = new Date(blog.createdAt);
           const createdStr = createdDate.toLocaleDateString("en-CA");
           if (blogDailyCount[createdStr] !== undefined)
             blogDailyCount[createdStr]++;
-          if ((now.getTime() - createdDate.getTime()) / 36e5 <= 24) {
-            recent.push({
-              id: blog._id,
-              title: blog.title,
-              author: blog.author?.name,
-              type: "created",
-              time: blog.createdAt,
-              source: "blog",
-            });
-          }
-          if (blog.deletedAt) {
-            const deletedDate = new Date(blog.deletedAt);
-            if ((now.getTime() - deletedDate.getTime()) / 36e5 <= 24) {
-              recent.push({
-                id: blog._id,
-                title: blog.title,
-                author: blog.author?.name,
-                type: "deleted",
-                time: blog.deletedAt,
-                source: "blog",
-              });
-            }
-          }
         });
         const blogChartArr = Object.keys(blogDailyCount)
           .sort()
@@ -177,23 +157,12 @@ const Dashboard: React.FC = () => {
           ? contactsValue
           : contactsValue.data || [];
         const contactsTotal = contactsArray.length;
-
         const contactDailyCount = makeDailyCount();
         contactsArray.forEach((contact) => {
           const createdDate = new Date(contact.createdAt);
           const createdStr = createdDate.toLocaleDateString("en-CA");
           if (contactDailyCount[createdStr] !== undefined)
             contactDailyCount[createdStr]++;
-          if ((now.getTime() - createdDate.getTime()) / 36e5 <= 24) {
-            recent.push({
-              id: contact._id,
-              title: contact.name,
-              author: contact.email,
-              type: "created",
-              time: contact.createdAt,
-              source: "contact",
-            });
-          }
         });
         const contactChartArr = Object.keys(contactDailyCount)
           .sort()
@@ -211,7 +180,6 @@ const Dashboard: React.FC = () => {
         const pagesInNavbarCount = pagesArray.filter(
           (p) => p.showInNavbar
         ).length;
-
         const pageDailyCount = makeDailyCount();
         pagesArray.forEach((page) => {
           if (page.createdAt) {
@@ -219,22 +187,40 @@ const Dashboard: React.FC = () => {
             const createdStr = createdDate.toLocaleDateString("en-CA");
             if (pageDailyCount[createdStr] !== undefined)
               pageDailyCount[createdStr]++;
-            if ((now.getTime() - createdDate.getTime()) / 36e5 <= 24) {
-              recent.push({
-                id: page._id,
-                title: page.title,
-                type: "created",
-                time: page.createdAt,
-                source: "page",
-              });
-            }
           }
         });
         const pageChartArr = Object.keys(pageDailyCount)
           .sort()
           .map((date) => ({ date, count: pageDailyCount[date] }));
 
-        /** Final Updates **/
+        const projectsResp = await fetch(`${API_BASE_URL}/projects/list`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            page: 1,
+            limit: 1000,
+            sortBy: "createdAt",
+            sortOrder: "desc",
+            search: "",
+          }),
+        });
+        if (!projectsResp.ok) throw new Error("Projects fetch failed");
+        const { value: projectsValue } = await projectsResp.json();
+        const projectsArray: ProjectType[] = projectsValue.data;
+        const totalProjectsCount = projectsValue.total;
+        const projectDailyCount = makeDailyCount();
+        projectsArray.forEach((project) => {
+          const createdDate = new Date(project.createdAt);
+          const createdStr = createdDate.toLocaleDateString("en-CA");
+          if (projectDailyCount[createdStr] !== undefined)
+            projectDailyCount[createdStr]++;
+        });
+        const projectChartArr = Object.keys(projectDailyCount)
+          .sort()
+          .map((date) => ({ date, count: projectDailyCount[date] }));
 
         setTotalCount(total);
         setPublishedCount(published);
@@ -244,16 +230,10 @@ const Dashboard: React.FC = () => {
         setTotalContacts(contactsTotal);
         setTotalPages(totalPagesCount);
         setPagesInNavbar(pagesInNavbarCount);
+        setTotalProjects(totalProjectsCount);
+        setProjectChartData(projectChartArr);
       } catch (err) {
         console.error("Error fetching dashboard data:", err);
-        setTotalCount(0);
-        setPublishedCount(0);
-        setBlogChartData([]);
-        setContactChartData([]);
-        setPageChartData([]);
-        setTotalContacts(0);
-        setTotalPages(0);
-        setPagesInNavbar(0);
       } finally {
         setIsLoading(false);
       }
@@ -284,7 +264,7 @@ const Dashboard: React.FC = () => {
     if (selectedChartType === "blog") sourceData = blogChartData;
     else if (selectedChartType === "contact") sourceData = contactChartData;
     else if (selectedChartType === "page") sourceData = pageChartData;
-
+    else if (selectedChartType === "project") sourceData = projectChartData; // ✅ added
     return sourceData.filter((item) => {
       const date = new Date(item.date);
       return (
@@ -337,6 +317,15 @@ const Dashboard: React.FC = () => {
       icon: (
         <div className="bg-indigo-100 p-3 rounded-full mb-2">
           <Navigation className="w-6 h-6 text-indigo-600" />
+        </div>
+      ),
+    },
+    {
+      label: "Total Projects",
+      value: totalProjects,
+      icon: (
+        <div className="bg-teal-100 p-3 rounded-full mb-2">
+          <Briefcase className="w-6 h-6 text-teal-600" />
         </div>
       ),
     },
@@ -415,7 +404,7 @@ const Dashboard: React.FC = () => {
                 value={selectedChartType}
                 onChange={(e) =>
                   setSelectedChartType(
-                    e.target.value as "blog" | "contact" | "page"
+                    e.target.value as "blog" | "contact" | "page" | "project"
                   )
                 }
                 className="border rounded px-2 py-1 text-sm w-full sm:w-auto"
@@ -423,6 +412,7 @@ const Dashboard: React.FC = () => {
                 <option value="blog">Blogs</option>
                 <option value="contact">Contacts</option>
                 <option value="page">Pages</option>
+                <option value="project">Projects</option>
               </select>
             </div>
           </div>
