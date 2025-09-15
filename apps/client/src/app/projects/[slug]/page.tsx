@@ -5,13 +5,13 @@ import TwoSections from "@/app/client/components/projects/two-sections";
 import Image from "next/image";
 
 interface ProjectPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = params;
+  const { slug } = await params;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/projects/${slug}`,
