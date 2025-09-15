@@ -5,49 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ImagePlus, ArrowLeft, Plus, Trash2 } from "lucide-react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-
-const quillModules = {
-  toolbar: [
-    [{ header: [1, 2, 3, false] }],
-    [{ font: [] }],
-    [{ size: ["small", false, "large", "huge"] }],
-    ["bold", "italic", "underline", "strike"],
-    [{ color: [] }, { background: [] }],
-    [{ script: "sub" }, { script: "super" }],
-    [{ list: "ordered" }, { list: "bullet" }],
-    [{ indent: "-1" }, { indent: "+1" }],
-    [{ align: [] }],
-    ["blockquote", "code-block"],
-    ["link", "image", "video"],
-    ["clean"],
-  ],
-};
-
-const quillFormats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "strike",
-  "color",
-  "background",
-  "script",
-  "list",
-  "bullet",
-  "indent",
-  "align",
-  "blockquote",
-  "code-block",
-  "link",
-  "image",
-  "video",
-];
 
 interface ProjectAPIResponse {
   value: {
@@ -416,16 +375,15 @@ const UpdateProject = () => {
               <label className="block font-medium text-gray-700">
                 Hero Description <span className="text-red-500">*</span>
               </label>
-              <div className="h-40 border border-gray-300 rounded-lg overflow-hidden">
-                <ReactQuill
-                  value={heroDescription}
-                  onChange={setHeroDescription}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  theme="snow"
-                  className="h-full"
-                />
-              </div>
+              <textarea
+                className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical"
+                value={heroDescription}
+                onChange={(e) => setHeroDescription(e.target.value)}
+                required
+                placeholder="Enter hero description"
+                rows={6}
+                style={{ minHeight: "160px" }}
+              />
             </div>
           </div>
         </div>
@@ -450,16 +408,14 @@ const UpdateProject = () => {
               <label className="block font-medium text-gray-700">
                 About Description
               </label>
-              <div className="h-48 border border-gray-300 rounded-lg overflow-hidden">
-                <ReactQuill
-                  value={aboutDescription}
-                  onChange={setAboutDescription}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  theme="snow"
-                  className="h-full"
-                />
-              </div>
+              <textarea
+                className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical"
+                value={aboutDescription}
+                onChange={(e) => setAboutDescription(e.target.value)}
+                placeholder="Enter about description"
+                rows={8}
+                style={{ minHeight: "192px" }}
+              />
             </div>
             <div className="space-y-3">
               <label className="block font-medium text-gray-700">
@@ -643,16 +599,14 @@ const UpdateProject = () => {
               <label className="block font-medium text-gray-700">
                 Description
               </label>
-              <div className="h-40 border border-gray-300 rounded-lg overflow-hidden">
-                <ReactQuill
-                  value={whoNeedsDescription}
-                  onChange={setWhoNeedsDescription}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  theme="snow"
-                  className="h-full"
-                />
-              </div>
+              <textarea
+                className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical"
+                value={whoNeedsDescription}
+                onChange={(e) => setWhoNeedsDescription(e.target.value)}
+                placeholder="Enter who needs description"
+                rows={6}
+                style={{ minHeight: "160px" }}
+              />
             </div>
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -764,16 +718,14 @@ const UpdateProject = () => {
               <label className="block font-medium text-gray-700">
                 Description
               </label>
-              <div className="h-40 border border-gray-300 rounded-lg overflow-hidden">
-                <ReactQuill
-                  value={documentsParagraph}
-                  onChange={setDocumentsParagraph}
-                  modules={quillModules}
-                  formats={quillFormats}
-                  theme="snow"
-                  className="h-full"
-                />
-              </div>
+              <textarea
+                className="w-full border border-gray-300 px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-vertical"
+                value={documentsParagraph}
+                onChange={(e) => setDocumentsParagraph(e.target.value)}
+                placeholder="Enter documents description"
+                rows={6}
+                style={{ minHeight: "160px" }}
+              />
             </div>
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
