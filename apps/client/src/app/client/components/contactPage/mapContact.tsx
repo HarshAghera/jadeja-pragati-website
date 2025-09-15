@@ -27,8 +27,7 @@ const MapContact=()=>{
             className="rounded-lg overflow-hidden shadow-lg h-[300px] md:h-[400px] lg:h-full"
           >
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.119285863941!2d72.6850271751667!3d23.092728779124652!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e81d530295c4b%3A0xf618491998255fb6!2sK%20star%20business%20hub!5e0!3m2!1sen!2sin!4v1746157643114!5m2!1sen!2sin"
-              allowFullScreen
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3670.1210414819648!2d72.6874301!3d23.092664499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x49a0c20dabba45b5%3A0xb5ec2df33c2e7742!2sJadeja%20Pragati%20(I)%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1757003123705!5m2!1sen!2sin" 
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="w-full h-full border-0"

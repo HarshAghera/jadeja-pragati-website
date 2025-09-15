@@ -55,10 +55,10 @@ const Getintouch = () => {
             Email
           </div>
           <a
-            href="mailto:jadejapragati.pltd@gmail.com"
+            href="mailto:contactus@jadejapragati.com"
             className="text-sm sm:text-base md:text-lg text-[#0f2557]"
           >
-            jadejapragati.pltd@gmail.com
+            contactus@jadejapragati.com
           </a>
         </motion.div>
 
@@ -80,10 +80,10 @@ const Getintouch = () => {
             Phone
           </div>
           <a
-            href="tel:+917202096968"
+            href="tel:+919601691930"
             className="text-sm sm:text-base md:text-lg text-[#0f2557]"
           >
-            +91 7202096968
+            +91 9601691930
           </a>
         </motion.div>
 

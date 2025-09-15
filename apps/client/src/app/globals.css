@@ -280,7 +280,8 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  /* overflow: hidden; */
+  /* scroll-behavior: smooth; */
 }
 body::-webkit-scrollbar {
   display: none;

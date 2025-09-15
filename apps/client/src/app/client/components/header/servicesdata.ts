@@ -20,8 +20,6 @@ export type DropdownMenus = {
   };
 };
 
-
-
 export const fetchDropdownMenus = async (): Promise<DropdownMenus> => {
   try {
     const res = await fetch(`${apiUrl}/pages/nav`, {
@@ -38,7 +36,7 @@ export const fetchDropdownMenus = async (): Promise<DropdownMenus> => {
 
     return json.value as DropdownMenus;
   } catch (err) {
-    console.error("❌ Error fetching dropdownMenus:", err);
+    console.error("Error fetching dropdownMenus:", err);
     return {
       Consulting: {},
       Business: {},

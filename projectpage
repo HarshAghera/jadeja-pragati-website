@@ -1,0 +1,376 @@
+import DocumentsNeeded from "@/app/client/components/projects/documents-needed";
+import FAQSection from "@/app/client/components/projects/faqs";
+import HeroContent from "@/app/client/components/projects/hero-content";
+import TwoSections from "@/app/client/components/projects/two-sections";
+import Image from "next/image";
+
+export default function LLPCompany() {
+  return (
+    <section>
+      <section
+        className="pt-20 overflow-x-hidden bg-gradient-to-br from-[#e6eaee] to-white"
+        // style={{
+        //   background: `
+        //   linear-gradient(to right, rgba(255, 255, 255, 0.7) 20%, rgba(255, 245, 240, 0.3) 100%),
+        //   linear-gradient(to bottom, rgba(255, 255, 255, 0.6) 10%, rgba(255, 245, 240, 0.2) 30%)
+        // `,
+        // }}
+      >
+        <div className="relative w-full min-h-[200px] sm:min-h-[300px] md:min-h-[350px]">
+          <Image
+            src="/pictures/windmill.webp"
+            alt="Background"
+            fill
+            className="object-cover z-0"
+            priority
+          />
+          <div className="absolute inset-0 bg-white/70 z-10"></div>
+
+          <HeroContent />
+        </div>
+      </section>
+      <section className="py-14 bg-[#f5f5f5]">
+        <TwoSections />
+      </section>
+      <DocumentsNeeded />
+
+      <FAQSection />
+    </section>
+  );
+}
+
+// hero page
+("use client");
+
+import { motion } from "framer-motion";
+
+export default function HeroContent() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative z-20 max-w-3xl px-4 md:px-6 py-12 text-center lg:text-left lg:ml-20 lg:mx-0 mx-auto"
+    >
+      <h2 className="text-4xl sm:text-5xl md:text-6xl mt-2 mb-6 text-[#0f2557] getintouch">
+        Limited Liability Partnership Registration
+      </h2>
+      <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
+        A Limited Liability Partnership (LLP) is a business structure that
+        combines the flexibility of a partnership with the benefits of limited
+        liability for its partners. It is a popular choice for startups,
+        professionals, and small to medium-sized businesses looking for a
+        cost-effective and legally compliant structure. An LLP ensures that each
+        partner’s liability is limited to their agreed contribution, protecting
+        personal assets while offering operational freedom.
+      </p>
+    </motion.div>
+  );
+}
+
+// two sections
+("use client");
+
+import Image from "next/image";
+import GlassLLPCards from "./glassmorphism";
+
+export default function TwoSections() {
+  return (
+    <>
+      <section className="px-4 sm:px-6 lg:px-8 py-14 bg-[#f5f5f5]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="flex justify-center lg:justify-start">
+            <Image
+              src="/pictures/about-llp.webp"
+              alt="About Limited Liability Partnership Registration"
+              width={700}
+              height={700}
+              className="rounded-md shadow-lg"
+            />
+          </div>
+
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0f2557] mb-4">
+              About Limited Liability Partnership Registration
+            </h2>
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed">
+              In a traditional partnership firm, partners are personally liable
+              for all business debts and obligations, regardless of their
+              capital contribution or profit-sharing ratio. This means personal
+              assets can be used to settle firm liabilities.
+            </p>
+            <p className="text-gray-700 text-base sm:text-lg leading-relaxed mt-4">
+              To address this, the concept of{" "}
+              <strong>Limited Liability Partnership (LLP)</strong> was
+              introduced. LLP combines the limited liability benefits of a
+              company with the flexibility of a partnership, making it a{" "}
+              <em>hybrid business structure</em>. Its adaptability and balanced
+              approach have made it a popular choice for entrepreneurs and
+              professionals in recent years.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <GlassLLPCards />
+
+      {/* Section 2: Who Needs to Apply */}
+      <section className="px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Left Content */}
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#0f2557] mb-6">
+              Who needs to apply for Limited Liability Partnership Registration?
+            </h2>
+            <ul className="space-y-3 text-gray-700 text-base sm:text-lg leading-relaxed list-none">
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Multiple individuals coming together with capital
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Startups with co-founders
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Creative Agencies (Advertising, Marketing, Design)
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Real Estate Partnerships
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Existing Partnerships
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Professionals (CA, CS, Doctors, etc.)
+              </li>
+              <li className="relative pl-6 before:content-['✔'] before:absolute before:left-0 before:text-[#0f2557]">
+                Venture Capitalists
+              </li>
+            </ul>
+          </div>
+
+          <div className="flex justify-center lg:justify-end">
+            <Image
+              src="/pictures/who-apply-llp.webp"
+              alt="Who should apply for LLP Registration"
+              width={700}
+              height={700}
+              className="rounded-md shadow-lg"
+            />
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// cards
+
+import Image from "next/image";
+
+const cards = [
+  {
+    title: "Easy Registration",
+    description:
+      "LLP registration is simple and quick with minimal paperwork required.",
+    img: "/pictures/about-llp.webp",
+  },
+  {
+    title: "Limited Liability",
+    description:
+      "Partners are not personally liable for business debts, offering financial protection.",
+    img: "/pictures/about-llp.webp",
+  },
+  {
+    title: "Flexible Structure",
+    description:
+      "LLPs combine the benefits of partnerships and companies with fewer compliance requirements.",
+    img: "/pictures/about-llp.webp",
+  },
+  {
+    title: "Tax Benefits",
+    description:
+      "LLPs enjoy taxation benefits while maintaining flexibility in operations.",
+    img: "/pictures/about-llp.webp",
+  },
+];
+
+export default function GlassLLPCards() {
+  return (
+    <section
+      className="py-16 px-6 sm:px-10 lg:px-20 
+                    bg-gradient-to-br from-[#0f2557] via-[#11234e] to-[#676666]"
+    >
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-7xl mx-auto">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            className="flex flex-col sm:flex-row items-center sm:items-start 
+                       bg-white/10 backdrop-blur-[20px] border border-white/25 
+                       shadow-2xl rounded-3xl overflow-hidden transition-all duration-300
+                       hover:bg-white/20 hover:backdrop-blur-[25px] p-4 sm:p-6"
+          >
+            {/* Image */}
+            <div className="relative w-full sm:w-1/2 h-56 sm:h-64 flex-shrink-0 rounded-2xl overflow-hidden">
+              <Image
+                src={card.img}
+                alt={card.title}
+                fill
+                className="object-cover w-full h-full"
+              />
+            </div>
+
+            {/* Text */}
+            <div className="p-4 sm:p-6 text-white sm:w-1/2">
+              <h3 className="text-2xl font-semibold mb-3">{card.title}</h3>
+              <p className="text-white/80 leading-relaxed">
+                {card.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+// for document needed
+("use client");
+import Image from "next/image";
+
+export default function DocumentsNeeded() {
+  const docs = [
+    "PAN of all partners",
+    "Aadhaar copy of all partners",
+    "Passport-size photo of all partners",
+    "Subscriber sheet duly signed by all partners",
+    "Rental agreement copy if the registered office is rented",
+    "Copy of utility bill (water/gas/electricity) of the rented property",
+    "No Objection Certificate from the owner of the property",
+  ];
+
+  return (
+    <section className="relative py-16 px-6 sm:px-10 lg:px-20">
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/pictures/documents-bg.webp"
+          alt="Documents Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-[#2b2828]/80" />
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto text-white">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">
+          Documents Required for Limited Liability Partnership Registration
+        </h2>
+        <p className="mb-10 text-base sm:text-lg">
+          The following documents are required for registering a Limited
+          Liability Partnership in India:
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+          {docs.map((doc, index) => (
+            <div key={index} className="flex items-start space-x-3">
+              <Image
+                src="/icons/docs-required.webp"
+                alt="Document Icon"
+                width={24}
+                height={24}
+                className="mt-1"
+              />
+              <span className="text-base sm:text-lg">{doc}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// for faqs
+("use client");
+import { useState } from "react";
+
+const faqs = [
+  {
+    question: "What is a Limited Liability Partnership (LLP)?",
+    answer:
+      "An LLP is a hybrid business structure that combines the flexibility of a partnership with the limited liability benefits of a company.",
+  },
+  {
+    question: "Who can register an LLP in India?",
+    answer:
+      "Any two or more individuals or entities can form an LLP, provided at least one partner is a resident of India.",
+  },
+  {
+    question: "What are the benefits of LLP over a traditional partnership?",
+    answer:
+      "LLPs offer limited liability protection, separate legal entity status, easier compliance, and no limit on the maximum number of partners.",
+  },
+  {
+    question: "Is there a minimum capital requirement for LLP?",
+    answer:
+      "No, there is no minimum capital requirement to register an LLP in India.",
+  },
+];
+
+export default function FAQSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const toggleFAQ = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gradient-to-b from-gray-50 to-white">
+      <div className="max-w-4xl mx-auto">
+        {/* Heading */}
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0f2557] mb-14 text-center tracking-tight">
+          Frequently Asked Questions
+        </h2>
+
+        {/* FAQs */}
+        <div className="space-y-5">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className="bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300"
+              >
+                <button
+                  className="w-full flex justify-between items-center px-6 py-5 text-left text-lg sm:text-2xl font-medium text-[#0f2557] focus:outline-none cursor-pointer"
+                  onClick={() => toggleFAQ(index)}
+                >
+                  <span>{faq.question}</span>
+                  <span
+                    className={`ml-4 text-3xl font-medium transform transition-transform duration-300 ${
+                      isOpen ? "rotate-180 text-[#0f2557]" : "text-[#0f2557]"
+                    }`}
+                  >
+                    {isOpen ? "–" : "+"}
+                  </span>
+                </button>
+
+                <div
+                  className={`grid transition-all duration-500 ease-in-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-6 text-gray-600 text-base sm:text-lg leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

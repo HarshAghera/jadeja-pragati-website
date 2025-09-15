@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ReactNode } from "react";
 import { Plus, X, Menu, ChevronDown, ArrowRight } from "react-feather";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -9,6 +9,17 @@ import "@/app/styles/header.css";
 import { fetchDropdownMenus, DropdownMenus } from "./servicesdata";
 
 type Section = keyof DropdownMenus;
+interface Project {
+  name: ReactNode;
+  title: string;
+  slug: string;
+}
+interface ProjectUI {
+  name: string;
+  slug: string;
+}
+
+
 
 const HeaderClient = () => {
   const [dropdownMenus, setDropdownMenus] = useState<DropdownMenus>({
@@ -17,6 +28,48 @@ const HeaderClient = () => {
     Waste: {},
     EPR: {},
   });
+
+  // const [projects, setProjects] = useState<{ name: string; slug: string }[]>(
+  //   []
+  // );
+ const [projects, setProjects] = useState<ProjectUI[]>([]);
+
+ useEffect(() => {
+   const fetchProjects = async () => {
+     try {
+       const res = await fetch(
+         `${process.env.NEXT_PUBLIC_SERVER_URL}/projects/list`,
+         {
+           method: "POST",
+           headers: {
+             "Content-Type": "application/json",
+           },
+           body: JSON.stringify({
+             page: 1,
+             limit: 10,
+           }),
+         }
+       );
+
+       const data = await res.json();
+       console.log("Projects API response:", data);
+
+       if (!data.error && Array.isArray(data.value?.data)) {
+         const projectList = (data.value.data as Project[]).map((p) => ({
+           name: p.title,
+           slug: p.slug,
+         }));
+         setProjects(projectList);
+       } else {
+         console.warn("No projects found or API returned error:", data);
+       }
+     } catch (err) {
+       console.error("Failed to fetch projects:", err);
+     }
+   };
+
+   fetchProjects();
+ }, []);
 
   useEffect(() => {
     const loadMenus = async () => {
@@ -89,6 +142,7 @@ const HeaderClient = () => {
 
   const sectionNames: Section[] = ["Consulting", "Business", "Waste", "EPR"];
 
+
   return (
     <>
       <motion.header
@@ -115,7 +169,7 @@ const HeaderClient = () => {
               <div className="flex items-center gap-7">
                 {sectionNames.map((name) => {
                   const title = name;
-                  const menu = dropdownMenus[name];
+                  const menu = dropdownMenus?.[name] ?? {};
                   const categories = Object.keys(menu);
 
                   return (
@@ -156,7 +210,7 @@ const HeaderClient = () => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -20 }}
                             transition={{ duration: 0.5 }}
-                            className="fixed top-[80px] left-[8vw] w-[84vw] max-w-[1280px] h-auto lg:h-[500px] z-50 flex flex-col lg:flex-row bg-[#f8f9fa] rounded-md shadow-lg p-4 sm:p-6"
+                            className="fixed top-[80px] left-[8vw] w-[84vw] max-w-[1280px] h-auto  lg:h-[580px] z-50 flex flex-col lg:flex-row bg-[#f8f9fa] rounded-md shadow-lg p-4 sm:p-6"
                           >
                             <div className="w-1/3 pr-4 border-r border-gray-300 overflow-y-auto lg:overflow-y-visible lg:max-h-none max-h-[200px]">
                               <ul className="space-y-2">
@@ -194,54 +248,67 @@ const HeaderClient = () => {
                               </h3>
                               <ul
                                 className="
-                                      list-none pr-2
-                                      max-h-[420px]
-                                      [column-fill:_auto] 
-                                      columns-1
-                                      sm:columns-2
-                                      lg:columns-2
-                                    "
+                                        list-none pr-2
+                                        max-h-[500px]
+                                        [column-fill:_auto] 
+                                        columns-1
+                                        sm:columns-2
+                                        lg:columns-2
+                                      "
                               >
-                                {dropdownMenus[openDropdown] &&
-                                  dropdownMenus[openDropdown][activeCategory] &&
-                                  Object.entries(
-                                    dropdownMenus[openDropdown][activeCategory]
-                                  ).map(([subSubCategoryName, items]) =>
-                                    items.map((item, i) => (
-                                      <li
-                                        key={i}
-                                        className="break-inside-avoid"
-                                      >
-                                        <Link
-                                          href={`/${String(openDropdown)
-                                            .toLowerCase()
-                                            .replace(/\s+/g, "-")}/${String(
-                                            activeCategory
-                                          )
-                                            .toLowerCase()
-                                            .replace(
-                                              /\s+/g,
-                                              "-"
-                                            )}/${encodeURIComponent(
-                                            item.slug
-                                          )}`}
-                                          onClick={() => {
-                                            setOpenDropdown(null);
-                                            setActiveCategory("");
-                                          }}
-                                          className="group relative flex items-center text-gray-800 hover:text-[#0f2557] py-2 "
-                                        >
-                                          <ArrowRight
-                                            className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
-                                            size={16}
-                                          />
-                                          <span className="pl-5 text-sm lg:text-md xl:text-lg">
-                                            {subSubCategoryName}
-                                          </span>
-                                        </Link>
-                                      </li>
-                                    ))
-                                  )}
+                                {(() => {
+                                  const activeData =
+                                    dropdownMenus?.[openDropdown ?? ""]?.[
+                                      activeCategory ?? ""
+                                    ] ?? {};
+
+                                  return Object.keys(activeData).length > 0 ? (
+                                    Object.entries(activeData).map(
+                                      ([subSubCategoryName, items]) =>
+                                        Array.isArray(items) &&
+                                        items.map((item, i) => (
+                                          <li
+                                            key={i}
+                                            className="break-inside-avoid"
+                                          >
+                                            <Link
+                                              href={`/${String(
+                                                openDropdown ?? ""
+                                              )
+                                                .toLowerCase()
+                                                .replace(/\s+/g, "-")}/${String(
+                                                activeCategory ?? ""
+                                              )
+                                                .toLowerCase()
+                                                .replace(
+                                                  /\s+/g,
+                                                  "-"
+                                                )}/${encodeURIComponent(
+                                                item.slug
+                                              )}`}
+                                              onClick={() => {
+                                                setOpenDropdown(null);
+                                                setActiveCategory("");
+                                              }}
+                                              className="group relative flex items-center text-gray-800 hover:text-[#0f2557] py-2"
+                                            >
+                                              <ArrowRight
+                                                className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                                                size={14}
+                                              />
+                                              <span className="pl-5 text-[14px] lg:text-[14px] xl:text-[16px]">
+                                                {subSubCategoryName}
+                                              </span>
+                                            </Link>
+                                          </li>
+                                        ))
+                                    )
+                                  ) : (
+                                    <li className="text-gray-500 italic py-2">
+                                      No items available
+                                    </li>
+                                  );
+                                })()}
                               </ul>
                             </div>
                           </motion.div>
@@ -251,12 +318,64 @@ const HeaderClient = () => {
                   );
                 })}
 
-                <Link
-                  href="/projects"
-                  className="hover:text-[#093f54] hover-underline"
+                <div
+                  className="relative"
+                  ref={openDropdown === "Projects" ? dropdownRef : null}
+                  onMouseEnter={() => setOpenDropdown("Projects")}
+                  onMouseLeave={() => setOpenDropdown(null)}
                 >
-                  Projects
-                </Link>
+                  <div
+                    className="group flex items-center cursor-pointer"
+                    onClick={() =>
+                      setOpenDropdown((prev) =>
+                        prev === "Projects" ? null : "Projects"
+                      )
+                    }
+                  >
+                    <span className="relative group-hover:text-[#0f2557]">
+                      Projects
+                      <span className="absolute left-0 bottom-0 w-0 h-[2px] bg-[#0f2557] transition-all duration-300 group-hover:w-full"></span>
+                    </span>
+                    <Plus
+                      size={18}
+                      className={`ml-1 transition-transform ${
+                        openDropdown === "Projects" ? "rotate-45" : ""
+                      }`}
+                    />
+                  </div>
+
+                  <AnimatePresence>
+                    {openDropdown === "Projects" && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5 }}
+                        className="absolute top-full left-0 mt-2 bg-[#f8f9fa] rounded-md shadow-lg z-50 w-64"
+                      >
+                        <ul className="p-3 space-y-2">
+                          {projects.map((item, i) => (
+                            <li key={i} className="relative group">
+                              <Link
+                                href={`/projects/${item.slug}`}
+                                onClick={() => setOpenDropdown(null)}
+                                className="flex items-center text-gray-800 hover:text-[#0f2557] py-2 pl-5"
+                              >
+                                <ArrowRight
+                                  className="absolute left-0 opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0"
+                                  size={16}
+                                />
+                                <span className="text-sm lg:text-sm xl:text-lg">
+                                  {item.name}
+                                </span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
                 <Link
                   href="/blogs"
                   className="hover:text-[#093f54] hover-underline"
@@ -315,8 +434,8 @@ const HeaderClient = () => {
 
               <ul className="px-4 py-2 space-y-3">
                 {sectionNames.map((section) => {
-                  const menu = dropdownMenus[section];
-                  const categories = Object.keys(menu ?? {});
+                  const menu = dropdownMenus?.[section] ?? {};
+                  const categories = Object.keys(menu);
 
                   return (
                     <li key={section}>
@@ -370,26 +489,29 @@ const HeaderClient = () => {
                                   </button>
                                   {mobileActiveCategory === cat && (
                                     <div className="pl-4 max-h-[300px] overflow-y-auto pr-2 space-y-1">
-                                      {menu[cat] &&
-                                        Object.entries(menu[cat]).map(
+                                      {menu?.[cat] &&
+                                      Object.keys(menu[cat] ?? {}).length >
+                                        0 ? (
+                                        Object.entries(menu[cat] ?? {}).map(
                                           ([subSubCategoryName, items]) =>
+                                            Array.isArray(items) &&
                                             items.map((item, idx) => (
                                               <Link
+                                                key={idx}
                                                 href={`/${String(
-                                                  mobileOpenDropdown
+                                                  mobileOpenDropdown ?? ""
                                                 )
                                                   .toLowerCase()
                                                   .replace(
                                                     /\s+/g,
                                                     "-"
                                                   )}/${String(
-                                                  mobileActiveCategory
+                                                  mobileActiveCategory ?? ""
                                                 )
                                                   .toLowerCase()
                                                   .replace(/\s+/g, "-")}/${
                                                   item.slug
                                                 }`}
-                                                key={idx}
                                                 className="block text-sm text-gray-700 hover:text-[#0f2557] py-1"
                                                 onClick={() => {
                                                   setMobileMenuOpen(false);
@@ -400,7 +522,12 @@ const HeaderClient = () => {
                                                 {subSubCategoryName}
                                               </Link>
                                             ))
-                                        )}
+                                        )
+                                      ) : (
+                                        <p className="text-gray-500 italic text-sm py-2">
+                                          No items available
+                                        </p>
+                                      )}
                                     </div>
                                   )}
                                 </div>
@@ -414,17 +541,44 @@ const HeaderClient = () => {
                 })}
 
                 <li>
-                  <Link
-                    href="/projects"
-                    className="block py-2 text-[#0f2557] font-semibold"
-                    onClick={() => {
-                      setMobileMenuOpen(false);
-                      setMobileOpenDropdown(null);
-                      setMobileActiveCategory("");
-                    }}
+                  <button
+                    className="w-full flex justify-between items-center text-left text-md font-semibold text-[#0f2557] py-2"
+                    onClick={() =>
+                      setMobileOpenDropdown((prev) =>
+                        prev === "Projects" ? null : "Projects"
+                      )
+                    }
                   >
                     Projects
-                  </Link>
+                    <ChevronDown
+                      className={`transition-transform ${
+                        mobileOpenDropdown === "Projects" ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  <AnimatePresence>
+                    {mobileOpenDropdown === "Projects" && (
+                      <motion.ul
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="pl-6 space-y-2"
+                      >
+                        {projects.map((item, i) => (
+                          <li key={i}>
+                            <Link
+                              href={`/projects/${item.slug}`}
+                              className="block py-2 text-sm text-gray-700 hover:text-[#0f2557]"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
                 </li>
                 <li>
                   <Link

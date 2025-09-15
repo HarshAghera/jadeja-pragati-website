@@ -15,6 +15,9 @@ export default function PageLoader({ children }: PageLoaderProps) {
   useEffect(() => {
     setLoading(true);
 
+    const minDuration = 600; 
+    const start = Date.now();
+
     let intervalId: NodeJS.Timeout;
     let timeoutId: NodeJS.Timeout;
 
@@ -24,7 +27,9 @@ export default function PageLoader({ children }: PageLoaderProps) {
         images.every((img) => img.complete && img.naturalHeight !== 0);
 
       if (checkLoaded()) {
-        setLoading(false);
+        const elapsed = Date.now() - start;
+        const delay = Math.max(0, minDuration - elapsed);
+        setTimeout(() => setLoading(false), delay);
         return;
       }
 
@@ -32,14 +37,20 @@ export default function PageLoader({ children }: PageLoaderProps) {
         if (checkLoaded()) {
           clearInterval(intervalId);
           clearTimeout(timeoutId);
-          setLoading(false);
+
+          const elapsed = Date.now() - start;
+          const delay = Math.max(0, minDuration - elapsed);
+          setTimeout(() => setLoading(false), delay);
         }
       }, 100);
 
       timeoutId = setTimeout(() => {
         clearInterval(intervalId);
-        setLoading(false);
-      }, 1000);
+
+        const elapsed = Date.now() - start;
+        const delay = Math.max(0, minDuration - elapsed);
+        setTimeout(() => setLoading(false), delay);
+      }, 3000); 
     };
 
     handleLoading();
