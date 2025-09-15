@@ -19,7 +19,6 @@ interface TwoSectionsProps {
 
 export default function TwoSections({
   aboutTitle,
-  aboutImage,
   aboutDescription,
   applyTitle,
   applyList,
@@ -28,16 +27,16 @@ export default function TwoSections({
 }: TwoSectionsProps) {
   return (
     <>
-      {/* Section 1: About */}
       <section className="px-4 sm:px-6 lg:px-8 py-14 bg-[#f5f5f5]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          <div className="flex justify-center lg:justify-start">
+          <div className="flex justify-center lg:justify-end !max-w-[400px] sm:!max-w-[650px] w-full">
             <Image
-              src={aboutImage}
-              alt={aboutTitle}
+              src={applyImage}
+              alt={applyTitle}
               width={700}
               height={700}
-              className="rounded-md shadow-lg"
+              className="rounded-md shadow-lg w-full h-auto"
+              sizes="(max-width: 500px) 100vw, 600px"
             />
           </div>
 
@@ -59,13 +58,10 @@ export default function TwoSections({
         </div>
       </section>
 
-      {/* Optional: Cards */}
       <GlassLLPCards cards={cards} />
 
-      {/* Section 2: Who needs to apply */}
       <section className="px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-          {/* Left Content */}
           <div>
             <h2 className="text-3xl sm:text-4xl font-bold text-[#0f2557] mb-6">
               {applyTitle}
@@ -81,15 +77,14 @@ export default function TwoSections({
               ))}
             </ul>
           </div>
-
-          {/* Right Image */}
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex justify-center lg:justify-end !max-w-[400px] sm:!max-w-[650px] w-full">
             <Image
               src={applyImage}
               alt={applyTitle}
               width={700}
               height={700}
-              className="rounded-md shadow-lg"
+              className="rounded-md shadow-lg w-full h-auto"
+              sizes="(max-width: 500px) 100vw, 600px"
             />
           </div>
         </div>

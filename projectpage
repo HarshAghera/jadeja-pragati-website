@@ -147,7 +147,6 @@ export default function TwoSections() {
             </ul>
           </div>
 
-          {/* Right Image */}
           <div className="flex justify-center lg:justify-end">
             <Image
               src="/pictures/who-apply-llp.webp"
@@ -317,7 +316,6 @@ const faqs = [
 ];
 
 export default function FAQSection() {
-  // First FAQ open by default
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {

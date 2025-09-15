@@ -11,7 +11,6 @@ interface FAQSectionProps {
 }
 
 export default function FAQSection({ faqs }: FAQSectionProps) {
-  // fallback if API gives nothing
   const items = faqs && Array.isArray(faqs) ? faqs : [];
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -21,18 +20,16 @@ export default function FAQSection({ faqs }: FAQSectionProps) {
   };
 
   if (!items.length) {
-    return null; // nothing to show
+    return null; 
   }
 
   return (
     <section className="py-20 px-6 sm:px-10 lg:px-20 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-4xl mx-auto">
-        {/* Heading */}
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#0f2557] mb-14 text-center tracking-tight">
           Frequently Asked Questions
         </h2>
 
-        {/* FAQs */}
         <div className="space-y-5">
           {items.map((faq, index) => {
             const isOpen = openIndex === index;

@@ -269,9 +269,9 @@
 }
 
 .milestones-main {
-    padding-bottom: 120px;
-    padding-top: 30px;
-    background-color: #f5f5f5;
+  padding-bottom: 180px;
+  padding-top: 80px;
+  background-color: #f5f5f5;
 }
 
 /* .container-main {
@@ -280,301 +280,300 @@
 } */
 
 .milestone-heading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 180px;
 }
 
 .milestone-heading h2 {
-    font-size: 42px;
-    line-height: 54px;
-    color: #0f2557;
-    text-align: center;
+  font-size: 42px;
+  line-height: 54px;
+  color: #0f2557;
+  text-align: center;
 }
 
 .timeline {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 200px 0;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 200px 0;
 }
 
 .timeline::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #0f2557;
-    transform: translateY(-50%);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #0f2557;
+  transform: translateY(-50%);
+  z-index: 1;
 }
 
 .milestone {
-    position: relative;
-    flex: 1;
-    text-align: center;
+  position: relative;
+  flex: 1;
+  text-align: center;
 }
 
 .milestone .dot {
-    position: relative;
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border-radius: 50%;
-    border: 3px solid #0f2557;
-    margin: 0 auto;
-    z-index: 3;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  border: 3px solid #0f2557;
+  margin: 0 auto;
+  z-index: 3;
 }
 
 .milestone .dot::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    width: 2px;
-    background: #0f2557;
-    transform: translateX(-50%);
-    z-index: 2;
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  background: #0f2557;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .milestone.top .dot::after {
-    top: 100%;
-    height: 65px;
+  top: 100%;
+  height: 65px;
 }
 
 .milestone.bottom .dot::after {
-    bottom: 100%;
-    height: 65px;
+  bottom: 100%;
+  height: 65px;
 }
 
 .milestone .card {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 240px;
-    border: 2px solid #0f2557;
-    border-radius: 12px;
-    padding: 20px;
-    color: #fff;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    z-index: 4;
-    background-color: #0f2557;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 270px;
+  border: 2px solid #0f2557;
+  border-radius: 8px;
+  padding: 12px;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  z-index: 4;
+  background-color: #0f2557;
+  min-height: 250px;
 }
 
-/* attach cards after connector */
 .milestone.top .card {
-    top: calc(100% + 60px);
+  top: calc(100% + 60px);
 }
 
 .milestone.bottom .card {
-    bottom: calc(100% + 60px);
+  bottom: calc(100% + 60px);
 }
 
 .milestone .number {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #fff;
-    display: block;
-    margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .milestone h3 {
-    margin: 8px 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
+  margin: 8px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
 }
 
 .milestone p {
-    font-size: 1rem;
-    line-height: 1.4;
-    margin: 0;
-    color: #fff;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  color: #fff;
 }
 
-
-@media (max-width:1250px) {
-    .timeline {
-        max-width: 1000px;
-    }
+@media (max-width: 1250px) {
+  .timeline {
+    max-width: 1000px;
+  }
 }
 
-@media (max-width:1150px) {
-    .timeline {
-        max-width: 900px;
-    }
-
+@media (max-width: 1150px) {
+  .timeline {
+    max-width: 900px;
+  }
 }
 
-@media (max-width:1100px) {
-    .milestone.top .card {
-        top: calc(100% + 60px);
-        left: 21%;
-    }
+@media (max-width: 1100px) {
+  .milestone.top .card {
+    top: calc(100% + 60px);
+    left: 21%;
+  }
 
-    .milestone.bottom .card {
-        bottom: calc(100% + 60px);
-        left: 95%;
-    }
+  .milestone.bottom .card {
+    bottom: calc(100% + 60px);
+    left: 95%;
+  }
 
-    .milestone .card {
-        width: 210px;
-    }
+  .milestone .card {
+    width: 210px;
+  }
 }
 
-@media (max-width:1000px) {
-    .timeline {
-        max-width: 800px;
-    }
+@media (max-width: 1000px) {
+  .timeline {
+    max-width: 800px;
+  }
 
-    .milestone .dot {
-        margin: 0px 20px 0px 62px;
-    }
+  .milestone .dot {
+    margin: 0px 20px 0px 62px;
+  }
 }
-
 
 @media (max-width: 991px) {
-    .timeline {
-        flex-direction: column;
-        align-items: center;
-        padding: 0px 10px;
-    }
+  .timeline {
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 10px;
+  }
 
-    /* vertical line */
-    .timeline::before {
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 100%;
-    }
+  /* vertical line */
+  .timeline::before {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 100%;
+  }
 
-    .milestone {
-        width: 100%;
-        position: relative;
-    }
+  .milestone {
+    width: 100%;
+    position: relative;
+  }
 
-    .milestone .dot {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: 0;
-        z-index: 3;
-        top: 40%;
-    }
+  .milestone .dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 3;
+    top: 40%;
+  }
 
-    .milestone .card {
-        position: relative;
-        width: 260px;
-        padding: 20px;
-        border: 2px solid #0f2557;
-        border-radius: 12px;
-        background-color: #0f2557;
-        color: #fff;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-        z-index: 2;
-    }
+  .milestone .card {
+    position: relative;
+    width: 260px;
+    padding: 20px;
+    border: 2px solid #0f2557;
+    border-radius: 12px;
+    background-color: #0f2557;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    z-index: 2;
+  }
 
-    .milestone.top .card {
-        right: calc(50% + 40px);
-    }
+  .milestone.top .card {
+    right: calc(50% + 40px);
+  }
 
-    .milestone.bottom .card {
-        right: calc(50% + 0px);
-        left: 77%;
-    }
+  .milestone.bottom .card {
+    right: calc(50% + 0px);
+    left: 77%;
+  }
 
-    .milestone-heading {
-        padding-bottom: 50px;
-    }
+  .milestone-heading {
+    padding-bottom: 50px;
+  }
 
-    .milestones-main {
-        padding-bottom: 60px;
-    }
+  .milestones-main {
+    padding-bottom: 60px;
+  }
 
-    .milestone .dot::after {
-        transform: rotate(89deg);
-    }
+  .milestone .dot::after {
+    transform: rotate(89deg);
+  }
 
-    .milestone.bottom .dot::after {
-        top: -100%;
-        left: 240%;
-        height: 58px;
-    }
+  .milestone.bottom .dot::after {
+    height: 116px;
+    top: -338%;
+    left: 474%;
+  }
 
-    .milestone.top .dot::after {
-        top: -110%;
-        left: -180%;
-        height: 68px;
-    }
+  .milestone.top .dot::after {
+    top: -318%;
+    left: -378%;
+    height: 114px;
+  }
 }
 
 @media (max-width: 850px) {
-    .milestone.bottom .card {
-        right: calc(50% + -50px);
-    }
+  .milestone.bottom .card {
+    right: calc(50% + -50px);
+  }
 
-    .timeline {
-        padding: 0 35px;
-    }
+  .timeline {
+    padding: 0 35px;
+  }
 
-    .milestone.bottom .card {
-        right: calc(50% + 0px);
-        left: 79%;
-    }
+  .milestone.bottom .card {
+    right: calc(50% + 0px);
+    left: 79%;
+  }
 }
 
 @media (max-width: 768px) {
-    .milestone .dot {
-        display: none;
-    }
+  .milestone .dot {
+    display: none;
+  }
 
-    .timeline::before {
-        display: none;
-    }
+  .timeline::before {
+    display: none;
+  }
 
-    .milestone {
-        width: unset;
-        padding: 20px 0px;
-    }
+  .milestone {
+    width: unset;
+    padding: 20px 0px;
+  }
 
-    .milestone.top .card,
-    .milestone.bottom .card {
-        right: unset;
-        left: unset;
-        top: unset;
-        bottom: unset;
-        transform: unset;
-    }
+  .milestone.top .card,
+  .milestone.bottom .card {
+    right: unset;
+    left: unset;
+    top: unset;
+    bottom: unset;
+    transform: unset;
+  }
 
-   .milestone::before {
+  .milestone::before {
     content: "";
     position: absolute;
     top: 90%;
     left: 50%;
     transform: translateX(-50%);
-    width: 2px;
-    height: 45px;
+    width: 3px;
+    height: 60px;
     background: #0f2557;
     z-index: 1;
-}
+  }
 
-.milestone:last-child::before {
+  .milestone:last-child::before {
     display: none;
     content: unset;
     position: unset;
+  }
+  .milestone .card {
+    width: 300px;
+    min-height: 220px;
+  }
 }
-
-}
-@media (max-width: 600px){
-    .milestone .card{
-        width: 185px;
-
-    }
+@media (max-width: 600px) {
+  .milestone .card {
+    width: 300px;
+  }
 }

@@ -100,28 +100,31 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
   const [stopSidebar, setStopSidebar] = useState(false);
   const milestoneRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!milestoneRef.current) return;
+ useEffect(() => {
+   if (!milestoneRef.current) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setStopSidebar(true); // milestones in view → stop sidebar
-          } else {
-            setStopSidebar(false); // milestones out of view → sidebar scrolls
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+   const target = milestoneRef.current; // ✅ copy to local variable
 
-    observer.observe(milestoneRef.current);
+   const observer = new IntersectionObserver(
+     (entries) => {
+       entries.forEach((entry) => {
+         if (entry.isIntersecting) {
+           setStopSidebar(true);
+         } else {
+           setStopSidebar(false);
+         }
+       });
+     },
+     { threshold: 0.1 }
+   );
 
-    return () => {
-      if (milestoneRef.current) observer.unobserve(milestoneRef.current);
-    };
-  }, []);
+   observer.observe(target);
+
+   return () => {
+     observer.unobserve(target); // ✅ use the local copy
+   };
+ }, []);
+
   useEffect(() => {
     const handleSidebarStop = () => {
       if (!milestoneRef.current || !mainRef.current) return;
@@ -132,7 +135,6 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
         mainRef.current.querySelector("nav")?.clientHeight || 0;
       const scrollY = window.scrollY;
 
-      // If the bottom of the sidebar would overlap milestone → stop it
       if (scrollY + sidebarHeight + 120 >= milestoneTop) {
         setStopSidebar(true);
       } else {
@@ -282,13 +284,15 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
             <h2>Path to Your Certificate</h2>
           </div>
           <div className="timeline">
-
             <div className="milestone bottom">
               <div className="dot"></div>
               <div className="card">
                 <span className="number">1</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Select the Suitable Option</h3>
+                <p>
+                  Choose the certification type that matches your business needs
+                  and compliance requirements.
+                </p>
               </div>
             </div>
 
@@ -296,8 +300,11 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               <div className="dot"></div>
               <div className="card">
                 <span className="number">2</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Connect with Our Team</h3>
+                <p>
+                  Reach out to our experts for guidance, consultation, and
+                  documentation support.
+                </p>
               </div>
             </div>
 
@@ -305,8 +312,11 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               <div className="dot"></div>
               <div className="card">
                 <span className="number">3</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Site / Online Visit</h3>
+                <p>
+                  Our team conducts a physical site inspection or an online
+                  verification to assess compliance.
+                </p>
               </div>
             </div>
 
@@ -314,8 +324,11 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               <div className="dot"></div>
               <div className="card">
                 <span className="number">4</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Documentation & Verification</h3>
+                <p>
+                  We prepare and verify all required documents to ensure
+                  accuracy and regulatory readiness.
+                </p>
               </div>
             </div>
 
@@ -323,8 +336,11 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               <div className="dot"></div>
               <div className="card">
                 <span className="number">5</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Review & Approval</h3>
+                <p>
+                  Authorities review the submitted documents, and we coordinate
+                  until final approval.
+                </p>
               </div>
             </div>
 
@@ -332,11 +348,13 @@ export default function SlugInnerPage({ data }: { data: PageData }) {
               <div className="dot"></div>
               <div className="card">
                 <span className="number">6</span>
-                <h3>Milestone</h3>
-                <p>This is a sample text. Insert your desired text here.</p>
+                <h3>Receive Your Certificate</h3>
+                <p>
+                  Get your official certification and start operating your
+                  business with compliance confidence.
+                </p>
               </div>
             </div>
-
           </div>
         </div>
       </div>

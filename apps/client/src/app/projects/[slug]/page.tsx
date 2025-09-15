@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import DocumentsNeeded from "@/app/client/components/projects/documents-needed";
 import FAQSection from "@/app/client/components/projects/faqs";
 import HeroContent from "@/app/client/components/projects/hero-content";

@@ -12,7 +12,6 @@ interface DocumentsNeededProps {
 }
 
 export default function DocumentsNeeded({ docs }: DocumentsNeededProps) {
-  // Normalize into an items array and optional metadata
   const items: string[] = Array.isArray(docs)
     ? docs
     : Array.isArray((docs as DocsObject)?.items)
@@ -30,11 +29,7 @@ export default function DocumentsNeeded({ docs }: DocumentsNeededProps) {
       : "The following documents are required:";
 
   if (!items || items.length === 0) {
-    // Option: return null to hide, or show fallback message
     return null;
-    // or return (
-    //   <section className="py-16 px-6"><p className="text-center text-gray-600">No documents listed.</p></section>
-    // );
   }
 
   return (

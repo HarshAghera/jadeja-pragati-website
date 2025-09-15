@@ -179,9 +179,9 @@ export default function AboutLayout() {
             </div>
 
             <div className="relative w-full max-w-3xl mx-auto">
-              <div className="relative w-full sm:w-[550px] h-[375px] sm:h-[500px] mx-auto rounded-2xl overflow-hidden shadow-lg">
+              <div className="relative w-full sm:w-[500px] h-[550px] sm:h-[700px] mx-auto rounded-2xl overflow-hidden shadow-lg">
                 <Image
-                  src="/pictures/aboutUs.webp"
+                  src="/pictures/RoadMapFinal.webp"
                   alt="About us"
                   width={350}
                   height={340}

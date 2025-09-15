@@ -25,7 +25,6 @@ export default function GlassLLPCards({ cards }: GlassLLPCardsProps) {
                        shadow-2xl rounded-3xl overflow-hidden transition-all duration-300
                        hover:bg-white/20 hover:backdrop-blur-[25px] p-4 sm:p-6"
           >
-            {/* Image */}
             <div className="relative w-full sm:w-1/2 h-56 sm:h-64 flex-shrink-0 rounded-2xl overflow-hidden">
               <Image
                 src={card.imageUrl}
@@ -35,7 +34,6 @@ export default function GlassLLPCards({ cards }: GlassLLPCardsProps) {
               />
             </div>
 
-            {/* Text */}
             <div className="p-4 sm:p-6 text-white sm:w-1/2">
               <h3 className="text-2xl font-semibold mb-3">{card.title}</h3>
               <p className="text-white/80 leading-relaxed">
